@@ -1,0 +1,81 @@
+  // state = {
+  //   gladiators: [
+  //     {
+  //       id: 1,
+  //       styleName: 'dimachaerus',
+  //       name: 'Dimachaerus',
+  //       level: 1,
+  //       exp: 0,
+  //       str: 15,
+  //       dex: 17,
+  //       con: 14,
+  //       weapons: 'Dual Swords',
+  //       selected: false
+  //     }, 
+  //     {
+  //       id: 2,
+  //       styleName: 'secutor',
+  //       name: 'Secutor',
+  //       level: 1,
+  //       exp: 0,
+  //       str: 17,
+  //       dex: 14,
+  //       con: 16,
+  //       weapons: 'Axe and Shield',
+  //       selected: false
+  //     },
+  //     {
+  //       id: 3,
+  //       styleName: 'retiarius',
+  //       name: 'Retiarius',
+  //       level: 1,
+  //       exp: 0,
+  //       str: 16,
+  //       dex: 16,
+  //       con: 15,
+  //       weapons: 'Trident and Net',
+  //       selected: false
+  //     }
+  //   ]
+  // }
+
+
+
+
+
+  --PORTRAIT
+
+    // charSelected =  (e) => {
+  //   this.props.gladiators.selected = true
+  //   console.log(this.props.gladiators.selected)
+  // }
+
+  // charDeselected = (e) => {
+  //   this.props.gladiators.selected = false
+  //   console.log(this.props.gladiators.selected)
+  // }
+
+    return this.props.gladiators.map((gladiator) => (
+      <div tabIndex="-1" className={`char-select ${gladiator.styleName}`} onFocus={this.charSelected} onBlur={this.charDeselected}>{gladiator.name}</div>
+    ));
+
+
+        {/* <h2>
+          {
+          currentUser.loggedIn ? 
+            <>
+              <h1>Hello, {currentUser.user.name}</h1>
+              <button onClick={() => dispatch(logOut())}>Logout</button>
+            </> 
+            : 
+            <>
+              <h1>Login</h1>
+              <button onClick={() => dispatch(setUser(person))}>Login as Rei</button>
+            </>
+          }
+        </h2> */}
+
+          {/* <Portrait gladiator={glad} />
+          <Portrait gladiator={secutor} />
+          <Portrait gladiator={retiarius} /> */}
+          {/* <Portrait gladiators={glad} /> */}

@@ -1,0 +1,268 @@
+body {
+  background-color: rgb(103, 255, 209);
+  margin: 0 auto;
+}
+
+.center-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+
+.center {
+  align-content: center;
+}
+
+.flex-column {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h1, h2, p, ul, li {
+  font-family: sans-serif;
+  color: rgb(226, 198, 39);
+}
+
+h1 {
+  font-size: 80px;
+}
+
+ul.header li {
+  display: inline;
+  list-style-type: none;
+  margin: 0;
+}
+ul.header {
+  background-color: #111;
+  padding: 0;
+}
+a {
+  color: #FFF;
+  font-weight: bold;
+  text-decoration: none;
+  /* padding: 20px; */
+  display: inline-block;
+}
+
+.content {
+  margin: 0 auto;
+  background-color: rgb(85, 17, 17);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.content h2 {
+  padding: 0;
+  margin: 0;
+}
+.content li {
+  margin-bottom: 10px;
+}
+
+.active {
+  background-color: #0099FF;
+}
+
+.start-container {
+  margin: 0 auto;
+  background-color: #FFF;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgb(85, 17, 17);
+}
+
+.start {
+  background-color: black;
+  padding: 20px;
+  display: inline-block;
+  font-size: 40px;
+  height: 50px;
+  width: 200px;
+  text-align: center;
+}
+
+.char-select {
+  height: 400px;
+  width: 240px;
+  margin: 30px;
+  filter: grayscale(50%)
+}
+
+.char-screen {
+  height: 400px;
+  width: 240px;
+  margin: 30px;
+}
+
+.one {
+  float: left;
+}
+
+.char-select:focus {
+  outline: 4px solid red;
+  filter: grayscale(0%);
+}
+
+.char-select-container {
+  margin: 0 auto;
+  background-color: #FFF;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center 
+}
+
+.csc1, .csc2 {
+  bottom: 0px;
+}
+
+.csc1 {
+  top:10px;
+}
+
+.dimachaerus {
+  background-color: brown;
+  background-image: url(./assets/images/dimachaerus.jpg);
+  background-size: cover;
+}
+
+.secutor {
+  background-color: cadetblue;
+  background-image: url(./assets/images/secutor.jpg);
+  background-size: cover;
+}
+
+.retiarius{
+  background-color: crimson;
+  background-image: url(./assets/images/retiarius.jpg);
+  background-size: cover;
+}
+
+.staging-character {
+  height: 500px;
+  width: 600px;
+  margin: 30px;
+  background-color: black;
+}
+
+.staging-select {
+  height: 500px;
+  width: 600px;
+  margin: 30px;
+  background-color: black;
+}
+
+.fl-right {
+  float: right;
+}
+
+.fl-left {
+  float:left;
+  margin: 20px;
+}
+
+.arena-select {
+  height: 64px;
+  width: 240px;
+  margin: 30px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: rgb(182, 0, 0);
+  user-select: none;
+}
+
+.arena-select:focus {
+  outline: 4px solid gold;
+}
+
+.mini-arena{
+  background-image: url(./assets/images/colo1.png);
+  margin: 8px;
+  height: 48px;
+  width: 64px;
+  background-size: cover;
+}
+
+.grayscale {
+  filter: grayscale(100%);
+}
+
+.arena-bg {
+  background-image: url(./assets/images/gladarena2.jpg);
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+}
+
+.bottom-center {
+  bottom: 0;
+  background-color: rgb(0, 0, 0, 0.7);
+  position: absolute;
+  width: 100%;
+}
+
+.top-center {
+  top: 0;
+  background-color: rgb(0, 0, 0, 0.7);
+  position: absolute;
+  width: 100%;
+}
+
+.stroke {
+  font-size: 25px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.player-hp {
+  margin: 0 auto;
+}
+
+.lefta {
+  float: left;
+}
+
+.righta {
+  float: right;
+}
+
+.centera {
+  margin: 0 auto;
+  width: 400px;
+  text-align: center;
+}
+
+.dmg-num-top {
+  height: 60px;
+  width: 400px;
+  margin-bottom: 150px;
+  font-size: 30px;
+  font-weight: bolder;
+  color: aliceblue;
+}
+
+.dmg-num-bottom {
+  height: 60px;
+  width: 400px;
+  margin-top: 300px;
+  position: absolute;
+  font-size: 30px;
+  font-weight: bolder;
+  color: red;
+}
