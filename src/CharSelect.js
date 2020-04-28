@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Route,
   NavLink,
@@ -6,12 +6,9 @@ import {
 import Staging from "./Staging";
 import { useSelector, useDispatch } from 'react-redux';
 import { setUser } from './actions'
-
-import store from './store'
  
 export default function CharSelect() {
 
-  console.log(store.getState())
   const gladArray = useSelector(state => state.GladiatorReducer);
   const dispatch = useDispatch()
   const chosenGlad = useSelector(state => state.ChosenGladiator)

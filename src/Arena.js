@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Route,
   NavLink,
@@ -6,7 +6,7 @@ import {
 import Staging from "./Staging";
 import { useSelector, useDispatch } from 'react-redux';
 import { attack, opponentAttack, resetHealth, endTurn, skill, setSkill } from './actions'
-
+import { diceRoll, sleep } from './data/funtions'
 
 export default function Arena() {
 
@@ -19,59 +19,34 @@ export default function Arena() {
   const mySkill = useSelector(state => state.SelectedSkill.mySkill)
   const skillArray = [];
   
+  // Setting skills for use in combat. skillArray will contain all usable skills by gladiator at its current level
   allSkills.map((skill) => {
-    if (skill.gladiator == myGladiator.name && myGladiator.level >= skill.lvlUnlock){
+    if (skill.gladiator === myGladiator.name && myGladiator.level >= skill.lvlUnlock){
       skillArray.push(skill)
     }
+    return skillArray
   });
 
-  let nextOpponent = opponentArray[opponent.id+1]
+/*---------------------STAT DECLARATIONS-------------------------*/
+    let opponentHP = opponent.hp + battleState.opponentHealth
+    let currentHP = myGladiator.hp + battleState.playerHealth
+    let myHit
+    let oppHit
+    let atkRoll
+    let dmgBonus = myGladiator.dmgBonus
+    let toHitBonus = myGladiator.toHitBonus
+    let oppToHitBonus = opponent.toHitBonus
 
-  function unlockNext() {
-    nextOpponent.unlocked = 1
-    nextOpponent.addClass = ""
-    opponentArray[opponent.id+1] = nextOpponent
-  }
-  
-  function diceRoll(max) {
-    return Math.ceil(Math.random() * Math.floor(max));
-  }
-
-  let myHit;
-  let oppHit;
-  let atkRoll;
-  let dmgBonus = myGladiator.dmgBonus;
-  let toHitBonus = myGladiator.toHitBonus;
-  let oppToHitBonus = opponent.toHitBonus;
-  let conBonus = 0;
-
-  if (myGladiator.dex > 15){
-    toHitBonus += (myGladiator.dex - 15)
-  }
-
-  if (myGladiator.str > 15){
-    dmgBonus += (myGladiator.str - 15)
-  }
-
-  if (myGladiator.con > 14){
-    conBonus += (myGladiator.con - 14)
-  }
-
-
-  function setStats() {
-    //do not include this if you want gladiator to retain its damage after battle
-    dispatch(resetHealth())
-    unlockNext()
-    allSkills.forEach((skill) => {
-      skill.attacks = skill.maxAttacks
-      skill.uses = skill.maxUses
-    })
-    myGladiator.exp += opponent.expVal
-    if (myGladiator.exp >= myGladiator.nextLvlExp){
-      myGladiator.levelUp = true
+    if (myGladiator.dex > 15){
+      toHitBonus += (myGladiator.dex - 15)
     }
-  }
 
+    if (myGladiator.str > 15){
+      dmgBonus += (myGladiator.str - 15)
+    }
+
+
+/*---------------------COMBAT MY TURN---------------------------*/
   //ADD DIFFERENT AC VALUES FOR DIFFERENT BODY PARTS!
   function myAttackRoll() {
     atkRoll = diceRoll(20) + toHitBonus
@@ -84,7 +59,7 @@ export default function Arena() {
     }
   }
 
-  async function mySkillAttack() {
+  async function mySkillAttack() { // Functions with sleep require async
     if (mySkill.uses > 0) {
       while (mySkill.attacks > 0) {
         myHit = diceRoll(myGladiator.maxDmg) + dmgBonus + mySkill.dmgBonus
@@ -97,18 +72,9 @@ export default function Arena() {
     }
   }
 
-  let opponentHP = opponent.hp + battleState.opponentHealth
-  let currentHP = myGladiator.hp + battleState.playerHealth
-  if (currentHP < 1){
-    alert("You Died")
-  }
 
-  // Make a new JS file for all this crap
-  function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  //function for opponent to attack player
+/*---------------------COMBAT OPPONENT TURN-------------------------*/
+  //All actions in opponent's turn
   async function opponentTurn() {
     if (opponentHP > 0) {
       await sleep(2000);
@@ -121,65 +87,92 @@ export default function Arena() {
       }
     }
   }
-
-  //run this on opponent's turn
-  if (battleState.playerTurn == false) {
+  //Run opponent turn when it's not player's turn
+  if (battleState.playerTurn === false) {
     opponentTurn();
   }
 
+/*-----------------------VICTORY CONDITIONS-------------------------------*/
+  //Assigns next opponent to be unlocked upon victory
+  let nextOpponent = opponentArray[opponent.id+1]
+
+  function unlockNext() {
+    nextOpponent.unlocked = 1
+    nextOpponent.addClass = ""
+    opponentArray[opponent.id+1] = nextOpponent
+  }
+
+  //Victory function resets hp, returns skill uses, adds exp
+  function victory() {
+    dispatch(resetHealth()) // Resets health after battle is complete - reducer does both player and opponent health reset
+    unlockNext()
+    allSkills.forEach((skill) => {
+      skill.attacks = skill.maxAttacks
+      skill.uses = skill.maxUses
+    })
+    myGladiator.exp += opponent.expVal
+    if (myGladiator.exp >= myGladiator.nextLvlExp){
+      myGladiator.levelUp = true
+    }
+  }
+
+/*-----------------DEFEAT CONDITION------------------*/
+
+  if (currentHP < 1){
+    alert("You Died")
+  }
+
+/*---------------------START HTML RENDER-------------------------*/
   if (opponentHP < 1){
     return (
       <div className="arena-bg">
-
         <div className="center-screen">
           <h1>VICTORY!</h1>
-          <NavLink to="/staging"><button onClick={setStats}>CONTINUE</button></NavLink>
+          <NavLink to="/staging"><button onClick={victory}>CONTINUE</button></NavLink>
         </div>
         <Route path="/staging" component={Staging}/>
         </div>
-    );
+    )
+
   } else {
-
     return (
-        <div className="arena-bg">
-          <div className="top-center">
-            <div className="lefta stroke"><h2>Opponent: {opponent.name} </h2></div>
-            <div className="centera stroke"><h2>HP: {opponentHP} / {opponent.hp} </h2></div>
+      <div className="arena-bg">
+        <div className="top-center">
+          <div className="lefta stroke"><h2>Opponent: {opponent.name} </h2></div>
+          <div className="centera stroke"><h2>HP: {opponentHP} / {opponent.hp} </h2></div>
+        </div>
+        
+        <div className="center-screen">
+          <div className="justify-center dmg-num-top stroke">
+            {battleState.myHitMessage}
           </div>
           
-          <div className="center-screen">
-            <div className="justify-center dmg-num-top stroke">
-              {battleState.myHitMessage}
-            </div>
-            
-            <button disabled={!battleState.playerTurn} onClick={myAttackRoll}>ATTACK</button>
-            <button disabled={!battleState.playerTurn} onClick={mySkillAttack}>SKILL</button>
-            
-            <div className="justify-center dmg-num-bottom stroke">
-              {battleState.oppHitMessage}
-            </div>
-          </div>
+          <button disabled={!battleState.playerTurn} onClick={myAttackRoll}>ATTACK</button>
+          <button disabled={!battleState.playerTurn} onClick={mySkillAttack}>SKILL</button>
           
-
-          <div className="bottom-center">
-            <div className="lefta stroke"><h2>{myGladiator.name} </h2></div>
-            
-            <div className="righta stroke"><h2>Skill: {mySkill.name} </h2>
-            
-            </div>
-            <div className="righta">
-                    {skillArray.map((skill) => (
-                      <div className={`skill-icon ${skill.styleName}`} onClick={() => dispatch(setSkill(skill))}>{skill.name}</div>
-                    ))}
-                  </div>
-            <div className="centera stroke"><h2>HP: {currentHP} / {myGladiator.hp}</h2></div>
-            
+          <div className="justify-center dmg-num-bottom stroke">
+            {battleState.oppHitMessage}
           </div>
         </div>
-    );
-  }
+        
 
-    
-  }
+        <div className="bottom-center">
+          <div className="lefta stroke"><h2>{myGladiator.name} </h2></div>
+          
+          <div className="righta stroke"><h2>Skill: {mySkill.name} </h2>
+          
+          </div>
+          <div className="righta">
+                  {skillArray.map((skill) => (
+                    <div className={`skill-icon ${skill.styleName}`} onClick={() => dispatch(setSkill(skill))}>{skill.name}</div>
+                  ))}
+                </div>
+          <div className="centera stroke"><h2>HP: {currentHP} / {myGladiator.hp}</h2></div>
+          
+        </div>
+      </div>
+    )
+  }  
+}
 
  

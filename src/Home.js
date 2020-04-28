@@ -1,15 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Route,
   NavLink,
 } from "react-router-dom";
 import CharSelect from "./CharSelect";
-import { useSelector, useDispatch } from 'react-redux';
  
 export default function Home(){
-
-  // console.log(store.getState())
-  const dispatch = useDispatch();
 
     return (
       <div className="start-container">

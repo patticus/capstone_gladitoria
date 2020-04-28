@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Route,
   NavLink,
@@ -6,6 +6,7 @@ import {
 import Arena from "./Arena";
 import { useSelector, useDispatch } from 'react-redux';
 import { setOpponent } from "./actions";
+import { diceRoll } from './data/funtions'
  
 export default function Staging() {
 
@@ -17,14 +18,11 @@ export default function Staging() {
   const skillArray = [];
   
   allSkills.map((skill) => {
-    if (skill.gladiator == myGladiator.name){
+    if (skill.gladiator === myGladiator.name){
       skillArray.push(skill)
     }
+    return skillArray
   });
-
-  function diceRoll(max) {
-    return Math.ceil(Math.random() * Math.floor(max));
-  }
 
   let conBonus = 0;
   if (myGladiator.con > 14){
@@ -59,7 +57,7 @@ export default function Staging() {
     myGladiator.con += 1
   }
 
-  if (myGladiator.levelUp == false) {
+  if (myGladiator.levelUp === false) {
     return (
       <div className="flex-column"> 
         <div className="justify-center">
