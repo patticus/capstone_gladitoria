@@ -5,19 +5,25 @@ import {
 } from "react-router-dom";
 import Staging from "./Staging";
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement, attack, opponentAttack, resetHealth } from './actions/counterActions'
-
-import store from './store'
+import { attack, opponentAttack, resetHealth, endTurn, skill, setSkill } from './actions'
 
 
 export default function Arena() {
 
   const dispatch = useDispatch();
-  const counter = useSelector(state => state.count);
   const battleState = useSelector(state => state.BattleState)
   const myGladiator = useSelector(state => state.ChosenGladiator.chosen)
   const opponent = useSelector(state => state.ChosenOpponent.chosenOpp)
   const opponentArray = useSelector(state => state.OpponentReducer)
+  const allSkills = useSelector(state => state.SkillsReducer)
+  const mySkill = useSelector(state => state.SelectedSkill.mySkill)
+  const skillArray = [];
+  
+  allSkills.map((skill) => {
+    if (skill.gladiator == myGladiator.name && myGladiator.level >= skill.lvlUnlock){
+      skillArray.push(skill)
+    }
+  });
 
   let nextOpponent = opponentArray[opponent.id+1]
 
@@ -27,36 +33,68 @@ export default function Arena() {
     opponentArray[opponent.id+1] = nextOpponent
   }
   
-  function randomDmg(max) {
+  function diceRoll(max) {
     return Math.ceil(Math.random() * Math.floor(max));
   }
 
   let myHit;
   let oppHit;
+  let atkRoll;
   let dmgBonus = myGladiator.dmgBonus;
+  let toHitBonus = myGladiator.toHitBonus;
+  let oppToHitBonus = opponent.toHitBonus;
+  let conBonus = 0;
+
+  if (myGladiator.dex > 15){
+    toHitBonus += (myGladiator.dex - 15)
+  }
 
   if (myGladiator.str > 15){
     dmgBonus += (myGladiator.str - 15)
   }
 
-  console.log(dmgBonus)
+  if (myGladiator.con > 14){
+    conBonus += (myGladiator.con - 14)
+  }
 
 
   function setStats() {
     //do not include this if you want gladiator to retain its damage after battle
     dispatch(resetHealth())
     unlockNext()
+    allSkills.forEach((skill) => {
+      skill.attacks = skill.maxAttacks
+      skill.uses = skill.maxUses
+    })
     myGladiator.exp += opponent.expVal
-    if (myGladiator.exp >= 100){
-      myGladiator.level = 2
-    } else if (myGladiator.exp >= 300){
-      myGladiator.level = 3
+    if (myGladiator.exp >= myGladiator.nextLvlExp){
+      myGladiator.levelUp = true
     }
   }
 
+  //ADD DIFFERENT AC VALUES FOR DIFFERENT BODY PARTS!
   function myAttackRoll() {
-    myHit = randomDmg(myGladiator.maxDmg) + dmgBonus;
-    dispatch(attack(myHit))
+    atkRoll = diceRoll(20) + toHitBonus
+    console.log(atkRoll)
+    if (atkRoll >= opponent.ac){
+      myHit = diceRoll(myGladiator.maxDmg) + dmgBonus;
+      dispatch(attack(myHit))
+    } else {
+      dispatch(attack(0))
+    }
+  }
+
+  async function mySkillAttack() {
+    if (mySkill.uses > 0) {
+      while (mySkill.attacks > 0) {
+        myHit = diceRoll(myGladiator.maxDmg) + dmgBonus + mySkill.dmgBonus
+        dispatch(skill(myHit))
+        await sleep(500)
+        mySkill.attacks -= 1
+      }
+      mySkill.uses -= 1
+      dispatch(endTurn())
+    }
   }
 
   let opponentHP = opponent.hp + battleState.opponentHealth
@@ -71,17 +109,22 @@ export default function Arena() {
   }
 
   //function for opponent to attack player
-  async function peep() {
+  async function opponentTurn() {
     if (opponentHP > 0) {
       await sleep(2000);
-      oppHit = randomDmg(opponent.maxDmg) + opponent.dmgBonus;
-      dispatch(opponentAttack(oppHit))
+      atkRoll = diceRoll(20) + oppToHitBonus
+      if (atkRoll >= myGladiator.ac){
+        oppHit = diceRoll(opponent.maxDmg) + opponent.dmgBonus;
+        dispatch(opponentAttack(oppHit))
+      } else {
+        dispatch(opponentAttack(0))
+      }
     }
   }
 
   //run this on opponent's turn
   if (battleState.playerTurn == false) {
-    peep();
+    opponentTurn();
   }
 
   if (opponentHP < 1){
@@ -110,6 +153,7 @@ export default function Arena() {
             </div>
             
             <button disabled={!battleState.playerTurn} onClick={myAttackRoll}>ATTACK</button>
+            <button disabled={!battleState.playerTurn} onClick={mySkillAttack}>SKILL</button>
             
             <div className="justify-center dmg-num-bottom stroke">
               {battleState.oppHitMessage}
@@ -119,8 +163,17 @@ export default function Arena() {
 
           <div className="bottom-center">
             <div className="lefta stroke"><h2>{myGladiator.name} </h2></div>
-            <div className="righta stroke"><h2>Skills</h2></div>
+            
+            <div className="righta stroke"><h2>Skill: {mySkill.name} </h2>
+            
+            </div>
+            <div className="righta">
+                    {skillArray.map((skill) => (
+                      <div className={`skill-icon ${skill.styleName}`} onClick={() => dispatch(setSkill(skill))}>{skill.name}</div>
+                    ))}
+                  </div>
             <div className="centera stroke"><h2>HP: {currentHP} / {myGladiator.hp}</h2></div>
+            
           </div>
         </div>
     );

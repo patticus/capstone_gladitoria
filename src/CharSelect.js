@@ -4,9 +4,8 @@ import {
   NavLink,
 } from "react-router-dom";
 import Staging from "./Staging";
-import Portrait from "./components/Portrait"
 import { useSelector, useDispatch } from 'react-redux';
-import { setUser, logOut } from './actions/userActions'
+import { setUser } from './actions'
 
 import store from './store'
  

@@ -5,8 +5,6 @@ import {
 } from "react-router-dom";
 import CharSelect from "./CharSelect";
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement } from './actions/counterActions'
-import store from './index'
  
 export default function Home(){
 

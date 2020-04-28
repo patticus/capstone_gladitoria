@@ -19,22 +19,60 @@ const BattleState = (state = initialState, action) => {
       case "attack":
         let myHit = action.payload
         oppDmgTaken -= myHit
-        return {
+        if (myHit === 0){
+          return {
+            ...state,
+            myHitMessage: `Miss!`,
+            playerTurn: false
+          }
+        } else {
+          return {
             ...state,
             opponentHealth: oppDmgTaken,
-            myHitMessage: `Strike for ${myHit} damage!`,
+            myHitMessage: `Hit for ${myHit} damage!`,
             playerTurn: false
+          }
         }
+        
       //opponent attacks you
       case "opponentAttack":
         let oppHit = action.payload
         myDmgTaken -= oppHit
-        return {
+        if (oppHit === 0){
+          return {
+            ...state,
+            oppHitMessage: "Miss!",
+            playerTurn: true
+          }
+        } else {
+          return {
             ...state,
             playerHealth: myDmgTaken,
             oppHitMessage: `Taken ${oppHit} damage!`,
             playerTurn: true
+          }
         }
+
+      //Using Skill on your opponent
+      case "skill":
+        let skillDmg = action.payload
+        oppDmgTaken -= skillDmg
+        
+        return {
+          ...state,
+          opponentHealth: oppDmgTaken,
+          myHitMessage: `Strike for ${skillDmg} damage!`,
+        }
+
+
+      // Ends player's turn
+      case "endTurn":
+        console.log("TEST")
+        return {
+          ...state,
+          playerTurn: false
+        }
+        
       //resets health values after battle is complete
       case "resetHealth":
         oppDmgTaken = 0

@@ -1,3 +1,22 @@
+  PASSIVE SKILL IDEAS
+  Riposte: chance for automatic counter attack
+  Sever: increase crit chance on limbs
+  Prod: normal attacks keep enemy at a distance, lowering their hit chance
+
+  SKILL IDEAS
+  Power attack: 100% hit chance, bonus dmg
+  Dual slash: attack with both weapons
+  Shield bash: deal damage and stun enemy for 1 round
+  Throw net: pin enemy to the ground for 2-4 rounds
+
+  IDEA:
+  Can forfeit but you lose reputation when you forfeit, and can't forfeit if you have too low of reputation
+  Fight more battles to increase reputation
+
+  //change value in JSX inline style of display block or none for popup windows
+
+  
+  
   // state = {
   //   gladiators: [
   //     {
@@ -79,3 +98,4 @@
           <Portrait gladiator={secutor} />
           <Portrait gladiator={retiarius} /> */}
           {/* <Portrait gladiators={glad} /> */}
+
