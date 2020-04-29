@@ -7,9 +7,10 @@ import Staging from "./Staging";
 import { useSelector, useDispatch } from 'react-redux';
 import { attack, opponentAttack, resetHealth, endTurn, skill, setSkill } from './actions'
 import { diceRoll, sleep } from './data/funtions'
+import ClickNHold from 'react-click-n-hold';
 
 export default function Arena() {
-
+  
   const dispatch = useDispatch();
   const battleState = useSelector(state => state.BattleState)
   const myGladiator = useSelector(state => state.ChosenGladiator.chosen)
@@ -18,6 +19,15 @@ export default function Arena() {
   const allSkills = useSelector(state => state.SkillsReducer)
   const mySkill = useSelector(state => state.SelectedSkill.mySkill)
   const skillArray = [];
+
+  function animation (e) {
+    var anim = document.createElement("div")
+    anim.className = "attack-animation"
+    anim.style.left = e.clientX-75 + 'px'
+    anim.style.top = e.clientY-37 + 'px'
+    document.body.appendChild(anim)
+    setTimeout(() => {  anim.parentNode.removeChild(anim); }, 250)
+  }
   
   // Setting skills for use in combat. skillArray will contain all usable skills by gladiator at its current level
   allSkills.map((skill) => {
@@ -48,25 +58,38 @@ export default function Arena() {
 
 /*---------------------COMBAT MY TURN---------------------------*/
   //ADD DIFFERENT AC VALUES FOR DIFFERENT BODY PARTS!
-  function myAttackRoll() {
+  function myAttackRoll(e) {
     atkRoll = diceRoll(20) + toHitBonus
-    console.log(atkRoll)
+    var anim = document.createElement("div")
     if (atkRoll >= opponent.ac){
       myHit = diceRoll(myGladiator.maxDmg) + dmgBonus;
       dispatch(attack(myHit))
+      anim.className = "attack-animation"
     } else {
+      anim.className = "attack-animation" //change to miss animation
       dispatch(attack(0))
     }
+    anim.style.left = e.clientX-75 + 'px'
+    anim.style.top = e.clientY-37 + 'px'
+    document.body.appendChild(anim)
+    setTimeout(() => {  anim.parentNode.removeChild(anim); }, 250)
   }
 
-  async function mySkillAttack() { // Functions with sleep require async
-    if (mySkill.uses > 0) {
+  async function mySkillAttack(e) { // Functions with sleep require async
+    
+    if (mySkill.uses > 0) { 
+      var anim = document.createElement("div")
+    
       while (mySkill.attacks > 0) {
-        myHit = diceRoll(myGladiator.maxDmg) + dmgBonus + mySkill.dmgBonus
+        myHit = diceRoll(Math.ceil(myGladiator.maxDmg/2)) + dmgBonus + mySkill.dmgBonus
         dispatch(skill(myHit))
-        await sleep(500)
+        anim.className = "skill-animation"
+        document.body.appendChild(anim)
+        setTimeout(() => {  anim.parentNode.removeChild(anim); }, 250)
+        await sleep(250)
         mySkill.attacks -= 1
       }
+      
       mySkill.uses -= 1
       dispatch(endTurn())
     }
@@ -146,10 +169,11 @@ export default function Arena() {
           <div className="justify-center dmg-num-top stroke">
             {battleState.myHitMessage}
           </div>
-          
-          <button disabled={!battleState.playerTurn} onClick={myAttackRoll}>ATTACK</button>
-          <button disabled={!battleState.playerTurn} onClick={mySkillAttack}>SKILL</button>
-          
+            <div className="opponent">
+              <ClickNHold time={1.5} onClickNHold={mySkillAttack}>
+                <div className={`opponent ${opponent.styleName}`} disabled={!battleState.playerTurn} onClick={myAttackRoll}></div>
+              </ClickNHold>
+            </div>
           <div className="justify-center dmg-num-bottom stroke">
             {battleState.oppHitMessage}
           </div>

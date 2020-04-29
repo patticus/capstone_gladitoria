@@ -3,6 +3,10 @@ body {
   margin: 0 auto;
 }
 
+div[disabled] {
+  pointer-events: none;
+}
+
 .center-screen {
   display: flex;
   flex-direction: column;
@@ -155,6 +159,27 @@ a {
   background-size: cover;
 }
 
+.opponent1{
+  background-image: url(./assets/images/slave1.png);
+  background-size: cover;
+}
+
+.opponent2{
+  background-image: url(./assets/images/opponent2.png);
+  background-size: cover;
+}
+
+.opponent {
+  margin-top: 40px;
+  position: absolute;
+  height: 400px;
+  width: 200px;
+}
+
+.opponent:hover {
+  cursor: url(./assets/images/cursor-gladius.png), auto;
+}
+
 .staging-character {
   height: 500px;
   width: 600px;
@@ -205,7 +230,7 @@ a {
 }
 
 .arena-bg {
-  background-image: url(./assets/images/gladarena2.jpg);
+  background-image: url(./assets/images/arenabg.jpg);
   background-size: cover;
   height: 100%;
   overflow: hidden;
@@ -251,7 +276,7 @@ a {
 .dmg-num-top {
   height: 60px;
   width: 400px;
-  margin-bottom: 150px;
+  margin-bottom: 250px;
   font-size: 30px;
   font-weight: bolder;
   color: aliceblue;
@@ -298,9 +323,32 @@ a {
 }
 
 .skill-icon {
-  height: 40px;
-  width: 40px;
-  margin: 3;
-  padding: 5;
+  height: 35px;
+  width: 35px;
+  margin-right: 5px;
+  padding: 5px;
   background-color: white;
+  float: left;
+}
+
+.attack-animation {
+  width: 150px;
+  height: 75px;
+  position: absolute;
+  background-image: url(./assets/images/eff2.gif);
+  background-size: cover;
+}
+
+.attack-animation:hover {
+  cursor: url(./assets/images/cursor-gladius.png), auto;
+}
+
+.skill-animation {
+  left: 575px;
+  top: 300px;
+  width: 350px;
+  height: 175px;
+  position: absolute;
+  background-image: url(./assets/images/eff2.gif);
+  background-size: cover;
 }
