@@ -108,6 +108,8 @@ export default function Arena() {
   //All actions in opponent's turn
   async function opponentTurn() {
     if (opponentHP > 0) {
+      //setup
+      myGladiator.blocked = false
       var anim = document.createElement("img")
       anim.className = `opponent-animation`
       
@@ -149,9 +151,8 @@ export default function Arena() {
             oppHit -= blockValue
             if (oppHit < 0){
               oppHit = 0
-            }
+            }   
             dispatch(blockedAttack(oppHit, blockValue))
-            myGladiator.blocked = false
           } else {
             dispatch(opponentAttack(oppHit))
           }
@@ -185,6 +186,7 @@ export default function Arena() {
   function victory() {
     dispatch(resetHealth()) // Resets health after battle is complete - reducer does both player and opponent health reset
     unlockNext() //unlock next opponent battle
+    myGladiator.blocked = false
     allSkills.forEach((skill) => { // Resets skill usage
       skill.attacks = skill.maxAttacks
       skill.uses = skill.maxUses
