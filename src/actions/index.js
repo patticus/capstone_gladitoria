@@ -51,3 +51,18 @@ export const endTurn = () => {
     type: 'endTurn',
   }
 }
+
+export const opponentDisabled = (message) => {
+  return {
+    type: 'opponentDisabled',
+    payload: message
+  }
+}
+
+export const blockedAttack = (damage, blockValue) => {
+  return {
+    type: 'blockedAttack',
+    payload: damage,
+    payload2: blockValue
+  }
+}

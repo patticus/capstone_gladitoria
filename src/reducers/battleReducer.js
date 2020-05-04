@@ -38,7 +38,7 @@ const BattleState = (state = initialState, action) => {
       case "opponentAttack":
         let oppHit = action.payload
         myDmgTaken -= oppHit
-        if (oppHit === 0){
+        if (oppHit === null){
           return {
             ...state,
             oppHitMessage: "Miss!",
@@ -52,6 +52,18 @@ const BattleState = (state = initialState, action) => {
             playerTurn: true
           }
         }
+      
+      //Player blocks the attack
+      case "blockedAttack":
+        let partialHit = action.payload
+        let blockAmount = action.payload2
+        myDmgTaken -= partialHit
+        return {
+          ...state,
+          playerHealth: myDmgTaken,
+          oppHitMessage: `Taken ${partialHit} (${blockAmount} blocked!)`,
+          playerTurn: true
+        }
 
       //Using Skill on your opponent
       case "skill":
@@ -64,10 +76,17 @@ const BattleState = (state = initialState, action) => {
           myHitMessage: `Strike for ${skillDmg} damage!`,
         }
 
+      //Opponent Disabled Turn
+      case "opponentDisabled":
+        let disableMessage = action.payload
+        return {
+          ...state,
+          playerTurn: true,
+          myHitMessage: `${disableMessage}`
+        }
 
       // Ends player's turn
       case "endTurn":
-        console.log("TEST")
         return {
           ...state,
           playerTurn: false

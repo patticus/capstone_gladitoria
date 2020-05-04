@@ -16,7 +16,8 @@ const opponentData = [
     weapons: 'Rusty Sword',
     unlocked: 1,
     addClass: "",
-    difficulty: "Difficulty: Easy"
+    difficulty: "Difficulty: Easy",
+    disabled: 0
   },
 
   {

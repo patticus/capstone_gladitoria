@@ -16,7 +16,9 @@ const gladiatorData = [
     maxDmg: 8,
     dmgBonus: 0,
     toHitBonus: 0,
-    selected: true
+    selected: true,
+    blocked : false,
+    blockValue: 2
   },
 
   {
@@ -36,7 +38,9 @@ const gladiatorData = [
     dmgBonus: 0,
     toHitBonus: 0,
     weapons: 'Axe and Shield',
-    selected: false
+    selected: false,
+    blocked : false,
+    blockValue: 3
   },
 
   {
@@ -56,7 +60,9 @@ const gladiatorData = [
     dmgBonus: 0,
     toHitBonus: 0,
     weapons: 'Trident and Net',
-    selected: false
+    selected: false,
+    blocked : false,
+    blockValue: 2
   }
 ]
 

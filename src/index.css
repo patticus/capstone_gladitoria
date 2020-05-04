@@ -169,15 +169,28 @@ a {
   background-size: cover;
 }
 
+.opponent-container {
+  margin-top: 50px;
+  position: absolute;
+  height: 400px;
+  width: 200px;
+  cursor: url(./assets/images/cursor-gladius.png), auto;
+}
+
 .opponent {
-  margin-top: 40px;
   position: absolute;
   height: 400px;
   width: 200px;
 }
 
-.opponent:hover {
-  cursor: url(./assets/images/cursor-gladius.png), auto;
+.cnh_holding {
+  animation:clickEffect 1.2s ease-out;
+}
+
+@keyframes clickEffect {
+  0% {}
+  /*  50% {margin: 0.05em;} */
+  100% {filter: saturate(1.7) drop-shadow(3px 0px 8px rgb(184, 0, 0)) ;}
 }
 
 .staging-character {
@@ -200,7 +213,7 @@ a {
 
 .fl-left {
   float:left;
-  margin: 20px;
+  margin: 15px;
 }
 
 .arena-select {
@@ -276,7 +289,7 @@ a {
 .dmg-num-top {
   height: 60px;
   width: 400px;
-  margin-bottom: 250px;
+  margin-bottom: 300px;
   font-size: 30px;
   font-weight: bolder;
   color: aliceblue;
@@ -332,23 +345,48 @@ a {
 }
 
 .attack-animation {
-  width: 150px;
-  height: 75px;
+  width: 256px;
+  height: 256px;
   position: absolute;
-  background-image: url(./assets/images/eff2.gif);
   background-size: cover;
-}
-
-.attack-animation:hover {
   cursor: url(./assets/images/cursor-gladius.png), auto;
 }
 
 .skill-animation {
-  left: 575px;
-  top: 300px;
-  width: 350px;
-  height: 175px;
+  width: 512px;
+  height: 512px;
   position: absolute;
-  background-image: url(./assets/images/eff2.gif);
   background-size: cover;
+  cursor: url(./assets/images/cursor-gladius.png), auto;
 }
+
+.opponent-animation {
+  width: 768px;
+  height: 330px;
+  bottom: 0;
+  position: absolute;
+  background-size: cover;
+  cursor: url(./assets/images/cursor-gladius.png), auto;
+}
+
+.overflow {
+  overflow: scroll;
+}
+
+.block-area {
+  height: 100px;
+  width: 40%;
+  bottom: 45px;
+  position: absolute;
+}
+
+.tap-to-block {
+  height: 64px;
+  width: 64px;
+  opacity: 0.8;
+  position: absolute;
+  z-index: 5;
+  cursor: pointer;
+}
+  
+  

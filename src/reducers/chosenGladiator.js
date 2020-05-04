@@ -16,7 +16,9 @@ const initialState = {
         dmgBonus: 0,
         toHitBonus: 0,
         weapons: 'Dual Swords',
-        selected: true
+        selected: true,
+        blocked : false,
+        blockValue: 2
       },
     selected: false
 }

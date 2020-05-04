@@ -10,7 +10,8 @@ const skillsData = [
     maxAttacks: 1,
     lvlUnlock: 1,
     hitChance: 100,
-    styleName: "power-attack"
+    animation: "power-slash",
+    disableTurns: 0
   },
   {
     id: 1,
@@ -23,7 +24,8 @@ const skillsData = [
     maxAttacks: 2,
     lvlUnlock: 2,
     hitChance: 100,
-    styleName: "dual-slash"
+    animation: "dual-slash",
+    disableTurns: 0
   },
   {
     id: 2,
@@ -36,18 +38,23 @@ const skillsData = [
     maxAttacks: 1,
     lvlUnlock: 1,
     hitChance: 100,
-    styleName: "power-attack"
+    animation: "power-slash",
+    disableTurns: 0
   },
   {
     id: 3,
     name: "Shield Bash",
     gladiator: "Secutor",
     uses: 1,
+    maxUses: 1,
     dmgBonus: 1,
     attacks: 1,
-    lvlUnlock: 1,
+    maxAttacks: 1,
+    lvlUnlock: 2,
     hitChance: 100,
-    styleName: "shield-bash"
+    animation: "shield-bash",
+    disableTurns: 2,
+    disableMessage: "Stunned!!!"
   },
   {
     id: 4,
@@ -58,19 +65,25 @@ const skillsData = [
     dmgBonus: 9,
     attacks: 1,
     maxAttacks: 1,
+    lvlUnlock: 1,
     hitChance: 100,
-    styleName: "power-attack"
+    animation: "power-slash",
+    disableTurns: 0
   },
   {
     id: 5,
     name: "Throw Net",
     gladiator: "Retiarius",
     uses: 1,
-    dmgBonus: 1,
+    maxUses: 1,
+    dmgBonus: 0,
     attacks: 1,
+    maxAttacks: 1,
     lvlUnlock: 2,
     hitChance: 100,
-    styleName: "throw-net"
+    animation: "throw-net",
+    disableTurns: 4,
+    disableMessage: "Trapped!!!"
   },
 ]
 
