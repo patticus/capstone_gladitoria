@@ -3,7 +3,8 @@ const initialState = {
   opponentHealth: 0,
   myHitMessage: "",
   oppHitMessage: "",
-  playerTurn: true
+  playerTurn: true,
+  activeBuffs: {}
 }
 
 //total damage your gladiator has taken during the battle
@@ -33,6 +34,7 @@ const BattleState = (state = initialState, action) => {
             playerTurn: false
           }
         }
+
         
       //opponent attacks you
       case "opponentAttack":
@@ -75,6 +77,29 @@ const BattleState = (state = initialState, action) => {
           opponentHealth: oppDmgTaken,
           myHitMessage: `Strike for ${skillDmg} damage!`,
         }
+      
+      //applying buff
+      case "skillBuff":
+        let buff = action.payload
+        let buffMsg = buff.name
+        let activeBuffs = state.activeBuffs
+        activeBuffs[buff.name] = buff
+
+        return {
+          ...state,
+          oppHitMessage: `Activated ${buffMsg}`,
+          activeBuffs: activeBuffs
+        }
+
+      //riposte
+      case "riposte":
+        let myRiposte = action.payload
+        oppDmgTaken -= myRiposte
+        return {
+          ...state,
+          opponentHealth: oppDmgTaken,
+          myHitMessage: `Riposte for ${myRiposte} damage!`
+        }
 
       //Opponent Disabled Turn
       case "opponentDisabled":
@@ -91,6 +116,8 @@ const BattleState = (state = initialState, action) => {
           ...state,
           playerTurn: false
         }
+
+      
         
       //resets health values after battle is complete
       case "resetHealth":
@@ -102,7 +129,8 @@ const BattleState = (state = initialState, action) => {
           opponentHealth: 0,
           myHitMessage: "",
           oppHitMessage: "",
-          playerTurn: true
+          playerTurn: true,
+          activeBuffs: {}
         }
       default:
         return state

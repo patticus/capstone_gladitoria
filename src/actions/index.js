@@ -66,3 +66,19 @@ export const blockedAttack = (damage, blockValue) => {
     payload2: blockValue
   }
 }
+
+export const skillBuff = (message) => {
+  return {
+    type: 'skillBuff',
+    payload: message
+  }
+}
+
+export const riposte = (damage) => {
+  return {
+    type: 'riposte',
+    payload: damage
+  }
+}
+
+

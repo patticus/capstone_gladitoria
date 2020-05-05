@@ -1,9 +1,12 @@
 const skillsData = [
+
+  /* DIMACHAERUS SKILLS */
   {
     id: 0,
     name: "Power Strike",
     gladiator: "Dimachaerus",
     uses: 1,
+    buff: false,
     maxUses: 1,
     dmgBonus: 9,
     attacks: 1,
@@ -18,6 +21,7 @@ const skillsData = [
     name: "Dual Slash",
     gladiator: "Dimachaerus",
     uses: 1,
+    buff: false,
     maxUses: 1,
     dmgBonus: 4,
     attacks: 2,
@@ -29,38 +33,29 @@ const skillsData = [
   },
   {
     id: 2,
-    name: "Power Strike",
-    gladiator: "Secutor",
+    name: "Riposte",
+    gladiator: "Dimachaerus",
+    buff: true,
+    buffEffect: {
+      name: "riposte",
+      duration: 3,
+      maxDuration: 3
+    },
     uses: 1,
     maxUses: 1,
-    dmgBonus: 9,
-    attacks: 1,
-    maxAttacks: 1,
-    lvlUnlock: 1,
-    hitChance: 100,
-    animation: "power-slash",
+    lvlUnlock: 3,
+    animation: "riposte-buff",
     disableTurns: 0
   },
-  {
-    id: 3,
-    name: "Shield Bash",
-    gladiator: "Secutor",
-    uses: 1,
-    maxUses: 1,
-    dmgBonus: 1,
-    attacks: 1,
-    maxAttacks: 1,
-    lvlUnlock: 2,
-    hitChance: 100,
-    animation: "shield-bash",
-    disableTurns: 2,
-    disableMessage: "Stunned!!!"
-  },
+
+    /* SECUTOR SKILLS */
+
   {
     id: 4,
     name: "Power Strike",
-    gladiator: "Retiarius",
+    gladiator: "Secutor",
     uses: 1,
+    buff: false,
     maxUses: 1,
     dmgBonus: 9,
     attacks: 1,
@@ -72,11 +67,62 @@ const skillsData = [
   },
   {
     id: 5,
+    name: "Shield Bash",
+    gladiator: "Secutor",
+    uses: 1,
+    buff: false,
+    maxUses: 1,
+    dmgBonus: 0,
+    attacks: 1,
+    maxAttacks: 1,
+    lvlUnlock: 2,
+    hitChance: 100,
+    animation: "shield-bash",
+    disableTurns: 2,
+    disableMessage: "Stunned!!!"
+  },
+  {
+    id: 3,
+    name: "Rage",
+    gladiator: "Secutor",
+    buff: true,
+    buffEffect: {
+      name: "rage",
+      duration: 5,
+      maxDuration: 5
+    },
+    uses: 1,
+    maxUses: 1,
+    lvlUnlock: 1,
+    animation: "rage-buff",
+    disableTurns: 0
+  },
+
+      /* RETIARIUS SKILLS */
+
+  {
+    id: 6,
+    name: "Power Strike",
+    gladiator: "Retiarius",
+    uses: 1,
+    buff: false,
+    maxUses: 1,
+    dmgBonus: 9,
+    attacks: 1,
+    maxAttacks: 1,
+    lvlUnlock: 1,
+    hitChance: 100,
+    animation: "power-slash",
+    disableTurns: 0
+  },
+  {
+    id: 7,
     name: "Throw Net",
     gladiator: "Retiarius",
     uses: 1,
+    buff: false,
     maxUses: 1,
-    dmgBonus: 0,
+    dmgBonus: -2,
     attacks: 1,
     maxAttacks: 1,
     lvlUnlock: 2,

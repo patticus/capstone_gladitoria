@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Route,
   NavLink,
 } from "react-router-dom";
 import Staging from "./Staging";
 import { useSelector, useDispatch } from 'react-redux';
-import { attack, opponentAttack, blockedAttack, resetHealth, endTurn, skill, setSkill, opponentDisabled } from './actions'
+import { attack, riposte, opponentAttack, blockedAttack, resetHealth, endTurn, skillBuff, skill, setSkill, opponentDisabled } from './actions'
 import { diceRoll, sleep } from './data/funtions'
 import ClickNHold from 'react-click-n-hold';
+
+let counter = 2
 
 export default function Arena() {
   
@@ -19,6 +21,16 @@ export default function Arena() {
   const allSkills = useSelector(state => state.SkillsReducer)
   const mySkill = useSelector(state => state.SelectedSkill.mySkill)
   const skillArray = [];
+  let activeBuffs = battleState.activeBuffs;
+  let activeBattle = true
+
+  // useEffect(() => {
+  //   return () => {
+  //     console.log("Turn changed")
+  //   }
+  // }, [battleState.playerTurn])
+
+
   
   // Setting skills for use in combat. skillArray will contain all usable skills by gladiator at its current level
   allSkills.map((skill) => {
@@ -51,6 +63,58 @@ export default function Arena() {
       blockValue += (myGladiator.con - 15)
     }
 
+/*---------------------BUFFS AND BUFF DURATIONS---------------------------*/
+  
+  //Riposte function will activate during opponent turn (on successful block)
+  async function riposteAttack() {
+    await sleep(200)
+    var anim = document.createElement("img")
+    myHit = diceRoll(myGladiator.maxDmg) + dmgBonus;
+    dispatch(riposte(myHit))
+    anim.className = 'skill-animation'
+    anim.src= require(`./assets/images/animations/riposte.gif`)
+    document.getElementsByClassName('center-screen')[0].appendChild(anim)
+    setTimeout(() => {  anim.parentNode.removeChild(anim); }, 500)
+    console.log(allSkills[2].buffEffect.duration+" turns left")
+  }
+
+  if ('rage' in activeBuffs) {
+    dmgBonus += 3 
+  }
+
+  // Decrements buff durations every time player turn is activated
+  function decrementBuffDuration() {
+    if ('rage' in activeBuffs) {
+      activeBuffs.rage.duration -= 1
+      console.log("RAGE DURATION" + activeBuffs.rage.duration)
+      if (activeBuffs.rage.duration === 0){
+        delete activeBuffs.rage
+      }
+    }
+    if ('riposte' in activeBuffs){
+      activeBuffs.riposte.duration -=1
+      if (activeBuffs.riposte.duration === 0){
+        delete activeBuffs.riposte
+      }
+    }
+  }
+
+/*---------------------COMBAT---------------------------*/
+  useEffect(() => {
+    if (battleState.playerTurn) {
+    //Events that happen at the start of my turn
+      counter += 1
+      console.log(counter)
+      if ('riposte' in activeBuffs && myGladiator.blocked){
+        riposteAttack()
+      }
+      decrementBuffDuration()
+    
+    } else if (!battleState.playerTurn && opponentHP > 0) {
+    //Events that happen at the start of opponent's turn
+      opponentTurn();
+    }
+  }, [battleState.playerTurn])
 
 
 /*---------------------COMBAT MY TURN---------------------------*/
@@ -76,8 +140,8 @@ export default function Arena() {
       anim.src= require('./assets/images/animations/miss.gif')
       dispatch(attack(0))
     }
-    anim.style.left = e.clientX-128 + 'px'
-    anim.style.top = e.clientY-128 + 'px'
+    anim.style.left = e.clientX-96 + 'px'
+    anim.style.top = e.clientY-96 + 'px'
     document.body.appendChild(anim)
     setTimeout(() => {  anim.parentNode.removeChild(anim); }, 500)
   }
@@ -85,16 +149,24 @@ export default function Arena() {
   async function mySkillAttack() { // Functions with sleep require async
     
     if (mySkill.uses > 0) { 
-      var anim = document.createElement("img")   
-      while (mySkill.attacks > 0) {
-        myHit = diceRoll(Math.ceil(myGladiator.maxDmg/2)) + dmgBonus + mySkill.dmgBonus
-        dispatch(skill(myHit))
-        anim.className = 'skill-animation'
-        anim.src= require(`./assets/images/animations/${mySkill.animation}${mySkill.attacks}.gif`)
+      var anim = document.createElement("img") 
+      if (mySkill.buff === true) {
+        dispatch(skillBuff(mySkill.buffEffect))
+        anim.className = `opponent-animation`
+        anim.src= require(`./assets/images/animations/${mySkill.animation}.gif`)
         document.getElementsByClassName('center-screen')[0].appendChild(anim)
         setTimeout(() => {  anim.parentNode.removeChild(anim); }, 500)
-        await sleep(500)
-        mySkill.attacks -= 1
+      } else {
+        while (mySkill.attacks > 0) {
+          myHit = diceRoll(Math.ceil(myGladiator.maxDmg/2)) + dmgBonus + mySkill.dmgBonus
+          dispatch(skill(myHit))
+          anim.className = 'skill-animation'
+          anim.src= require(`./assets/images/animations/${mySkill.animation}${mySkill.attacks}.gif`)
+          document.getElementsByClassName('center-screen')[0].appendChild(anim)
+          setTimeout(() => {  anim.parentNode.removeChild(anim); }, 500)
+          await sleep(500)
+          mySkill.attacks -= 1
+        }
       }
       opponent.disabled = diceRoll(mySkill.disableTurns)
       mySkill.uses -= 1
@@ -107,7 +179,6 @@ export default function Arena() {
 /*---------------------COMBAT OPPONENT TURN-------------------------*/
   //All actions in opponent's turn
   async function opponentTurn() {
-    if (opponentHP > 0) {
       //setup
       myGladiator.blocked = false
       var anim = document.createElement("img")
@@ -131,31 +202,40 @@ export default function Arena() {
           myGladiator.blocked = true
         })
         document.getElementsByClassName('block-area')[0].appendChild(blockTappy)
-        setTimeout(() => {  blockTappy.parentNode.removeChild(blockTappy); }, 800)
+        setTimeout(() => {  blockTappy.parentNode.removeChild(blockTappy); }, 1000)
 
         //Preparing opponent attack
-        await sleep(1300);
+        await sleep(1300) 
         atkRoll = diceRoll(20)
-        //Crit condition
-        if (atkRoll === 20) {
+
+        //Block attack condition
+        if (myGladiator.blocked === true) {
+          anim.src = require(`./assets/images/animations/block.gif`)
+          if ((atkRoll + oppToHitBonus) >= myGladiator.ac){
+            oppHit = diceRoll(opponent.maxDmg) + opponent.dmgBonus;
+          } else {
+            oppHit = 0
+          }
+          oppHit -= blockValue
+          if (oppHit < 0){
+            oppHit = 0
+          }   
+          dispatch(blockedAttack(oppHit, blockValue))
+          // if ('riposte' in activeBuffs){
+          //   riposteAttack()
+          // }
+
+        // Crit condition  
+        } else if (atkRoll === 20) {
           anim.src = require(`./assets/images/animations/bloodsplat-crit.gif`)
           oppHit = (Math.ceil(opponent.maxDmg * 1.5)) + opponent.dmgBonus
           dispatch(opponentAttack(oppHit))
-        //Regular hit condition
+
+        // Normal Hit condition
         } else if ((atkRoll + oppToHitBonus) >= myGladiator.ac){
           anim.src = require(`./assets/images/animations/bloodsplat${diceRoll(3)}.gif`)
           oppHit = diceRoll(opponent.maxDmg) + opponent.dmgBonus;
-          console.log(oppHit)
-          //Block attack condition
-          if (myGladiator.blocked === true) {
-            oppHit -= blockValue
-            if (oppHit < 0){
-              oppHit = 0
-            }   
-            dispatch(blockedAttack(oppHit, blockValue))
-          } else {
-            dispatch(opponentAttack(oppHit))
-          }
+          dispatch(opponentAttack(oppHit))
         //Miss condition    
         } else {
           anim.src = require(`./assets/images/animations/opponentmiss.gif`)
@@ -165,12 +245,8 @@ export default function Arena() {
         document.getElementsByClassName('center-screen')[0].appendChild(anim)
         setTimeout(() => {  anim.parentNode.removeChild(anim); }, 500)
       }
-    }
   }
-  //Run opponent turn when it's not player's turn
-  if (battleState.playerTurn === false) {
-    opponentTurn();
-  }
+
 
 /*-----------------------VICTORY CONDITIONS-------------------------------*/
   //Assigns next opponent to be unlocked upon victory
@@ -184,12 +260,16 @@ export default function Arena() {
 
   //Victory function resets hp, returns skill uses, adds exp
   function victory() {
+    battleState.playerTurn = true
     dispatch(resetHealth()) // Resets health after battle is complete - reducer does both player and opponent health reset
     unlockNext() //unlock next opponent battle
     myGladiator.blocked = false
     allSkills.forEach((skill) => { // Resets skill usage
       skill.attacks = skill.maxAttacks
       skill.uses = skill.maxUses
+      if (skill.buff === true) {
+        skill.buffEffect.duration = skill.buffEffect.maxDuration
+      }
     })
     myGladiator.exp += opponent.expVal // Gives player exp
     if (myGladiator.exp >= myGladiator.nextLvlExp){
@@ -256,7 +336,7 @@ export default function Arena() {
         <div className="block-area"></div>
       </div>
       
-      <div className="bottom-center">
+      <div className="bottom-center" disabled={!battleState.playerTurn}>
         <div className="lefta stroke"><h2>{myGladiator.name} </h2></div>
         
         <div className="righta stroke"><h2>Skill: {mySkill.name} </h2>

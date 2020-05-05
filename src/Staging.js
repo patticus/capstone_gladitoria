@@ -25,23 +25,18 @@ export default function Staging() {
   });
 
   let conBonus = 0;
-  if (myGladiator.con > 14){
-    conBonus += (myGladiator.con - 14)
+  if (myGladiator.con > 15){
+    conBonus += (myGladiator.con - 15)
   }
 
   function levelUp () {
     myGladiator.level += 1
-    myGladiator.hp += (diceRoll(10) + conBonus)
+    myGladiator.hp += (diceRoll(5)+5 + conBonus)
     myGladiator.exp = 0
     myGladiator.nextLvlExp += myGladiator.nextLvlExp + (myGladiator.level * 100)
     myGladiator.levelUp = true
   }
 
-  function acLvlUp () {
-    levelUp()
-    myGladiator.ac += 1
-    myGladiator.levelUp = false
-  }
 
   function strLvlUp () {
     levelUp()
@@ -52,6 +47,7 @@ export default function Staging() {
   function dexLvlUp () {
     levelUp()
     myGladiator.dex += 1
+    myGladiator.ac += 1
     myGladiator.levelUp = false
   }
 
@@ -70,7 +66,6 @@ export default function Staging() {
         <div className="overlay-container">
           <div className="level-up">
             <h2>Level Up!</h2>
-            <h2>AC: {myGladiator.ac} <NavLink to="/staging"><button onClick={acLvlUp}>+</button></NavLink></h2>
             <h2>STR: {myGladiator.str} <NavLink to="/staging"><button onClick={strLvlUp}>+</button></NavLink></h2>
             <h2>DEX: {myGladiator.dex} <NavLink to="/staging"><button onClick={dexLvlUp}>+</button></NavLink></h2>
             <h2>CON: {myGladiator.con} <NavLink to="/staging"><button onClick={conLvlUp}>+</button></NavLink></h2>
