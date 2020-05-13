@@ -1,3 +1,79 @@
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.tooltip {
+  width: 160px;
+  padding: 10px;
+  font-size: 15px;
+  
+}
+
+.opp-attack-anim {
+  animation: oppAttack 0.52s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+}
+
+.dodge-anim {
+  animation: dodge 0.52s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+}
+
+.opp-hurt-anim {
+  animation: oppHurt 0.52s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+}
+
+.fade-out {
+  animation: fade 1.5s ease-out;
+}
+
+@keyframes fade {
+  0% {}
+  70% {opacity: 0.9;}
+  100% {opacity: 0;}
+}
+
+@keyframes oppHurt {
+  25% {
+    transform: translate3d(1.5px, 0, 0);
+    filter: saturate(1.5)
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    filter: saturate(1)
+  }
+}
+
+
+@keyframes dodge {
+  25% {
+    transform: translate3d(-7px, 0, 0);
+  }
+  75% {
+    transform: translate3d(-7px, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes oppAttack {
+  15%, 85% {
+    transform: translate3d(-3px, -1px, 0);
+  }
+
+  30%, 60% {
+    transform: translate3d(1.5px, 12px, 0);
+  }
+}
+
 body {
   background-color: rgb(103, 255, 209);
   margin: 0 auto;
@@ -32,17 +108,37 @@ div[disabled] {
   justify-content: center;
 }
 
-h1, h2, p, ul, li {
-  font-family: sans-serif;
+h1, h2{
   color: rgb(226, 198, 39);
+}
+
+h3, h4 {
+  color: wheat;
+  font-size: 18px;
+  padding: 0;
+  margin: 0;
+}
+
+h4 {
+  font-size: 15px;
+}
+
+p {
+  font-size: 16px;
+  color: wheat;
 }
 
 h1 {
   font-size: 80px;
 }
 
+ul, li {
+  list-style: none;
+}
+
 ul.header li {
   display: inline;
+  list-style: none;
   list-style-type: none;
   margin: 0;
 }
@@ -162,11 +258,13 @@ a {
 .opponent1{
   background-image: url(./assets/images/slave1.png);
   background-size: cover;
+  z-index: 1;
 }
 
 .opponent2{
   background-image: url(./assets/images/opponent2.png);
   background-size: cover;
+  z-index: 1;
 }
 
 .opponent-container {
@@ -175,16 +273,28 @@ a {
   height: 400px;
   width: 200px;
   cursor: url(./assets/images/cursor-gladius.png), auto;
+  z-index: 1;
 }
 
 .opponent {
   position: absolute;
   height: 400px;
   width: 200px;
+  z-index: 1;
+}
+
+.poisoned {
+  filter: hue-rotate(90deg);
+  animation: poisonTick 1s ease-out;
+}
+
+@keyframes poisonTick {
+  0% {}
+  100% {filter: hue-rotate(0deg);}
 }
 
 .cnh_holding {
-  animation:clickEffect 1.2s ease-out;
+  animation: clickEffect 1.2s ease-out;
 }
 
 @keyframes clickEffect {
@@ -247,6 +357,7 @@ a {
   background-size: cover;
   height: 100%;
   overflow: hidden;
+  /* position: absolute; */
 }
 
 .bottom-center {
@@ -254,6 +365,7 @@ a {
   background-color: rgb(0, 0, 0, 0.7);
   position: absolute;
   width: 100%;
+  z-index: 3;
 }
 
 .top-center {
@@ -282,27 +394,8 @@ a {
 
 .centera {
   margin: 0 auto;
-  width: 400px;
+  width: 300px;
   text-align: center;
-}
-
-.dmg-num-top {
-  height: 60px;
-  width: 400px;
-  margin-bottom: 300px;
-  font-size: 30px;
-  font-weight: bolder;
-  color: aliceblue;
-}
-
-.dmg-num-bottom {
-  height: 60px;
-  width: 400px;
-  margin-top: 300px;
-  position: absolute;
-  font-size: 30px;
-  font-weight: bolder;
-  color: red;
 }
 
 .level-up {
@@ -314,7 +407,7 @@ a {
   width: 300px;
   height: 200px;
   background-color: brown;
-  z-index: 2;
+  z-index: 11;
   position: absolute;
 }
 
@@ -332,16 +425,18 @@ a {
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,0.5);
-  z-index: 2;
+  z-index: 11;
 }
 
 .skill-icon {
-  height: 35px;
-  width: 35px;
-  margin-right: 5px;
-  padding: 5px;
+  height: 42px;
+  width: 42px;
+  margin: 5px;
   background-color: white;
   float: left;
+  border: 2px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(to right, rgb(255, 210, 0), rgb(255, 227, 149));
 }
 
 .attack-animation {
@@ -350,6 +445,7 @@ a {
   position: absolute;
   background-size: cover;
   cursor: url(./assets/images/cursor-gladius.png), auto;
+  z-index: 1;
 }
 
 .skill-animation {
@@ -358,6 +454,17 @@ a {
   position: absolute;
   background-size: cover;
   cursor: url(./assets/images/cursor-gladius.png), auto;
+  z-index: 1;
+}
+
+.net-animation {
+  width: 512px;
+  height: 512px;
+  bottom: 30px;
+  position: absolute;
+  background-size: cover;
+  cursor: url(./assets/images/cursor-gladius.png), auto;
+  z-index: 1;
 }
 
 .opponent-animation {
@@ -367,17 +474,20 @@ a {
   position: absolute;
   background-size: cover;
   cursor: url(./assets/images/cursor-gladius.png), auto;
+  z-index: 5;
 }
 
 .overflow {
   overflow: scroll;
+  max-height: 475px;
 }
 
 .block-area {
   height: 100px;
-  width: 40%;
+  width: 320px;
   bottom: 45px;
   position: absolute;
+  z-index: 6;
 }
 
 .tap-to-block {
@@ -385,8 +495,281 @@ a {
   width: 64px;
   opacity: 0.8;
   position: absolute;
-  z-index: 5;
-  cursor: pointer;
+  cursor: url(./assets/images/cursor-shield.png), auto;
+  z-index: 7;
+}
+
+.dmg-num-top {
+  height: 40px;
+  width: 50px;
+  top: 25%;
+  font-size: 30px;
+  font-weight: bolder;
+  color: aliceblue;
+  position: absolute;
+}
+
+.disable-message {
+  height: 40px;
+  width: 200px;
+  top: 25%;
+  font-size: 30px;
+  font-weight: bolder;
+  color: aliceblue;
+  position: absolute;
+}
+
+.dmg-num-bottom {
+  height: 60px;
+  width: 50%;
+  margin-top: 300px;
+  position: absolute;
+  font-size: 30px;
+  font-weight: bolder;
+  color: red;
+  z-index: 4;
+}
+
+.floating-dmg-number {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+}
+
+.hit-number {
+  left: 4;
+  bottom: 0;
+  font-size: 5px;
+  color: white;
+  position: absolute;
+  animation: dmgNumbers 1.5s ease-out;
+}
+
+.crit-number {
+  left: 0;
+  bottom: 0;
+  font-size: 35px;
+  color: rgb(255, 210, 0);
+  position: absolute;
+  animation: critNumbers 1.5s ease-out;
+}
+
+.skill-number {
+  left: 0;
+  bottom: 0;
+  font-size: 5px;
+  color: rgb(255, 241, 0);
+  position: absolute;
+  animation: critNumbers 1.5s ease-out;
+}
+
+.poison-number {
+  font-size: 5px;
+  color: greenyellow;
+  margin-right: 20px;
+  position: absolute;
+  animation: dotNumbers 1.5s ease-out;
+}
+
+.bleed-number {
+  right: 0;
+  top: 0;
+  font-size: 5px;
+  color: red;
+  position: absolute;
+  animation: dotNumbers 1.5s ease-out;
+}
+
+@keyframes fadeOut {
+  0% {}
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes dmgNumbers {
+  0% {}
+  5% {
+    font-size: 40px;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    font-size: 50px;
+    margin: 0.4em;
+    bottom: 80%;
+    opacity: 0;
+  }
+}
+
+@keyframes critNumbers {
+  0% {}
+  5% {
+    font-size: 45px;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    font-size: 65px;
+    bottom: 50%;
+    opacity: 0;
+  }
+}
+
+@keyframes dotNumbers {
+  0% {}
+  2% {
+    font-size: 30px;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    font-size: 40px;
+    margin: -0.7em;
+    opacity: 0;
+  }
 }
   
-  
+.dropbtn {
+  background-color: rgb(0, 0, 0);
+  color: white;
+  padding: 16px;
+  font-size: 18px;
+}
+
+.dropup {
+  position: relative;
+  display: inline-block;
+}
+
+.dropup-content {
+  display: none;
+  position: absolute;
+  background-color: #333333;
+  min-width: 200px;
+  bottom: 50px;
+  z-index: 1;
+  right: 0;
+}
+
+.dropup-content div {
+  color: black;
+  padding: 3px;
+  text-decoration: none;
+  border: 1px solid black;
+  display: block;
+}
+
+.dropup-content div:hover {
+  background-color: rgb(22, 22, 22);
+  cursor: pointer;
+}
+
+.weapons-container {
+  bottom: 0;
+  position: absolute;
+  max-width: 100%;
+  height: auto;
+  z-index: 0;
+  animation: startUp 0.1s ease-out;
+}
+
+@keyframes startUp {
+  0% {padding: 0.1px}
+  100% {padding: 0}
+}
+/* ACTIVE BUFF EFFECTS */
+
+.riposte-active {
+  filter: contrast(200%)
+}
+
+.rage-active {
+  filter: saturate(1.9) drop-shadow(3px 0px 6px rgb(255, 0, 0)) 
+}
+
+.poisonTrident-active {
+  filter: contrast(200%) drop-shadow(3px 0px 6px rgb(0, 255, 64))
+}
+
+.champion-active {
+  filter: contrast(130%) saturate(3) drop-shadow(10px 0px 20px rgb(255, 187, 0))
+}
+
+/* SKILL BUFF ANIMATIONS */
+.riposte {
+  animation: riposteEffect 1s ease-out;
+}
+
+.rage {
+  animation: rageEffect 1s ease-out;
+}
+
+.poisonTrident {
+  animation: ptridentEffect 1s ease-out;
+}
+
+.champion {
+  animation: championEffect 1s ease-out;
+}
+
+@keyframes riposteEffect {
+  0% {}
+  25% {
+    filter: contrast(400%)}
+  50% {
+    filter: contrast(100%)
+  }
+  75% {
+    filter: contrast(400%)
+  }
+  100% {
+    filter: contrast(200%)
+  }
+}
+
+@keyframes rageEffect {
+  0% {}
+  25% {
+    filter: saturate(1.9) drop-shadow(6px 0px 13px rgb(255, 0, 0)) 
+  }
+  50% {
+    filter: saturate(2.4) drop-shadow(1px 0px 1px rgb(255, 0, 0))
+  }
+  75% {
+    filter: saturate(2.7) drop-shadow(6px 0px 15px rgb(255, 0, 0))
+  }
+  100% {
+    filter: saturate(2.9) drop-shadow(3px 0px 6px rgb(255, 0, 0));
+  }
+}
+
+@keyframes ptridentEffect {
+  0% {}
+  50% {
+    filter: contrast(400%) drop-shadow(6px 0px 12px rgb(0, 255, 64))
+  }
+  100% {
+    filter: contrast(200%) drop-shadow(3px 0px 6px rgb(0, 255, 64))
+  }
+}
+
+@keyframes championEffect {
+  0% {}
+  25% {
+    filter: contrast(150%) saturate(4)
+    drop-shadow(5px 0px 5px rgb(255, 187, 0))
+  }
+  50% {
+    filter: contrast(200%) saturate(0) drop-shadow(14px 0px 18px rgb(255, 187, 0))
+  }
+  75% {
+    filter: contrast(250%) saturate(4) drop-shadow(20px 0px 25px rgb(255, 187, 0))
+  }
+  100% {
+    filter: contrast(150%) saturate(3) drop-shadow(6px 0px 15px rgb(255, 187, 0))
+  }
+}

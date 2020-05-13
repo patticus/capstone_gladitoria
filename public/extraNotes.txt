@@ -9,6 +9,30 @@
   Shield bash: deal damage and stun enemy for 1 round
   Throw net: pin enemy to the ground for 2-4 rounds
 
+  Dimachaerus Skills:
+  lvl 1: power attack
+  lvl 2: dual slash
+  lvl 4: passive: dual wield
+  lvl 6: riposte
+  lvl 8: rend
+  lvl 10: Champion (stat buff from crowd)
+
+  Secutor skills:
+  lvl 1: power attack
+  lvl 2: shield bash
+  lvl 4: passive: Sever
+  lvl 6: rage
+  lvl 8: exectue
+  lvl 10: Champion (stat buff from crowd)
+
+  Retiarius skills:
+  lvl 1: power attack
+  lvl 2: throw net
+  lvl 4: passive: Prod
+  lvl 6: poison trident
+  lvl 8: trident rake
+  lvl 10: Champion (stat buff from crowd)
+
   IDEA:
   Can forfeit but you lose reputation when you forfeit, and can't forfeit if you have too low of reputation
   Fight more battles to increase reputation

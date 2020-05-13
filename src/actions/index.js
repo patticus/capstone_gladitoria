@@ -26,6 +26,13 @@ export const attack = (damage) => {
   }
 }
 
+export const critAttack = (damage) => {
+  return {
+    type: 'critAttack',
+    payload: damage
+  }
+}
+
 export const opponentAttack = (damage) => {
   return {
     type: 'opponentAttack',
@@ -80,5 +87,26 @@ export const riposte = (damage) => {
     payload: damage
   }
 }
+
+export const poisonCounter = () => {
+  return {
+    type: 'poisonCounter',
+  }
+}
+
+export const poisonDmg = (tick) => {
+  return {
+    type: 'poisonDmg',
+    payload: tick
+  }
+}
+
+export const bleedDmg = (tick) => {
+  return {
+    type: 'bleedDmg',
+    payload: tick
+  }
+}
+
 
 

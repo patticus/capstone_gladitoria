@@ -1,6 +1,9 @@
 const inititalState = {
   mySkill: {
     name: "Select a Skill!",
+    lvlUnlock: "1",
+    description: "Choose a skill, then press and hold on your opponent to use it.",
+    animation: "default"
   },
   selected: false
 }

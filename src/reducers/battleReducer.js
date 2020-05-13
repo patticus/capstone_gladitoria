@@ -1,10 +1,15 @@
 const initialState = {
   playerHealth: 0,
   opponentHealth: 0,
-  myHitMessage: "",
+  disableMessage: "",
+  numberStyle: "",
+  myPoisonMessage: "",
+  myBleedMessage: "",
   oppHitMessage: "",
   playerTurn: true,
-  activeBuffs: {}
+  activeBuffs: {},
+  poisoned: false,
+  bleeding: false
 }
 
 //total damage your gladiator has taken during the battle
@@ -23,16 +28,92 @@ const BattleState = (state = initialState, action) => {
         if (myHit === 0){
           return {
             ...state,
-            myHitMessage: `Miss!`,
-            playerTurn: false
+            disableMessage: "",
+            numberStyle: `hit-number`,
           }
         } else {
           return {
             ...state,
+            disableMessage: "",
             opponentHealth: oppDmgTaken,
-            myHitMessage: `Hit for ${myHit} damage!`,
-            playerTurn: false
+            numberStyle: `hit-number`,
           }
+        }
+      
+      // Crit attack
+      case "critAttack":
+        let critHit = action.payload
+        oppDmgTaken -= critHit
+        if (critHit === 0){
+          return {
+            ...state,
+            disableMessage: "",
+            numberStyle: `crit-number`,
+          }
+        } else {
+          return {
+            ...state,
+            disableMessage: "",
+            opponentHealth: oppDmgTaken,
+            numberStyle: `crit-number`,
+          }
+        }
+      
+      case "poisonDmg":
+        let poisonDmg = action.payload
+        oppDmgTaken -= poisonDmg
+        return {
+          ...state,
+          opponentHealth: oppDmgTaken,
+          poisoned: true,
+          numberStyle: `poison-number`,
+          myPoisonMessage: `${poisonDmg}`
+        }
+
+      case "bleedDmg":
+        let bleedDmg = action.payload
+        oppDmgTaken -= bleedDmg
+        return {
+          ...state,
+          opponentHealth: oppDmgTaken,
+          bleeding: true,
+          numberStyle: `bleed-number`,
+          myBleedMessage: `${bleedDmg}`
+        }
+
+      //Using Skill on your opponent
+      case "skill":
+        let skillDmg = action.payload
+        oppDmgTaken -= skillDmg
+        
+        return {
+          ...state,
+          disableMessage: "",
+          opponentHealth: oppDmgTaken,
+          numberStyle: `skill-number`,
+        }
+      
+      //applying buff
+      case "skillBuff":
+        let buff = action.payload
+        let buffMsg = buff.name
+        let activeBuffs = state.activeBuffs
+        activeBuffs[buff.name] = buff
+
+        return {
+          ...state,
+          disableMessage: "",
+          oppHitMessage: `Activated ${buffMsg}`,
+          activeBuffs: activeBuffs
+        }
+
+      //riposte
+      case "riposte":
+        let myRiposte = action.payload
+        oppDmgTaken -= myRiposte
+        return {
+          ...state,
+          opponentHealth: oppDmgTaken,
         }
 
         
@@ -67,39 +148,6 @@ const BattleState = (state = initialState, action) => {
           playerTurn: true
         }
 
-      //Using Skill on your opponent
-      case "skill":
-        let skillDmg = action.payload
-        oppDmgTaken -= skillDmg
-        
-        return {
-          ...state,
-          opponentHealth: oppDmgTaken,
-          myHitMessage: `Strike for ${skillDmg} damage!`,
-        }
-      
-      //applying buff
-      case "skillBuff":
-        let buff = action.payload
-        let buffMsg = buff.name
-        let activeBuffs = state.activeBuffs
-        activeBuffs[buff.name] = buff
-
-        return {
-          ...state,
-          oppHitMessage: `Activated ${buffMsg}`,
-          activeBuffs: activeBuffs
-        }
-
-      //riposte
-      case "riposte":
-        let myRiposte = action.payload
-        oppDmgTaken -= myRiposte
-        return {
-          ...state,
-          opponentHealth: oppDmgTaken,
-          myHitMessage: `Riposte for ${myRiposte} damage!`
-        }
 
       //Opponent Disabled Turn
       case "opponentDisabled":
@@ -107,7 +155,7 @@ const BattleState = (state = initialState, action) => {
         return {
           ...state,
           playerTurn: true,
-          myHitMessage: `${disableMessage}`
+          disableMessage: `${disableMessage}`
         }
 
       // Ends player's turn
@@ -116,9 +164,7 @@ const BattleState = (state = initialState, action) => {
           ...state,
           playerTurn: false
         }
-
-      
-        
+  
       //resets health values after battle is complete
       case "resetHealth":
         oppDmgTaken = 0
@@ -127,10 +173,15 @@ const BattleState = (state = initialState, action) => {
           ...state,
           playerHealth: 0,
           opponentHealth: 0,
-          myHitMessage: "",
+          disableMessage: "",
+          numberStyle: "",
           oppHitMessage: "",
+          myPoisonMessage: "",
+          myBleedMessage: "",
           playerTurn: true,
-          activeBuffs: {}
+          activeBuffs: {},
+          bleeding: false,
+          poisoned: false
         }
       default:
         return state

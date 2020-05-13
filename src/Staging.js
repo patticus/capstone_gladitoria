@@ -1,4 +1,5 @@
 import React from "react";
+import ReactTooltip from "react-tooltip";
 import {
   Route,
   NavLink,
@@ -6,9 +7,14 @@ import {
 import Arena from "./Arena";
 import { useSelector, useDispatch } from 'react-redux';
 import { setOpponent } from "./actions";
-import { diceRoll } from './data/funtions'
- 
+import { diceRoll } from './data/functions'
+
+  let statCount = 2
+  let increaseDisable = false
+  let continueDisable = true
+
 export default function Staging() {
+
 
   const dispatch = useDispatch()
   const opponentArray = useSelector(state => state.OpponentReducer) //Array of all opponent objects
@@ -16,6 +22,22 @@ export default function Staging() {
   const myGladiator = useSelector(state => state.ChosenGladiator.chosen) //Chosen gladiator object
   const allSkills = useSelector(state => state.SkillsReducer)
   const skillArray = [];
+  let skillUnlockMessage = ""
+
+  switch (myGladiator.level) {
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 9:
+      if (increaseDisable === false) {
+        statCount = 1
+      }
+      skillUnlockMessage = "New skill unlocked!"
+      break
+    default:
+      break
+  }
   
   allSkills.map((skill) => {
     if (skill.gladiator === myGladiator.name){
@@ -33,28 +55,51 @@ export default function Staging() {
     myGladiator.level += 1
     myGladiator.hp += (diceRoll(5)+5 + conBonus)
     myGladiator.exp = 0
-    myGladiator.nextLvlExp += myGladiator.nextLvlExp + (myGladiator.level * 100)
+    myGladiator.nextLvlExp += (myGladiator.level * 200)
     myGladiator.levelUp = true
   }
 
+  function tempLvlUp () {
+    myGladiator.level = 10
+    myGladiator.levelUp = true
+  }
+
+  function continueLvl () {
+    levelUp()
+    myGladiator.levelUp = false
+    statCount = 2
+    increaseDisable = false
+    continueDisable = true
+  }
 
   function strLvlUp () {
-    levelUp()
     myGladiator.str += 1
-    myGladiator.levelUp = false
+    myGladiator.critChance += 2
+    statCount -= 1
+    if (statCount === 0){
+      increaseDisable = true
+      continueDisable = false
+    }
   }
 
   function dexLvlUp () {
-    levelUp()
     myGladiator.dex += 1
     myGladiator.ac += 1
-    myGladiator.levelUp = false
+    statCount -= 1
+    if (statCount === 0){
+      increaseDisable = true
+      continueDisable = false
+    }
   }
 
   function conLvlUp () {
-    levelUp()
     myGladiator.con += 1
-    myGladiator.levelUp = false
+    myGladiator.blockValue += 1
+    statCount -= 1
+    if (statCount === 0){
+      increaseDisable = true
+      continueDisable = false
+    }
   }
 
 //----------------------------BEGIN RENDER HTML-----------------------------------
@@ -66,9 +111,12 @@ export default function Staging() {
         <div className="overlay-container">
           <div className="level-up">
             <h2>Level Up!</h2>
-            <h2>STR: {myGladiator.str} <NavLink to="/staging"><button onClick={strLvlUp}>+</button></NavLink></h2>
-            <h2>DEX: {myGladiator.dex} <NavLink to="/staging"><button onClick={dexLvlUp}>+</button></NavLink></h2>
-            <h2>CON: {myGladiator.con} <NavLink to="/staging"><button onClick={conLvlUp}>+</button></NavLink></h2>
+            <h2>{skillUnlockMessage}</h2>
+            <h2>Remaining points: {statCount} </h2>
+            <h2>STR: {myGladiator.str} <NavLink to="/staging"><button disabled={increaseDisable} onClick={strLvlUp}>+</button></NavLink></h2>
+            <h2>DEX: {myGladiator.dex} <NavLink to="/staging"><button disabled={increaseDisable} onClick={dexLvlUp}>+</button></NavLink></h2>
+            <h2>CON: {myGladiator.con} <NavLink to="/staging"><button disabled={increaseDisable} onClick={conLvlUp}>+</button></NavLink></h2>
+            <NavLink to="/staging"><button disabled={continueDisable} onClick={continueLvl}>Continue</button></NavLink>
           </div>
         </div>
       );
@@ -95,12 +143,13 @@ export default function Staging() {
                 <h2>DEX: {myGladiator.dex}</h2>
                 <h2>CON: {myGladiator.con}</h2>
                 <h2>WEAPONS: {myGladiator.weapons}</h2>
-                <NavLink to="/staging"><button onClick={levelUp}>LVL UP</button></NavLink>
+                <NavLink to="/staging"><button onClick={tempLvlUp}>LVL UP</button></NavLink>
                 <h2>SKILLS:</h2>
                 <div>
                   {skillArray.map((skill) => (
-                    <div className={`skill-icon ${skill.styleName}`}>{skill.name}</div>
+                    <img key={skill.id} alt="skill" data-border="true" data-effect="solid" data-html="true" data-tip={`<h3>${skill.name}</h3> <h4>Unlocks: Level ${skill.lvlUnlock}</h4> ${skill.description}`} data-class="tooltip" src={require(`./assets/images/skills/${skill.animation}.png`)} className={`skill-icon`}></img>
                   ))}
+                  <ReactTooltip />
                 </div>
               </div>
             </div>
@@ -108,7 +157,7 @@ export default function Staging() {
         <div className="staging-select">
           <h2>ARENA</h2>
           <div className="justify-center">
-            <div>
+            <div className = "overflow">
               {opponentArray.map((battle) => (
                 <div key={battle.id} className="justify-center">
                 <div tabIndex={battle.unlocked} key={battle.id} className={`arena-select ${battle.addClass}`} onFocus={() => dispatch(setOpponent(battle))}><div className="fl-left"><h2>{battle.battleTitle}</h2></div><div className="fl-right mini-arena"></div></div>

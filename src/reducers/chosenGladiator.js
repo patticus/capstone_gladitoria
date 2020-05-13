@@ -1,24 +1,27 @@
 const initialState = {
     chosen: {
-        id: 1,
+        id: 0,
         styleName: 'dimachaerus',
         name: 'Dimachaerus',
-        level: 1,
-        hp: 44,
-        ac: 13,
+        level: 10,
+        hp: 134,
+        ac: 12,
         exp: 0,
         nextLvlExp: 100,
         levelUp: false,
-        str: 15,
-        dex: 17,
-        con: 14,
+        str: 20,
+        dex: 20,
+        con: 20,
+        weapons: 'Dual Swords',
         maxDmg: 8,
         dmgBonus: 0,
         toHitBonus: 0,
-        weapons: 'Dual Swords',
+        critChance: 5,
         selected: true,
         blocked : false,
-        blockValue: 2
+        blockValue: 2,
+        passiveUnlocked: false,
+        passiveEffect: "dual-wield"
       },
     selected: false
 }
