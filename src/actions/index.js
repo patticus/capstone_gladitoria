@@ -81,6 +81,11 @@ export const skillBuff = (message) => {
   }
 }
 
+export const removeBuff = buff => ({
+  type: 'removeBuff',
+  payload: buff
+})
+
 export const riposte = (damage) => {
   return {
     type: 'riposte',

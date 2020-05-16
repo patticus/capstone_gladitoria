@@ -1,6 +1,24 @@
+
+
+export const Dimachaerus = "Dimachaerus";
+export const Secutor = "Secutor";
+export const Retiarius = "Retiarius";
+
+/**
+ * Gladiator Type
+ * @enum {number}
+ * 
+ */
+export const GladiatorType = {
+  DIMACHAERUS: 0,
+  SECUTOR: 1,
+  RETIARIUS: 2
+}
+
+
 const gladiatorData = [
   {
-    id: 0,
+    id: GladiatorType.DIMACHAERUS,
     styleName: 'dimachaerus',
     name: 'Dimachaerus',
     level: 1,
@@ -25,7 +43,8 @@ const gladiatorData = [
   },
 
   {
-    id: 1,
+    id: GladiatorType.SECUTOR,
+    dualWieldImage: null,
     styleName: 'secutor',
     name: 'Secutor',
     level: 1,
@@ -50,7 +69,8 @@ const gladiatorData = [
   },
 
   {
-    id: 2,
+    id: GladiatorType.RETIARIUS,
+    dualWieldImage: null,
     styleName: 'retiarius',
     name: 'Retiarius',
     level: 1,

@@ -1,8 +1,26 @@
   //ADD DIFFERENT AC VALUES FOR DIFFERENT BODY PARTS!
 
-const opponentData = [
+  /**
+   * Opponent Type
+   * @enum {number}
+   * 
+   */
+export const OpponentType = {
+  SLAVE: 0,
+  FOREIGN_SOLDIER: 1,
+  WEAK_GLADIATOR: 2,
+  TRAINED_THRAEX: 3,
+  SEASONED_FIGHTER: 4,
+  DEADLY_MURMILLO: 5,
+  UNCAGED_BEAST: 6,
+  GLADIATRIX: 7,
+  ROMAN_PRAETORIAN: 8,
+  MAXIMUS: 9
+}
+
+  const opponentData = [
   {
-    id: 0,
+    id: OpponentType.SLAVE,
     styleName: 'opponent1',
     battleTitle: 'BATTLE 1',
     name: 'Slave',
@@ -23,7 +41,7 @@ const opponentData = [
   },
 
   {
-    id: 1,
+    id: OpponentType.FOREIGN_SOLDIER,
     styleName: 'opponent2',
     battleTitle: 'BATTLE 2',
     name: 'Foreign Solider',
@@ -43,7 +61,7 @@ const opponentData = [
   },
 
   {
-    id: 2,
+    id: OpponentType.WEAK_GLADIATOR,
     styleName: 'opponent3',
     battleTitle: 'BATTLE 3',
     name: 'Weak Gladiator',
@@ -63,7 +81,7 @@ const opponentData = [
   },
 
   {
-    id: 3,
+    id: OpponentType.TRAINED_THRAEX,
     styleName: 'opponent4',
     battleTitle: 'BATTLE 4',
     name: 'Trained Thraex',
@@ -83,7 +101,7 @@ const opponentData = [
   },
 
   {
-    id: 4,
+    id: OpponentType.SEASONED_FIGHTER,
     styleName: 'opponent5',
     battleTitle: 'BATTLE 5',
     name: 'Seasoned Fighter',
@@ -103,7 +121,7 @@ const opponentData = [
   },
 
   {
-    id: 5,
+    id: OpponentType.DEADLY_MURMILLO,
     styleName: 'opponent6',
     battleTitle: 'BATTLE 6',
     name: 'Deadly Murmillo',
@@ -123,7 +141,7 @@ const opponentData = [
   },
 
   {
-    id: 6,
+    id: OpponentType.UNCAGED_BEAST,
     styleName: 'opponent7',
     battleTitle: 'BATTLE 7',
     name: 'Uncaged Beast',
@@ -143,7 +161,7 @@ const opponentData = [
   },
 
   {
-    id: 7,
+    id: OpponentType.GLADIATRIX,
     styleName: 'opponent8',
     battleTitle: 'BATTLE 8',
     name: 'Gladiatrix',
@@ -163,7 +181,7 @@ const opponentData = [
   },
 
   {
-    id: 8,
+    id: OpponentType.ROMAN_PRAETORIAN,
     styleName: 'opponent9',
     battleTitle: 'BATTLE 9',
     name: 'Roman Praetorian',
@@ -183,7 +201,7 @@ const opponentData = [
   },
 
   {
-    id: 9,
+    id: OpponentType.MAXIMUS,
     styleName: 'opponent10',
     battleTitle: 'FINAL',
     name: 'Maximus',
