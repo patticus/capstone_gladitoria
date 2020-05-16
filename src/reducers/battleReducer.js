@@ -106,6 +106,16 @@ const BattleState = (state = initialState, action) => {
           oppHitMessage: `Activated ${buffMsg}`,
           activeBuffs: activeBuffs
         }
+      
+      // removing buff
+      case "removeBuff":
+        const activeBuffsCopy = { ...state.activeBuffs };
+        delete activeBuffsCopy[action.payload]
+
+        return {
+          ...state,
+          activeBuffs: activeBuffsCopy
+        }
 
       //riposte
       case "riposte":
