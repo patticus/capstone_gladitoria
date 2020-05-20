@@ -5,6 +5,12 @@ export const setUser = (userObj) => {
   }
 }
 
+export const logOut = () => {
+  return {
+      type: "USER_LOGOUT",
+  }
+}
+
 export const setOpponent = (opponentObj) => {
   return {
       type: "SET_OPP",

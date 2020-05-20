@@ -75,14 +75,14 @@ export function animatePlayerAttack (gladName) {
   let attackFrame = document.getElementsByClassName('weapons-container')[0]
   attackFrame.src = require(`../assets/images/attack-${gladName}.png`)
   attackFrame.style.zIndex = "2"
-  setTimeout(() => {  attackFrame.src = require(`../assets/images/weapons-${gladName}.png`); attackFrame.style.zIndex = "0";}, 300)
+  setTimeout(() => {  attackFrame.src = require(`../assets/images/weapons-${gladName}.png`); attackFrame.style.zIndex = "0";}, 350)
 }
 
 export function animateDualWieldAttack (gladName) {
   let attackFrame = document.getElementsByClassName('weapons-container')[0]
   attackFrame.src = require(`../assets/images/dwattack-${gladName}.png`)
   attackFrame.style.zIndex = "2"
-  setTimeout(() => {  attackFrame.src = require(`../assets/images/weapons-${gladName}.png`); attackFrame.style.zIndex = "0";}, 300)
+  setTimeout(() => {  attackFrame.src = require(`../assets/images/weapons-${gladName}.png`); attackFrame.style.zIndex = "0";}, 350)
 }
 
 export function animateBuff(skill) {

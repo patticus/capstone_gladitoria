@@ -16,8 +16,7 @@ const JoinedReducers = combineReducers({
   ChosenOpponent,
   BattleState,
   SkillsReducer,
-  SelectedSkill
-  
+  SelectedSkill,
 });
 
 export default JoinedReducers;

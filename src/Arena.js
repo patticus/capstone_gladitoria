@@ -8,10 +8,11 @@ import Staging from "./Staging";
 import { useSelector, useDispatch } from 'react-redux';
 import { attack, critAttack, riposte, opponentAttack, 
           blockedAttack, resetHealth, endTurn, skillBuff, 
-          skill, setSkill, opponentDisabled, poisonDmg, bleedDmg} from './actions'
+          skill, setSkill, opponentDisabled, poisonDmg, bleedDmg, logOut} from './actions'
 import { diceRoll, sleep, fadeOut, applyPoisonStyle, oppGetHurt, dodgeShake, oppAttackAnimation, closeDropup, openDropup, bleedTickAnimation, animatePlayerAttack, animateDualWieldAttack, displayDmgNumber, animateBuff, addActiveBuff} from './data/functions'
 import ClickNHold from 'react-click-n-hold';
 
+let tutorial = true
 let stack = 0
 
 export default function Arena() {
@@ -192,6 +193,9 @@ export default function Arena() {
     }
     critRoll = diceRoll(100)
     atkRoll = diceRoll(20)
+    if(opponent.disabled > 0){
+      atkRoll += 20
+    }
 
     let anim = document.createElement("img")
     //CRIT condition
@@ -270,11 +274,11 @@ export default function Arena() {
     animatePlayerAttack(myGladiator.name)
     if (passiveEffect === "dual-wield") {
       let dwRoll = diceRoll(20) + toHitBonus
-      if (dwRoll >= 1) {
+      if (dwRoll >= 20) {
         normalAttack(e)
+        setTimeout(() => {animateDualWieldAttack(myGladiator.name) }, 250)
       }
-      setTimeout(() => {  dualWieldAttack(e) }, 200)
-      setTimeout(() => {animateDualWieldAttack(myGladiator.name) }, 200)
+      setTimeout(() => {  dualWieldAttack(e) }, 250)
     } else {
       normalAttack(e)
     }
@@ -478,15 +482,25 @@ export default function Arena() {
 
 
 
-/*-----------------DEFEAT CONDITION------------------*/
-
-  if (currentHP < 1){
-    alert("You Died")
-  }
   
 
 /*---------------------START HTML RENDER-------------------------*/
-
+  const renderTutorialScreen = () => {
+    if (tutorial === true) {
+      return (
+        <div className="overlay-container">
+          <div className="intro-screen">
+            <h5 className="message-title">RULES OF BATTLE</h5>
+            <h5 className="message-text">1. BASIC ATTCKS - Click or tap on your opponent to perform a basic attack with your weapon. Stronger and more dextrous gladiators will deal more damage and have a higher chance to hit.</h5>
+            <h5 className="message-text">2. SKILLS - To use one of your gladiator's unique skills, select it from the menu in the bottom right of the screen. Once your skill is selected, press and hold on your opponent to activate the skill. Skills can be devastating attacks, ways to disable your opponent, or buffs to your battle capabilities.</h5>
+            <h5 className="message-text">3. OPPONENT TURN - After you attack or use a skill, your opponent will strike back! Watch the bottom of your screen to anticipate where your opponent will strike, and click or tap on the flash to block an attack. Blocking will mitigate a small amount of damage. Gladiators with higher constitution can block more damage.</h5>
+            <h5 className="message-text">Good luck brave Gladiator!</h5>
+            <NavLink to="/arena"><button onClick={tutorial=false}>CONTINUE</button></NavLink>
+          </div>
+        </div>
+      );
+    }  
+  }
 
   const renderClickNHold = () => {
     if(mySkill.uses > 0) {
@@ -502,23 +516,61 @@ export default function Arena() {
     }
   }
 
+  async function delayVictoryMessage () {
+    await sleep(500)
+    let element = document.getElementsByClassName('victory-message')[0]
+    setTimeout(() => {  element.style.display = "flex" }, 1000)
+  }
+
   const renderVictoryScreen = () => {
     if (opponentHP < 1){
+      delayVictoryMessage()
       return (
-        <div className="overlay-container">
-            <div className="center-screen">
+        <div className="victory-container">
+            <div className="center-screen victory-message">
               <h1>VICTORY!</h1>
               <NavLink to="/staging"><button onClick={victory}>CONTINUE</button></NavLink>
             </div>
             <Route path="/staging" component={Staging}/>
         </div>
-      );
+      );  
+    }
+  }
+
+  function bloodyDeath (e) {
+    let anim = document.createElement("img")
+    anim.className = `opponent-animation`
+    anim.src = require(`./assets/images/animations/bloodsplat${e}.gif`)
+    document.getElementsByClassName('center-screen')[0].appendChild(anim)
+  }
+
+  const renderDefeatScreen = () => {
+    if (currentHP < 1){
+      bloodyDeath(1)
+      bloodyDeath(2)
+      bloodyDeath(3)
+      delayVictoryMessage()
+      return (
+        <div className="defeat-container">
+            <div className="center-screen victory-message">
+              <h1>A GLORIOUS DEATH!</h1>
+              <h2>Alas, your champion has been slain and you will not achieve victory in this tournament. Fear not, for more opportunites will arise in future tournaments!</h2>
+              <br></br>
+              <a href="http://localhost:3000/">MAIN MENU</a>
+              <br></br>
+              <NavLink to="/staging"><button onClick={victory}>$1.00</button></NavLink>
+            </div>
+            <Route path="/staging" component={Staging}/>
+        </div>
+      );  
     }
   }
 
   return (
     <div className="arena-bg" >
+      {renderTutorialScreen()}
       {renderVictoryScreen()}
+      {renderDefeatScreen()}
       <div className="top-center">
         <div className="lefta stroke"><h2>Opponent: {opponent.name} </h2></div>
         <div className="centera stroke"><h2>HP: {opponentHP} / {opponent.hp} </h2></div>
@@ -553,9 +605,6 @@ export default function Arena() {
             ))}
           </div>
         </div>
-        {/* <div className="dropup righta stroke"><h2>{mySkill.name} </h2>
-        
-        </div> */}
         <div className="righta">
           <img alt="selected-skill" data-border="true" data-effect="solid" data-html="true" data-tip={`<h3>${mySkill.name}</h3> <h4>Unlocks: Level ${mySkill.lvlUnlock}</h4> ${mySkill.description}`} data-class="tooltip" src={require(`./assets/images/skills/${mySkill.animation}.png`)} className={`skill-icon ${mySkill.addClass}`}></img>
           <ReactTooltip />
