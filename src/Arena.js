@@ -46,19 +46,14 @@ export default function Arena() {
     let bleedTick
     let myAC = myGladiator.ac
     let critChance = myGladiator.critChance
-    let dmgBonus = myGladiator.dmgBonus
-    let toHitBonus = myGladiator.toHitBonus
+    let toHitBonus = (myGladiator.dex - 15)
+    let dmgBonus = (myGladiator.str - 15)
     let oppToHitBonus = opponent.toHitBonus
     let blockValue = myGladiator.blockValue
 
 //Applies Dex and STR bonuses to hit and damage
-    if (myGladiator.dex > 15){
-      toHitBonus += (myGladiator.dex - 15)
-    }
+    
 
-    if (myGladiator.str > 15){
-      dmgBonus += (myGladiator.str - 15)
-    }
 
 //Applies passive skill at level 4
 
@@ -463,7 +458,9 @@ export default function Arena() {
     opponent.attackSpeed = opponent.baseAtkSpeed
     stack = 0
     dispatch(resetHealth()) // Resets health after battle is complete - reducer does both player and opponent health reset
-    unlockNext() //unlock next opponent battle
+
+    //unlock next opponent
+    unlockNext()
     myGladiator.blocked = false
     allSkills.forEach((skill) => { // Resets skill usage
       skill.used = false
@@ -491,11 +488,11 @@ export default function Arena() {
         <div className="overlay-container">
           <div className="intro-screen">
             <h5 className="message-title">RULES OF BATTLE</h5>
-            <h5 className="message-text">1. BASIC ATTCKS - Click or tap on your opponent to perform a basic attack with your weapon. Stronger and more dextrous gladiators will deal more damage and have a higher chance to hit.</h5>
-            <h5 className="message-text">2. SKILLS - To use one of your gladiator's unique skills, select it from the menu in the bottom right of the screen. Once your skill is selected, press and hold on your opponent to activate the skill. Skills can be devastating attacks, ways to disable your opponent, or buffs to your battle capabilities.</h5>
-            <h5 className="message-text">3. OPPONENT TURN - After you attack or use a skill, your opponent will strike back! Watch the bottom of your screen to anticipate where your opponent will strike, and click or tap on the flash to block an attack. Blocking will mitigate a small amount of damage. Gladiators with higher constitution can block more damage.</h5>
-            <h5 className="message-text">Good luck brave Gladiator!</h5>
-            <NavLink to="/arena"><button onClick={tutorial=false}>CONTINUE</button></NavLink>
+            <h5 className="message-text">1. BASIC ATTCKS - Click or tap on your opponent to perform a basic attack with your weapon.</h5>
+            <h5 className="message-text">2. SKILLS - To use one of your gladiator's unique skills, select it from the menu in the bottom right of the screen then press and hold on your opponent to activate the skill. Skills can be devastating attacks, ways to disable your opponent, or buffs to your battle capabilities.</h5>
+            <h5 className="message-text">3. OPPONENT TURN - After you attack or use a skill, your opponent will strike back! Watch the bottom of your screen to anticipate where your opponent will strike, and click or tap on the flash to block an attack. Blocking will mitigate a small amount of damage.</h5>
+            <h5 className="message-text">Good luck, brave Gladiator!</h5>
+            <NavLink to="/arena" className="navlink-bg" activeClassName="navlink-bg"><button className="button-bg btn-tutorial" onClick={tutorial=false}>CONTINUE</button></NavLink>
           </div>
         </div>
       );
@@ -523,13 +520,13 @@ export default function Arena() {
   }
 
   const renderVictoryScreen = () => {
-    if (opponentHP < 1){
+    if (opponentHP < 1 && opponent.name !== 'Maximus'){
       delayVictoryMessage()
       return (
         <div className="victory-container">
             <div className="center-screen victory-message">
               <h1>VICTORY!</h1>
-              <NavLink to="/staging"><button onClick={victory}>CONTINUE</button></NavLink>
+              <NavLink to="/staging" className="navlink-bg" activeClassName="navlink-bg"><button className="button-bg" onClick={victory}>CONTINUE</button></NavLink>
             </div>
             <Route path="/staging" component={Staging}/>
         </div>
@@ -554,9 +551,9 @@ export default function Arena() {
         <div className="defeat-container">
             <div className="center-screen victory-message">
               <h1>A GLORIOUS DEATH!</h1>
-              <h2>Alas, your champion has been slain and you will not achieve victory in this tournament. Fear not, for more opportunites will arise in future tournaments!</h2>
+              <h2>Alas, your champion has been slain and you will not achieve victory in this tournament. Fear not, for more opportunites to prove your Ludus' worth will arise in future tournaments!</h2>
               <br></br>
-              <a href="http://localhost:3000/">MAIN MENU</a>
+              <a className="button-bg" href="http://localhost:3000/">MAIN MENU</a>
               <br></br>
               <NavLink to="/staging"><button onClick={victory}>$1.00</button></NavLink>
             </div>
@@ -566,14 +563,38 @@ export default function Arena() {
     }
   }
 
+  const renderWinGame = () => {
+    if (opponentHP < 1 && opponent.name === 'Maximus'){
+      delayVictoryMessage()
+      return (
+        <div className="defeat-container">
+            <div className="center-screen victory-message">
+              <h1>A NEW CHAMPION!</h1>
+              <div className={`char-screen ${myGladiator.styleName}`}></div>
+              <h2>Your mighty {myGladiator.name} has proved his valor and beaten the undefeated Maximus! The Rudis has been bestowed and freedom has been granted. Your Ludus is now in the highest esteem in Rome.</h2>
+              <br></br>
+              <h1>Thanks for Playing!!!</h1>
+              <br></br>
+              <a href="http://localhost:3000/">MAIN MENU</a>
+              <br></br>
+            </div>
+        </div>
+      );  
+    }
+  }
+
+
   return (
     <div className="arena-bg" >
       {renderTutorialScreen()}
       {renderVictoryScreen()}
       {renderDefeatScreen()}
+      {renderWinGame()}
       <div className="top-center">
-        <div className="lefta stroke"><h2>Opponent: {opponent.name} </h2></div>
-        <div className="centera stroke"><h2>HP: {opponentHP} / {opponent.hp} </h2></div>
+        <div className="center-hpnumbers">
+        <h2 className="hp-text">{opponent.name} </h2>
+        <h2 className="hp-text">HP: {opponentHP} / {opponent.hp} </h2>
+        </div>
       </div>
       
       <div className="center-screen">
@@ -592,7 +613,7 @@ export default function Arena() {
         <img alt="weapons" src={require(`./assets/images/weapons-${myGladiator.name}.png`)} className="weapons-container" id="weaponBuff"></img>
       </div>
       
-      <div className="bottom-center" disabled={!battleState.playerTurn}>
+      <div className="bottom-center on-top" disabled={!battleState.playerTurn}>
         <div className="dropup righta stroke">
         <div className="dropbtn" onClick={openDropup}>SKILL</div>
           <div className="dropup-content">
@@ -606,10 +627,15 @@ export default function Arena() {
           </div>
         </div>
         <div className="righta">
-          <img alt="selected-skill" data-border="true" data-effect="solid" data-html="true" data-tip={`<h3>${mySkill.name}</h3> <h4>Unlocks: Level ${mySkill.lvlUnlock}</h4> ${mySkill.description}`} data-class="tooltip" src={require(`./assets/images/skills/${mySkill.animation}.png`)} className={`skill-icon ${mySkill.addClass}`}></img>
+          <img alt="selected-skill" data-border="true" data-effect="solid" data-html="true" data-tip={`<h3>${mySkill.name}</h3> ${mySkill.description}`} data-class="tooltip" src={require(`./assets/images/skills/${mySkill.animation}.png`)} className={`skill-icon icon-battle ${mySkill.addClass}`}></img>
           <ReactTooltip />
         </div>
-        <div className="centera stroke"><h2>HP: {currentHP} / {myGladiator.hp}</h2></div> 
+        </div>
+
+        <div className="bottom-center" disabled={!battleState.playerTurn}>
+        <div className="center-hpnumbers">
+          <h2 className="hp-text left-mobile">HP: {currentHP} / {myGladiator.hp}</h2>
+        </div>
         </div>
 
       

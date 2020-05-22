@@ -19,9 +19,10 @@ const gladiatorData = [
     critChance: 5,
     selected: true,
     blocked : false,
-    blockValue: 2,
+    blockValue: 3,
     passiveUnlocked: false,
-    passiveEffect: "dual-wield"
+    passiveEffect: "dual-wield",
+    description: "The Dimachaerus uses two swords to whittle their opponent with precision strikes. They typicially wear lighter armor for finesse of quick movements, so they are not able to take as many direct attacks. They primarily rely on Dexterity to land strikes, dodge attacks, and enahnce their skills."
   },
 
   {
@@ -44,9 +45,10 @@ const gladiatorData = [
     weapons: 'Axe and Shield',
     selected: false,
     blocked : false,
-    blockValue: 3,
+    blockValue: 4,
     passiveUnlocked: false,
-    passiveEffect: "sever"
+    passiveEffect: "sever",
+    description: "The Secutor overwhelms their opponent with raw power and heavy strikes. They can sever an opponent's limbs with their mighty axe, and block the heaviest of blows with their scutum. They primarily rely on Strength to deal more damage and Constitution to enhance their blocking capabilities."
   },
 
   {
@@ -69,9 +71,10 @@ const gladiatorData = [
     weapons: 'Trident and Net',
     selected: false,
     blocked : false,
-    blockValue: 2,
+    blockValue: 3,
     passiveUnlocked: false,
-    passiveEffect: "prod"
+    passiveEffect: "prod",
+    description: "The Retiarius wields the trident to keep a safe distance from their opponent, then unleashes their net to trap them at the right moment. They use a mix of light and heavy armor and they specialize in prodding attacks, bleeds, and poisons to wear down their opponent into submission. A balanced mix of stats is recommended."
   }
 ]
 
