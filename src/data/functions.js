@@ -70,6 +70,22 @@ export function displayDmgNumber (dmg, styleClass) {
   setTimeout(() => {  dmgNumber.parentNode.removeChild(dmgNumber); }, 1400)
 }
 
+export function displayHurtNumber (dmg, styleClass) {
+  let dmgMessage = `${dmg}`
+  if (dmg === null) {
+    dmgMessage = "Miss!"
+  }
+  let dmgNumber = document.createElement("div")
+  dmgNumber.className = styleClass
+  if (styleClass === "hurt-block-number"){
+    dmgNumber.innerText = `${dmgMessage}(blocked!)`
+  } else {
+    dmgNumber.innerText = `${dmgMessage}`
+  }
+  document.getElementsByClassName('hurt-num')[0].appendChild(dmgNumber)
+  setTimeout(() => {  dmgNumber.parentNode.removeChild(dmgNumber); }, 1400)
+}
+
 
 export function animatePlayerAttack (gladName) {
   let attackFrame = document.getElementsByClassName('weapons-container')[0]
@@ -96,3 +112,34 @@ export function addActiveBuff(name) {
   let element = document.getElementById("weaponBuff")
   element.classList.add(`${name}-active`)
 }
+
+export const insults = [
+  "Weak",
+  "All stones and no pillar!",
+  "<i>Fututus et mori</i>",
+  "Pitiful",
+  "<i>Cacare!</i>",
+  "They'll feed you to the dogs!",
+  "Why stir up the ashes in your tomb?",
+  "You pretend you are one of the big boys",
+  "You stink like guts!",
+  "Old, like putrid gore...",
+  "Blood!",
+  "Lose your mind and your eyes",
+  "The worms and maggots will know you soon",
+  "Chains and death...",
+  "We kill for glory",
+  "The rats will gnaw your bones",
+  "Carrion for the crows",
+  "A man must accept his fate",
+  "Fall to your knees already!",
+  "I'll scrape you from the bottom of my heel",
+  "Did they pull you from the pits?",
+  "A gladiator does not fear death",
+  "Pitiful",
+  "<i>Futuo!</i>",
+  "<i>Ede faecum!</i>",
+  "<i>Filius canis! </i>",
+  "<i>Irrumator!</i>",
+  "<i>Vappa ac nebulo!</i>"
+]

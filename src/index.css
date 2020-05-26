@@ -11,6 +11,8 @@
   max-width: 100%;
 }
 
+
+
 .tooltip, .tooltip-skills {
   max-width: 40%;
   width: 180px;
@@ -20,7 +22,7 @@
 }
 
 body {
-  background-color: rgb(103, 255, 209);
+  background-color: rgb(0, 0, 0);
   margin: 0 auto;
 }
 
@@ -36,6 +38,47 @@ div[disabled] {
   text-align: center;
   min-height: 100vh;
   position: relative;
+}
+
+.chat-bubble {
+  position: absolute;
+  width: 100px;
+  height: auto;
+  left: 41%;
+  top: 20%;
+  border: 1px solid black;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bolder;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 7px;
+  animation: fadeout 2.5s ease-out;
+}
+
+.chat-bubble:after {
+  content: '';
+	position: absolute;
+	bottom: 0;
+	right: 25%;
+	width: 0;
+	height: 0;
+	border: 19px solid transparent;
+	border-top-color: #ffffff;
+	border-bottom: 0;
+	border-right: 0;
+	margin-left: -9.5px;
+	margin-bottom: -19px;
+}
+
+@keyframes fadeout {
+  0% {opacity: 1;}
+  70% {opacity: 1;}
+  100% {opacity: 0;}
 }
 
 .center-content {
@@ -105,6 +148,10 @@ div[disabled] {
   font-size: 2em;
   font-weight: 600;
   position: relative;
+}
+
+a.button-bg {
+  z-index: 10;
 }
 
 .btn-tutorial {
@@ -277,6 +324,23 @@ a {
 }
 
 @media only screen and (max-width: 1000px) {
+  .chat-bubble {
+    left: 10%;
+  }
+
+  .bottomleft h2 {
+    font-size: 14px;
+  }
+  .skill-icon {
+    height: 35px;
+    width: 35px;
+    margin: 3px;
+    background-color: white;
+    float: left;
+    border: 2px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, rgb(255, 210, 0), rgb(255, 227, 149));
+  }
   .char-select0 {
     height: 250px;
     width: 150px;
@@ -513,6 +577,23 @@ a {
   position: relative;
 }
 
+.bottomleft h2 {
+  font-size: 14px;
+}
+
+.quadrant-container-desktop {
+  padding: 5px;
+  box-sizing: border-box;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 50vh;
+  position: relative;
+}
+
 .bg-topleft {
   background-image: url(./assets/images/windowbg3.png);
   background-size: 100% 100%;
@@ -580,18 +661,13 @@ a {
 } 
 
 
-.staging-character {
-  height: 500px;
-  width: 600px;
-  margin: 30px;
-  background-color: rgb(0, 0, 0, 0.7);
-}
-
 .staging-select {
-  height: 500px;
+  height: 450px;
   width: 600px;
   margin: 30px;
-  background-color: rgb(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .fl-right {
@@ -669,7 +745,7 @@ a {
   bottom: 0;
   position: absolute;
   width: 100%;
-  z-index: 7;
+  z-index: 4;
 }
 
 .on-top {
@@ -717,10 +793,50 @@ a {
   text-align: center;
   width: 300px;
   height: auto;
-  background-color: brown;
+  background-color: transparent;
+  background-image: url(./assets/images/parchmentFrame.png);
+  background-size: 100% 100%;
+  padding-top: 10px;
   z-index: 11;
   position: absolute;
 }
+
+.level-up h2 {
+  color: rgb(56, 0, 0);
+  text-shadow: none;
+  filter: drop-shadow(0px 0px 0px rgb(0, 0, 0));
+  float: left;
+}
+
+.level-up div {
+  float: left;
+}
+
+.lvlup-btn {
+  margin-left: 5px;
+  float: right;
+  width: 26px;
+  height: 26px;
+  font-size: 16px;
+  font-weight: bolder;
+  border: 1px solid black;
+  border-radius: 4px;
+  color: wheat;
+  background-color: rgb(80, 0, 0);
+  box-shadow: inset 0 0 3px #000000;
+  outline: none;
+}
+
+.lvlup-btn:active {
+  background-color: rgb(44, 0, 0);
+  font-size: 14px;
+}
+
+.lvlup-btn[disabled] {
+  filter: grayscale(100%)
+}
+
+
 
 .message-title {
   font-size: 28px;
@@ -819,8 +935,8 @@ a {
 }
 
 .skill-icon {
-  height: 35px;
-  width: 35px;
+  height: 42px;
+  width: 42px;
   margin: 3px;
   background-color: white;
   float: left;
@@ -878,6 +994,33 @@ a {
   max-height: 100%;
 }
 
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(0,0,0);
+  border: 6px solid transparent;
+  background-clip: content-box; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(63, 0, 0);
+  border: 2px solid rgb(0,0,0);
+  box-shadow: inset 0 0 5px #000000;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: wheat;
+  border: 2px solid rgb(0,0,0);
+  box-shadow: inset 0 0 6px #000000;
+  border-radius: 8px;
+}
+
+
+
 .small-margin {
   margin-top: 15px;
 }
@@ -907,6 +1050,17 @@ a {
   font-weight: bolder;
   color: aliceblue;
   position: absolute;
+}
+
+.hurt-num {
+  height: 40px;
+  width: 70px;
+  bottom: 9%;
+  font-size: 30px;
+  font-weight: bolder;
+  color: aliceblue;
+  position: absolute;
+  z-index: 5;
 }
 
 .disable-message {
@@ -980,6 +1134,60 @@ a {
   animation: dotNumbers 1.5s ease-out;
 }
 
+.heal-number {
+  right: 0;
+  top: 0;
+  font-size: 30px;
+  color: rgb(50, 167, 112);
+  position: absolute;
+  animation: critNumbers 1.5s ease-out;
+}
+
+.hurt-number {
+  left: 0;
+  top: 0;
+  font-size: 20px;
+  color: rgb(202, 0, 0);
+  position: absolute;
+  animation: dmgNumbers 1.5s ease-out;
+}
+
+.hurt-miss {
+  left: 0;
+  top: 0;
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+  position: absolute;
+  animation: hurtNumbers 1.5s ease-out;
+}
+
+.hurt-block-number {
+  right: 0;
+  top: 0;
+  font-size: 20px;
+  color: rgb(230, 228, 137);
+  position: absolute;
+  animation: hurtNumbers 1.5s ease-out;
+}
+
+.hurt-crit-number {
+  left: 0;
+  top: 0;
+  font-size: 35px;
+  color: rgb(167, 34, 1);
+  position: absolute;
+  animation: deathNumbers 1.5s ease-out;
+}
+
+.hurt-skill-number {
+  left: 0;
+  bottom: 0;
+  font-size: 5px;
+  color: rgb(85, 17, 0);
+  position: absolute;
+  animation: deathNumbers 1.5s ease-out;
+}
+
 @keyframes fadeOut {
   0% {}
   100% {
@@ -1003,6 +1211,21 @@ a {
   }
 }
 
+@keyframes deathNumbers {
+  0% {top: 3%}
+  5% {
+    font-size: 70px;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: 8%;
+    font-size: 80px;
+    opacity: 0;
+  }
+}
+
 @keyframes critNumbers {
   0% {}
   5% {
@@ -1014,6 +1237,21 @@ a {
   100% {
     font-size: 65px;
     bottom: 50%;
+    opacity: 0;
+  }
+}
+
+@keyframes hurtNumbers {
+  0% {}
+  2% {
+    font-size: 30px;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    font-size: 45px;
+    margin: -0.5em;
     opacity: 0;
   }
 }
@@ -1078,6 +1316,52 @@ a {
 }
 
 /* ACTIVE BUFF EFFECTS */
+
+.heal {
+  animation: heal 1s ease-out;
+}
+
+@keyframes heal {
+  0% {}
+  70% {
+    filter: hue-rotate(40deg) drop-shadow(0px 0px 10px rgb(0, 217, 255))
+  }
+  100% {
+    filter: hue-rotate(0deg) drop-shadow(0px 0px 0px rgb(84, 229, 255))
+  }
+}
+
+
+.opponent-skill-active {
+  /* filter: contrast(150%) drop-shadow(0px 0px 13px rgb(0, 0, 0)); */
+  animation: opponentSkillAnim 1.2s ease-out;
+  animation-fill-mode: forwards; 
+}
+
+.opponent-skill-attack {
+  animation: oppSkillAttack 0.5s ease-out;
+}
+
+@keyframes opponentSkillAnim {
+  0% {}
+  100% {
+    filter: grayscale(75%) contrast(220%) drop-shadow(0px 0px 13px rgb(0, 0, 0));
+  }
+}
+
+@keyframes oppSkillAttack {
+  0% {}
+  25% {
+    filter: contrast(100%) drop-shadow(0px 0px 1px rgb(95, 0, 0)) 
+  }
+  25% {
+    filter: contrast(400%) drop-shadow(0px 0px 20px rgb(187, 0, 0))
+  }
+  100% {
+    filter: contrast(100%) drop-shadow(0px 0px 0px rgb(255, 0, 0));
+  }
+}
+
 
 .riposte-active {
   filter: contrast(200%)

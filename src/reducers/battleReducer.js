@@ -92,6 +92,15 @@ const BattleState = (state = initialState, action) => {
           opponentHealth: oppDmgTaken,
           numberStyle: `skill-number`,
         }
+
+      case "heal":
+        let healAmount = action.payload
+        myDmgTaken += healAmount
+        
+        return {
+          ...state,
+          playerHealth: healAmount,
+        } 
       
       //applying buff
       case "skillBuff":
@@ -124,14 +133,14 @@ const BattleState = (state = initialState, action) => {
         if (oppHit === null){
           return {
             ...state,
-            oppHitMessage: "Miss!",
+            oppHitMessage: "",
             playerTurn: true
           }
         } else {
           return {
             ...state,
             playerHealth: myDmgTaken,
-            oppHitMessage: `Taken ${oppHit} damage!`,
+            oppHitMessage: "",
             playerTurn: true
           }
         }
@@ -144,7 +153,7 @@ const BattleState = (state = initialState, action) => {
         return {
           ...state,
           playerHealth: myDmgTaken,
-          oppHitMessage: `Taken ${partialHit} (${blockAmount} blocked!)`,
+          oppHitMessage: "",
           playerTurn: true
         }
 

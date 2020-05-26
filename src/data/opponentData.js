@@ -8,7 +8,9 @@ const opponentData = [
     name: 'Slave',
     level: 1,
     hp: 30,
-    ac: 8,
+    headAC: 8,
+    bodyAC: 8,
+    legsAC: 8,
     expVal: 50,
     maxDmg: 8,
     dmgBonus: 1,
@@ -19,7 +21,7 @@ const opponentData = [
     unlocked: 1,
     addClass: "",
     difficulty: "Difficulty: Easy",
-    disabled: 0
+    disabled: 0,
   },
 
   {
@@ -29,7 +31,9 @@ const opponentData = [
     name: 'Foreign Solider',
     level: 2,
     hp: 45,
-    ac: 9,
+    headAC: 9,
+    bodyAC: 9,
+    legsAC: 9,
     expVal: 175,
     maxDmg: 9,
     dmgBonus: 1,
@@ -49,7 +53,9 @@ const opponentData = [
     name: 'Weak Gladiator',
     level: 3,
     hp: 60,
-    ac: 10,
+    headAC: 10,
+    bodyAC: 10,
+    legsAC: 10,
     expVal: 400,
     maxDmg: 9,
     dmgBonus: 2,
@@ -69,7 +75,9 @@ const opponentData = [
     name: 'Trained Thraex',
     level: 4,
     hp: 78,
-    ac: 11,
+    headAC: 11,
+    bodyAC: 11,
+    legsAC: 11,
     expVal: 700,
     maxDmg: 10,
     dmgBonus: 3,
@@ -89,7 +97,9 @@ const opponentData = [
     name: 'Seasoned Fighter',
     level: 5,
     hp: 90,
-    ac: 12,
+    headAC: 12,
+    bodyAC: 12,
+    legsAC: 12,
     expVal: 1100,
     maxDmg: 10,
     dmgBonus: 3,
@@ -109,7 +119,9 @@ const opponentData = [
     name: 'Deadly Murmillo',
     level: 6,
     hp: 99,
-    ac: 13,
+    headAC: 13,
+    bodyAC: 13,
+    legsAC: 13,
     expVal: 1400,
     maxDmg: 10,
     dmgBonus: 4,
@@ -119,7 +131,9 @@ const opponentData = [
     weapons: 'Gladius',
     unlocked: null,
     addClass: "grayscale",
-    difficulty: "Difficulty: Hard"
+    difficulty: "Difficulty: Hard",
+    hasSkill: true,
+    skillCharging: false
   },
 
   {
@@ -129,7 +143,9 @@ const opponentData = [
     name: 'Uncaged Beast',
     level: 7,
     hp: 130,
-    ac: 10,
+    headAC: 10,
+    bodyAC: 10,
+    legsAC: 10,
     expVal: 1800,
     maxDmg: 10,
     dmgBonus: 5,
@@ -139,7 +155,9 @@ const opponentData = [
     weapons: 'Claws',
     unlocked: null,
     addClass: "grayscale",
-    difficulty: "Difficulty: hard"
+    difficulty: "Difficulty: Hard",
+    hasSkill: true,
+    skillCharging: false
   },
 
   {
@@ -149,7 +167,9 @@ const opponentData = [
     name: 'Gladiatrix',
     level: 8,
     hp: 145,
-    ac: 14,
+    headAC: 13,
+    bodyAC: 13,
+    legsAC: 13,
     expVal: 2400,
     maxDmg: 12,
     dmgBonus: 6,
@@ -159,7 +179,9 @@ const opponentData = [
     weapons: 'Gladius',
     unlocked: null,
     addClass: "grayscale",
-    difficulty: "Difficulty: Very hard"
+    difficulty: "Difficulty: Very hard",
+    hasSkill: true,
+    skillCharging: false
   },
 
   {
@@ -169,7 +191,9 @@ const opponentData = [
     name: 'Roman Praetorian',
     level: 9,
     hp: 190,
-    ac: 15,
+    headAC: 14,
+    bodyAC: 14,
+    legsAC: 14,
     expVal: 2900,
     maxDmg: 12,
     dmgBonus: 7,
@@ -179,7 +203,9 @@ const opponentData = [
     weapons: 'Gladius',
     unlocked: null,
     addClass: "grayscale",
-    difficulty: "Difficulty: Very hard"
+    difficulty: "Difficulty: Very hard",
+    hasSkill: true,
+    skillCharging: false
   },
 
   {
@@ -189,7 +215,9 @@ const opponentData = [
     name: 'Maximus',
     level: 10,
     hp: 300,
-    ac: 16,
+    headAC: 15,
+    bodyAC: 15,
+    legsAC: 15,
     expVal: 5500,
     maxDmg: 15,
     dmgBonus: 6,
@@ -197,9 +225,11 @@ const opponentData = [
     attackSpeed: 500,
     baseAtkSpeed: 500,
     weapons: 'Gladius',
-    unlocked: null,
+    unlocked: 1,
     addClass: "grayscale",
-    difficulty: "Difficulty: Insane"
+    difficulty: "Difficulty: Insane",
+    hasSkill: true,
+    skillCharging: false
   }
 ]
 

@@ -23,23 +23,25 @@ const skillsData = [
   },
   {
     id: 1,
-    name: "Dual Slash",
+    name: "Pinpoint",
     gladiator: "Dimachaerus",
     uses: 1,
     used: false,
+    bleed: true,
     passive: false,
     buff: false,
     maxUses: 1,
-    dmgBonus: 4,
+    dmgBonus: 0,
     multiplier: 0.5,
-    attacks: 2,
-    maxAttacks: 2,
+    attacks: 1,
+    maxAttacks: 1,
     lvlUnlock: 2,
-    animation: "dual-slash",
-    disableTurns: 0,
+    animation: "pinpoint",
+    disableTurns: 1,
+    disableMessage: "Paralyzed!",
     addClass: "",
     animContainer: "skill-animation",
-    description: "Slash at your opponent with both weapons."
+    description: "A series of quick stabs to the most vulnerable parts of your opponent's body. Slows your opponent's attack speed, briefly stuns them, and severs their arteries."
   },
   {
     id: 2,
@@ -53,7 +55,7 @@ const skillsData = [
     disableTurns: 0,
     addClass: "",
     animContainer: "skill-animation",
-    description: "Passive Skill. You have become skilled in the art of two-weapon combat. You will sometimes attack with both weapons at once. More dextrous gladiators can better master this art."
+    description: "Passive Skill. You have become skilled in the art of dual weapon combat. Your basic attacks will strike with both weapons, though you may have a harder time landing solid blows with your offhand."
   },
   {
     id: 3,
@@ -78,25 +80,23 @@ const skillsData = [
   },
   {
     id: 4,
-    name: "Pinpoint",
+    name: "Flurry Rush",
     gladiator: "Dimachaerus",
     uses: 1,
     used: false,
-    bleed: true,
     passive: false,
     buff: false,
     maxUses: 1,
     dmgBonus: 4,
     multiplier: 0.5,
-    attacks: 1,
-    maxAttacks: 1,
+    attacks: 2,
+    maxAttacks: 2,
     lvlUnlock: 8,
-    animation: "pinpoint",
-    disableTurns: 1,
-    disableMessage: "Paralyzed!",
+    animation: "dual-slash",
+    disableTurns: 0,
     addClass: "",
     animContainer: "skill-animation",
-    description: "A series of quick stabs to the most vulnerable parts of your opponent's body. Slows your opponent's attack speed, briefly stuns them, and severs their arteries."
+    description: "Unleash a flurry of attacks with both swords. The rush from your assault steels your nerves, allowing you to gain some hit points."
   },
   {
     id: 5,
@@ -184,15 +184,15 @@ const skillsData = [
     buff: true,
     buffEffect: {
       name: "rage",
-      duration: 7,
-      maxDuration: 7
+      duration: 8,
+      maxDuration: 8
     },
     maxUses: 1,
     lvlUnlock: 6,
     animation: "rage-buff",
     disableTurns: 0,
     animContainer: "skill-animation",
-    description: "Activate to unleash your rage. For several turns, every time you block you feel a rush of adrenaline, increasing the strength of your attacks."
+    description: "Unleash your rage! For several turns, every time you block you feel a rush of adrenaline, increasing the strength of your attacks and your reaction time to block."
   },
   {
     id: 10,
@@ -203,10 +203,10 @@ const skillsData = [
     passive: false,
     buff: false,
     maxUses: 1,
-    dmgBonus: 0,
+    dmgBonus: 5,
     multiplier: 0.5,
     executeBonus: function (maxHp, currHp, disabled) {
-      let exeBonus = Math.ceil((maxHp/currHp)*4)
+      let exeBonus = Math.ceil((maxHp/currHp)*5)
       if (disabled > 0) {exeBonus += 10}
       return exeBonus
     },
@@ -227,8 +227,8 @@ const skillsData = [
     buff: true,
     buffEffect: {
       name: "champion",
-      duration: 6,
-      maxDuration: 6
+      duration: 7,
+      maxDuration: 7
     },
     uses: 1,
     maxUses: 1,
@@ -275,7 +275,7 @@ const skillsData = [
     maxAttacks: 1,
     lvlUnlock: 2,
     animation: "throw-net",
-    disableTurns: 4,
+    disableTurns: 3,
     disableMessage: "Trapped!!!",
     animContainer: "net-animation",
     description: "Throw your net at your opponent, entangling and trapping them for several rounds."

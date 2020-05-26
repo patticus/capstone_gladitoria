@@ -59,6 +59,13 @@ export const skill = (damage) => {
   }
 }
 
+export const heal = (amount) => {
+  return {
+    type: 'heal',
+    payload: amount
+  }
+}
+
 export const endTurn = () => {
   return {
     type: 'endTurn',
