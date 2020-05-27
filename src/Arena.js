@@ -222,7 +222,7 @@ export default function Arena() {
   /*---------------------COMBAT MY TURN---------------------------*/
 
   //**ADD DIFFERENT AC VALUES FOR DIFFERENT BODY PARTS!
-  function normalAttack(e) {
+  function basicAttack(e) {
     let anim = document.createElement("img");
     if (passiveEffect === "sever") {
       critChance += 15;
@@ -255,7 +255,7 @@ export default function Arena() {
     if (bodyPart === "head") {
       //CRIT condition
       if (critRoll <= critChance) {
-        myHit = Math.ceil(myGladiator.maxDmg * 1.5) + dmgBonus;
+        myHit = Math.ceil(((myGladiator.maxDmg * 1.5) + dmgBonus)*opponent.headModifier);
         dispatch(critAttack(myHit));
         if ("poisonTrident" in activeBuffs) {
           battleState.poisoned = true;
@@ -270,7 +270,7 @@ export default function Arena() {
         displayDmgNumber(myHit, "crit-number");
         //HIT condition
       } else if (atkRoll + toHitBonus >= opponent.headAC) {
-        myHit = diceRoll(myGladiator.maxDmg) + dmgBonus;
+        myHit = Math.ceil((diceRoll(myGladiator.maxDmg) + dmgBonus)*opponent.headModifier);
         dispatch(attack(myHit));
         if ("poisonTrident" in activeBuffs) {
           battleState.poisoned = true;
@@ -300,7 +300,7 @@ export default function Arena() {
     if (bodyPart === "body") {
       //CRIT condition
       if (critRoll <= critChance) {
-        myHit = Math.ceil(myGladiator.maxDmg * 1.5) + dmgBonus;
+        myHit = Math.ceil(((myGladiator.maxDmg * 1.5) + dmgBonus)*opponent.bodyModifier);
         dispatch(critAttack(myHit));
         if ("poisonTrident" in activeBuffs) {
           battleState.poisoned = true;
@@ -312,7 +312,7 @@ export default function Arena() {
         displayDmgNumber(myHit, "crit-number");
         //HIT condition
       } else if (atkRoll + toHitBonus >= opponent.bodyAC) {
-        myHit = diceRoll(myGladiator.maxDmg) + dmgBonus;
+        myHit = Math.ceil((diceRoll(myGladiator.maxDmg) + dmgBonus)*opponent.bodyModifier);
         dispatch(attack(myHit));
         if ("poisonTrident" in activeBuffs) {
           battleState.poisoned = true;
@@ -342,7 +342,7 @@ export default function Arena() {
     if (bodyPart === "legs") {
       //CRIT condition
       if (critRoll <= critChance) {
-        myHit = Math.ceil(myGladiator.maxDmg * 1.5) + dmgBonus;
+        myHit = Math.ceil(((myGladiator.maxDmg * 1.5) + dmgBonus)*opponent.legsModifier);
         dispatch(critAttack(myHit));
         if ("poisonTrident" in activeBuffs) {
           battleState.poisoned = true;
@@ -362,7 +362,7 @@ export default function Arena() {
         displayDmgNumber(myHit, "crit-number");
         //HIT condition
       } else if (atkRoll + toHitBonus >= opponent.legsAC) {
-        myHit = diceRoll(myGladiator.maxDmg) + dmgBonus;
+        myHit = Math.ceil((diceRoll(myGladiator.maxDmg) + dmgBonus)*opponent.legsModifier);
         dispatch(attack(myHit));
         if ("poisonTrident" in activeBuffs) {
           battleState.poisoned = true;
@@ -450,7 +450,7 @@ export default function Arena() {
   async function myAttackRoll(e) {
     animatePlayerAttack(myGladiator.name);
     if (passiveEffect === "dual-wield") {
-      normalAttack(e);
+      basicAttack(e);
       setTimeout(() => {
         animateDualWieldAttack(myGladiator.name);
       }, 250);
@@ -458,7 +458,7 @@ export default function Arena() {
         dualWieldAttack(e);
       }, 250);
     } else {
-      normalAttack(e);
+      basicAttack(e);
     }
     if (battleState.poisoned) {
       applyPoisonStyle();
@@ -761,7 +761,7 @@ export default function Arena() {
             <h5 className="message-title">RULES OF BATTLE</h5>
             <h5 className="message-text">
               1. BASIC ATTCKS - Click or tap on your opponent to perform a basic
-              attack with your weapon.
+              attack with your weapon. Aim your strike! Your opponent may be weak or resilient on certain areas of their body.
             </h5>
             <h5 className="message-text">
               2. SKILLS - To use one of your gladiator's unique skills, select

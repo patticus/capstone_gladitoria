@@ -38,7 +38,7 @@ export default function Home(){
     return (
       <div className="start-container start-bg">
         {renderIntroScreen()}
-          <h1> LUDUS GLADITORIA</h1>
+          <img src={require("./assets/images/logo.png")} className="logo"></img>
           <NavLink to="/" className="navlink-bg" activeClassName="navlink-bg"><button className="button-bg" onClick={showIntroMessage}>START</button></NavLink>
       </div>
     );

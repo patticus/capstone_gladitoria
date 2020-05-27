@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cinzel&display=swap");
 
 * {
   -webkit-touch-callout: none;
@@ -7,13 +7,12 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   max-width: 100%;
 }
 
-
-
-.tooltip, .tooltip-skills {
+.tooltip,
+.tooltip-skills {
   max-width: 40%;
   width: 180px;
   padding: 10px 5px 10px 5px;
@@ -40,6 +39,20 @@ div[disabled] {
   position: relative;
 }
 
+.staging-bg {
+  background-image: url(./assets/images/staging-bg.jpg);
+  background-size: cover;
+  height: 100%;
+}
+
+.arena-bg {
+  background-image: url(./assets/images/arena-bg.png);
+  background-size: 100% 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
 .chat-bubble {
   position: absolute;
   width: 100px;
@@ -61,24 +74,30 @@ div[disabled] {
 }
 
 .chat-bubble:after {
-  content: '';
-	position: absolute;
-	bottom: 0;
-	right: 25%;
-	width: 0;
-	height: 0;
-	border: 19px solid transparent;
-	border-top-color: #ffffff;
-	border-bottom: 0;
-	border-right: 0;
-	margin-left: -9.5px;
-	margin-bottom: -19px;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 25%;
+  width: 0;
+  height: 0;
+  border: 19px solid transparent;
+  border-top-color: #ffffff;
+  border-bottom: 0;
+  border-right: 0;
+  margin-left: -9.5px;
+  margin-bottom: -19px;
 }
 
 @keyframes fadeout {
-  0% {opacity: 1;}
-  70% {opacity: 1;}
-  100% {opacity: 0;}
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .center-content {
@@ -128,7 +147,7 @@ div[disabled] {
   text-decoration: none;
 }
 .button-bg {
-  background-image: url('./assets/images/Button1.png');
+  background-image: url("./assets/images/Button1.png");
   background-size: 100% 100%;
   background-color: transparent;
   outline: none;
@@ -137,7 +156,8 @@ div[disabled] {
   max-width: 100%;
   border: none;
   color: rgb(187, 124, 8);
-  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
+    2px 2px 0 #000;
   filter: drop-shadow(2px 2px 2px rgb(0, 0, 0));
   text-align: center;
   display: flex;
@@ -163,7 +183,7 @@ a.button-bg {
 }
 
 .button-bg:active {
-  background-image: url('./assets/images/Button2.png');
+  background-image: url("./assets/images/Button2.png");
   font-size: 1.95em;
 }
 
@@ -171,8 +191,10 @@ a.button-bg {
   font-size: 1.45em;
 }
 
-h1, h2{
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+h1,
+h2 {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
   filter: drop-shadow(0px 0px 1px rgb(0, 0, 0));
   color: wheat;
 }
@@ -197,7 +219,8 @@ h2 {
   text-justify: inter-word;
 }
 
-table, tr {
+table,
+tr {
   max-width: 95%;
 }
 
@@ -206,7 +229,8 @@ table, tr {
   display: inline-block;
 }
 
-h3, h4 {
+h3,
+h4 {
   color: wheat;
   font-size: 15px;
   padding: 0;
@@ -232,8 +256,8 @@ p {
   color: black;
 }
 
-
-ul, li {
+ul,
+li {
   list-style: none;
 }
 
@@ -271,12 +295,12 @@ a {
 }
 
 .active {
-  background-color: #0099FF;
+  background-color: #0099ff;
 }
 
 .start-container {
   margin: 0 auto;
-  background-color: #FFF;
+  background-color: #fff;
   width: 100%;
   height: 100%;
   max-width: 100%;
@@ -298,7 +322,9 @@ a {
   text-align: center;
 }
 
-.char-select0, .char-select1, .char-select2 {
+.char-select0,
+.char-select1,
+.char-select2 {
   height: 400px;
   width: 240px;
   max-width: 100%;
@@ -319,99 +345,9 @@ a {
 .description {
   font-size: 13px;
   color: rgb(180, 169, 149);
-  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
-  filter: drop-shadow(0px 0px 8px rgb(0, 0, 0));
-}
-
-@media only screen and (max-width: 1000px) {
-  .chat-bubble {
-    left: 10%;
-  }
-
-  .bottomleft h2 {
-    font-size: 14px;
-  }
-  .skill-icon {
-    height: 35px;
-    width: 35px;
-    margin: 3px;
-    background-color: white;
-    float: left;
-    border: 2px solid;
-    border-image-slice: 1;
-    border-image-source: linear-gradient(to right, rgb(255, 210, 0), rgb(255, 227, 149));
-  }
-  .char-select0 {
-    height: 250px;
-    width: 150px;
-    max-width: 100%;
-    max-height: 100%;
-    position: absolute;
-    left: 0;
-    top: 30%;
-    filter: grayscale(80%);
-  }
-  .char-select1 {
-    height: 250px;
-    width: 150px;
-    max-width: 100%;
-    max-height: 100%;
-    position: absolute;
-    top: 30%;
-    filter: grayscale(80%);
-  }
-  .char-select2 {
-    height: 250px;
-    width: 150px;
-    max-width: 100%;
-    max-height: 100%;
-    position: absolute;
-    right: 0;
-    top: 30%;
-    filter: grayscale(80%);
-  }
-  .char-select0:focus, .char-select1:focus, .char-select2:focus {
-    height: 400px;
-    width: 240px;
-    top: 30%;
-    filter: saturate(1.1) drop-shadow(0px 0px 8px rgb(255, 196, 2)) grayscale(0%);
-    outline: transparent;
-    z-index: 2;
-  }
-
-  .char-select-button {
-    position: absolute;
-    bottom: 30px;
-  }
-  .char-select-title {
-    position: absolute;
-    top: 20px;
-  }
-
-  .char-description {
-    max-width: 95%;
-    max-height: 20%;
-    width: 600px;
-    height: 100px;
-    padding: 10px 5px 10px 5px;
-    font-size: 13px;
-    text-align: center;
-    position: absolute;
-    top: 5%;
-  }
-
-  .tooltip-skills {
-    max-width: 30%;
-    width: 180px;
-    padding: 10px 5px 10px 5px;
-    font-size: 13px;
-    text-align: center;
-  }
-  .left-mobile {
-    position: absolute;
-    left: 5%;
-    bottom: 0;
-  }
+  /* text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+  filter: drop-shadow(0px 0px 8px rgb(0, 0, 0)); */
+  /* -webkit-text-stroke: 1px black; */
 }
 
 .char-select-container {
@@ -431,18 +367,21 @@ a {
   float: left;
 }
 
-.char-select0:focus, .char-select1:focus, .char-select2:focus {
+.char-select0:focus,
+.char-select1:focus,
+.char-select2:focus {
   filter: saturate(1.1) drop-shadow(0px 0px 8px rgb(255, 196, 2)) grayscale(0%);
   outline: transparent;
   z-index: 2;
 }
 
-.csc1, .csc2 {
+.csc1,
+.csc2 {
   bottom: 0px;
 }
 
 .csc1 {
-  top:10px;
+  top: 10px;
 }
 
 .dimachaerus {
@@ -459,68 +398,68 @@ a {
   background-repeat: no-repeat;
 }
 
-.retiarius{
+.retiarius {
   background: transparent;
   background-image: url(./assets/images/retiarius.png);
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 
-.opponent1{
+.opponent1 {
   background-image: url(./assets/images/opponent1.png);
   background-size: cover;
   z-index: 1;
 }
 
-.opponent2{
+.opponent2 {
   background-image: url(./assets/images/opponent2.png);
   background-size: cover;
   z-index: 1;
 }
 
-.opponent3{
+.opponent3 {
   background-image: url(./assets/images/opponent3.png);
   background-size: cover;
   z-index: 1;
 }
 
-.opponent4{
+.opponent4 {
   background-image: url(./assets/images/opponent4.png);
   background-size: cover;
   z-index: 1;
 }
 
-.opponent5{
+.opponent5 {
   background-image: url(./assets/images/opponent5.png);
   background-size: cover;
   z-index: 1;
 }
 
-.opponent6{
+.opponent6 {
   background-image: url(./assets/images/opponent6.png);
   background-size: cover;
   z-index: 1;
 }
 
-.opponent7{
+.opponent7 {
   background-image: url(./assets/images/opponent7.png);
   background-size: cover;
   z-index: 1;
 }
 
-.opponent8{
+.opponent8 {
   background-image: url(./assets/images/opponent8.png);
   background-size: cover;
   z-index: 1;
 }
 
-.opponent9{
+.opponent9 {
   background-image: url(./assets/images/opponent9.png);
   background-size: cover;
   z-index: 1;
 }
 
-.opponent10{
+.opponent10 {
   background-image: url(./assets/images/opponent10.png);
   background-size: cover;
   z-index: 1;
@@ -548,8 +487,11 @@ a {
 }
 
 @keyframes poisonTick {
-  0% {}
-  100% {filter: hue-rotate(0deg);}
+  0% {
+  }
+  100% {
+    filter: hue-rotate(0deg);
+  }
 }
 
 .cnh_holding {
@@ -557,9 +499,12 @@ a {
 }
 
 @keyframes clickEffect {
-  0% {}
+  0% {
+  }
   /*  50% {margin: 0.05em;} */
-  100% {filter: saturate(1.7) drop-shadow(0px 0px 8px rgb(184, 0, 0)) ;}
+  100% {
+    filter: saturate(1.7) drop-shadow(0px 0px 8px rgb(184, 0, 0));
+  }
 }
 /*STAGING*/
 
@@ -614,57 +559,56 @@ a {
   background-size: 100% 100%;
 }
 
-.topleft { 
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  right: 50%; 
-  bottom: 50%; 
-  background: rgb(0, 0, 0, 0.7); 
+.topleft {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 50%;
+  bottom: 50%;
+  background: rgb(0, 0, 0);
   /* background-image: url(./assets/images/bgq1.png);
   background-size: 100% 100%; */
   /* border:solid rgb(255, 210, 0); border-width: 0 5px 5px 0;  */
 }
 
-.topright { 
-  position: absolute; 
-  top: 0; 
-  left: 50%; 
-  right: 0; 
-  bottom: 50%; 
-  background: rgb(0, 0, 0, 0.7); 
+.topright {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 0;
+  bottom: 50%;
+  background: rgb(0, 0, 0);
   /* background-image: url(./assets/images/bgq3.png);
   background-size: 100% 100%; */
   /* border:solid rgb(255, 210, 0); border-width: 0 0 5px 0;  */
 }
-.bottomleft { 
-  position: absolute; 
-  top: 50%; 
-  left: 0; 
-  right: 50%; 
-  bottom: 0; 
-  background: rgb(0, 0, 0, 0.7); 
+.bottomleft {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 50%;
+  bottom: 0;
+  background: rgb(0, 0, 0);
   /* background-image: url(./assets/images/bgq2.png);
   background-size: 100% 100%; */
   /* border:solid rgb(255, 210, 0); border-width: 0 5px 0 0;  */
 }
 
-.bottomright { 
-  position: absolute; 
-  top: 50%; 
-  left: 50%; 
-  right: 0; 
-  bottom: 0; 
-  background: rgb(0, 0, 0, 0.7); 
+.bottomright {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  background: rgb(0, 0, 0);
   /* background-image: url(./assets/images/bgq4.png);
   background-size: 100% 100%; */
-} 
-
+}
 
 .staging-select {
   height: 450px;
   width: 600px;
-  margin: 30px;
+  margin-top: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -675,7 +619,7 @@ a {
 }
 
 .fl-left {
-  float:left;
+  float: left;
   margin: 15px;
 }
 
@@ -701,7 +645,7 @@ a {
   background-image: url(./assets/images/battlebg.png);
 }
 
-.mini-arena{
+.mini-arena {
   background-image: url(./assets/images/colo1.png);
   margin: 8px;
   height: 48px;
@@ -714,30 +658,21 @@ a {
   cursor: default;
 }
 
-.arena-bg {
-  background-image: url(./assets/images/arenabg.jpg);
-  background-size: cover;
-  height: 100%;
-  overflow: hidden;
-  position: relative;
-  /* position: absolute; */
-}
-
-.staging-bg {
-  background-image: url(./assets/images/backdrop.jpg);
-  background-size: cover;
-  height: 100%;
-}
-
 .start-bg {
-  background-image: url(./assets/images/start-bg.jpg);
+  background-image: url(./assets/images/splash.jpg);
   background-size: cover;
   height: 100%;
+}
+
+.logo {
+  max-width: 100%;
+  margin: 10px;
 }
 
 .hp-text {
   font-size: 34px;
-  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
+    2px 2px 0 #000;
   filter: drop-shadow(0px 0px 4px rgb(0, 0, 0));
 }
 
@@ -761,7 +696,8 @@ a {
 
 .stroke {
   font-size: 1.5em;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
   z-index: 0;
 }
 
@@ -833,10 +769,8 @@ a {
 }
 
 .lvlup-btn[disabled] {
-  filter: grayscale(100%)
+  filter: grayscale(100%);
 }
-
-
 
 .message-title {
   font-size: 28px;
@@ -875,25 +809,27 @@ a {
   padding: 10px;
 }
 
-.overlay-container, .victory-container, .defeat-container {
+.overlay-container,
+.victory-container,
+.defeat-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   position: fixed;
-  width: 100%; 
-  height: 100%; 
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 11;
 }
 
-.overlay-container{
-  background-color: rgba(0,0,0,0.5);
+.overlay-container {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .victory-container {
@@ -901,9 +837,15 @@ a {
 }
 
 @keyframes victory {
-  0%{opacity: 0;}
-  50%{opacity: 0;}
-  100%{background-color: rgba(0,0,0,0.5);}
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 }
 
 .victory-message {
@@ -930,8 +872,12 @@ a {
 }
 
 @keyframes defeat {
-  0%{opacity: 0;}
-  100%{opacity: 1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .skill-icon {
@@ -942,7 +888,11 @@ a {
   float: left;
   border: 2px solid;
   border-image-slice: 1;
-  border-image-source: linear-gradient(to right, rgb(255, 210, 0), rgb(255, 227, 149));
+  border-image-source: linear-gradient(
+    to right,
+    rgb(255, 210, 0),
+    rgb(255, 227, 149)
+  );
 }
 
 .icon-battle {
@@ -1000,26 +950,24 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgb(0,0,0);
+  background: rgb(0, 0, 0);
   border: 6px solid transparent;
-  background-clip: content-box; 
+  background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb {
   background: rgb(63, 0, 0);
-  border: 2px solid rgb(0,0,0);
+  border: 2px solid rgb(0, 0, 0);
   box-shadow: inset 0 0 5px #000000;
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: wheat;
-  border: 2px solid rgb(0,0,0);
+  border: 2px solid rgb(0, 0, 0);
   box-shadow: inset 0 0 6px #000000;
   border-radius: 8px;
 }
-
-
 
 .small-margin {
   margin-top: 15px;
@@ -1188,15 +1136,42 @@ a {
   animation: deathNumbers 1.5s ease-out;
 }
 
+.fade-to-fight {
+  animation: fadeOut 1s ease-out;
+  animation-fill-mode: forwards;
+}
+
+.staging-bg-fade {
+  animation: fadeStagingBG 2s ease-out;
+  animation-fill-mode: forwards;
+}
+
+#navArena {
+  display: none;
+}
+
+@keyframes fadeStagingBG {
+  0% {
+  }
+  50% {
+    background-image: url(./assets/images/staging-bg2.jpg);
+  }
+  100% {
+    background-image: url(./assets/images/staging-bg3.jpg);
+  }
+}
+
 @keyframes fadeOut {
-  0% {}
+  0% {
+  }
   100% {
     opacity: 0;
   }
 }
 
 @keyframes dmgNumbers {
-  0% {}
+  0% {
+  }
   5% {
     font-size: 40px;
   }
@@ -1212,7 +1187,9 @@ a {
 }
 
 @keyframes deathNumbers {
-  0% {top: 3%}
+  0% {
+    top: 3%;
+  }
   5% {
     font-size: 70px;
   }
@@ -1227,7 +1204,8 @@ a {
 }
 
 @keyframes critNumbers {
-  0% {}
+  0% {
+  }
   5% {
     font-size: 45px;
   }
@@ -1242,7 +1220,8 @@ a {
 }
 
 @keyframes hurtNumbers {
-  0% {}
+  0% {
+  }
   2% {
     font-size: 30px;
   }
@@ -1257,7 +1236,8 @@ a {
 }
 
 @keyframes dotNumbers {
-  0% {}
+  0% {
+  }
   2% {
     font-size: 30px;
   }
@@ -1270,7 +1250,7 @@ a {
     opacity: 0;
   }
 }
-  
+
 .dropbtn {
   background-color: rgb(0, 0, 0);
   color: white;
@@ -1301,7 +1281,6 @@ a {
   display: block;
 }
 
-
 .dropup-content div:hover {
   background-color: rgb(22, 22, 22);
   cursor: pointer;
@@ -1322,20 +1301,20 @@ a {
 }
 
 @keyframes heal {
-  0% {}
+  0% {
+  }
   70% {
-    filter: hue-rotate(40deg) drop-shadow(0px 0px 10px rgb(0, 217, 255))
+    filter: hue-rotate(40deg) drop-shadow(0px 0px 10px rgb(0, 217, 255));
   }
   100% {
-    filter: hue-rotate(0deg) drop-shadow(0px 0px 0px rgb(84, 229, 255))
+    filter: hue-rotate(0deg) drop-shadow(0px 0px 0px rgb(84, 229, 255));
   }
 }
-
 
 .opponent-skill-active {
   /* filter: contrast(150%) drop-shadow(0px 0px 13px rgb(0, 0, 0)); */
   animation: opponentSkillAnim 1.2s ease-out;
-  animation-fill-mode: forwards; 
+  animation-fill-mode: forwards;
 }
 
 .opponent-skill-attack {
@@ -1343,40 +1322,41 @@ a {
 }
 
 @keyframes opponentSkillAnim {
-  0% {}
+  0% {
+  }
   100% {
     filter: grayscale(75%) contrast(220%) drop-shadow(0px 0px 13px rgb(0, 0, 0));
   }
 }
 
 @keyframes oppSkillAttack {
-  0% {}
-  25% {
-    filter: contrast(100%) drop-shadow(0px 0px 1px rgb(95, 0, 0)) 
+  0% {
   }
   25% {
-    filter: contrast(400%) drop-shadow(0px 0px 20px rgb(187, 0, 0))
+    filter: contrast(100%) drop-shadow(0px 0px 1px rgb(95, 0, 0));
+  }
+  25% {
+    filter: contrast(400%) drop-shadow(0px 0px 20px rgb(187, 0, 0));
   }
   100% {
     filter: contrast(100%) drop-shadow(0px 0px 0px rgb(255, 0, 0));
   }
 }
 
-
 .riposte-active {
-  filter: contrast(200%)
+  filter: contrast(200%);
 }
 
 .rage-active {
-  filter: saturate(1.9) drop-shadow(0px 0px 6px rgb(255, 0, 0)) 
+  filter: saturate(1.9) drop-shadow(0px 0px 6px rgb(255, 0, 0));
 }
 
 .poisonTrident-active {
-  filter: contrast(130%) drop-shadow(0px 0px 6px rgb(0, 255, 64))
+  filter: contrast(130%) drop-shadow(0px 0px 6px rgb(0, 255, 64));
 }
 
 .champion-active {
-  filter: contrast(130%) saturate(3) drop-shadow(0px 0px 20px rgb(255, 187, 0))
+  filter: contrast(130%) saturate(3) drop-shadow(0px 0px 20px rgb(255, 187, 0));
 }
 
 /* SKILL BUFF ANIMATIONS */
@@ -1397,30 +1377,33 @@ a {
 }
 
 @keyframes riposteEffect {
-  0% {}
+  0% {
+  }
   25% {
-    filter: contrast(400%)}
+    filter: contrast(400%);
+  }
   50% {
-    filter: contrast(100%)
+    filter: contrast(100%);
   }
   75% {
-    filter: contrast(400%)
+    filter: contrast(400%);
   }
   100% {
-    filter: contrast(200%)
+    filter: contrast(200%);
   }
 }
 
 @keyframes rageEffect {
-  0% {}
+  0% {
+  }
   25% {
-    filter: saturate(1.9) drop-shadow(0px 0px 13px rgb(255, 0, 0)) 
+    filter: saturate(1.9) drop-shadow(0px 0px 13px rgb(255, 0, 0));
   }
   50% {
-    filter: saturate(2.4) drop-shadow(0px 0px 1px rgb(255, 0, 0))
+    filter: saturate(2.4) drop-shadow(0px 0px 1px rgb(255, 0, 0));
   }
   75% {
-    filter: saturate(2.7) drop-shadow(0px 0px 15px rgb(255, 0, 0))
+    filter: saturate(2.7) drop-shadow(0px 0px 15px rgb(255, 0, 0));
   }
   100% {
     filter: saturate(2.9) drop-shadow(0px 0px 6px rgb(255, 0, 0));
@@ -1428,47 +1411,50 @@ a {
 }
 
 @keyframes ptridentEffect {
-  0% {}
+  0% {
+  }
   50% {
-    filter: contrast(300%) drop-shadow(0px 0px 12px rgb(0, 255, 64))
+    filter: contrast(300%) drop-shadow(0px 0px 12px rgb(0, 255, 64));
   }
   100% {
-    filter: contrast(130%) drop-shadow(0px 0px 6px rgb(0, 255, 64))
+    filter: contrast(130%) drop-shadow(0px 0px 6px rgb(0, 255, 64));
   }
 }
 
 @keyframes championEffect {
-  0% {}
+  0% {
+  }
   25% {
-    filter: contrast(150%) saturate(4)
-    drop-shadow(5px 0px 5px rgb(255, 187, 0))
+    filter: contrast(150%) saturate(4) drop-shadow(5px 0px 5px rgb(255, 187, 0));
   }
   50% {
-    filter: contrast(200%) saturate(1) drop-shadow(0px 0px 18px rgb(255, 187, 0))
+    filter: contrast(200%) saturate(1)
+      drop-shadow(0px 0px 18px rgb(255, 187, 0));
   }
   75% {
-    filter: contrast(250%) saturate(4) drop-shadow(0px 0px 25px rgb(255, 187, 0))
+    filter: contrast(250%) saturate(4)
+      drop-shadow(0px 0px 25px rgb(255, 187, 0));
   }
   100% {
-    filter: contrast(150%) saturate(3) drop-shadow(0px 0px 15px rgb(255, 187, 0))
+    filter: contrast(150%) saturate(3)
+      drop-shadow(0px 0px 15px rgb(255, 187, 0));
   }
 }
-
 
 /* Opponent animations */
 
 .opp-attack-anim {
-  animation: oppAttack 0.52s cubic-bezier(.36,.07,.19,.97) both;
+  animation: oppAttack 0.52s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: translate3d(0, 0, 0);
 }
 
 .dodge-anim {
-  animation: dodge 0.52s cubic-bezier(.36,.07,.19,.97) both;
+  animation: dodge 0.52s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: translate3d(0, 0, 0);
 }
 
 .opp-hurt-anim {
-  animation: oppHurt 0.52s cubic-bezier(.36,.07,.19,.97) both;
+  animation: oppHurt 0.52s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: translate3d(0, 0, 0);
 }
 
@@ -1477,22 +1463,26 @@ a {
 }
 
 @keyframes fade {
-  0% {}
-  70% {opacity: 0.9;}
-  100% {opacity: 0;}
+  0% {
+  }
+  70% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes oppHurt {
   25% {
     transform: translate3d(1.5px, 0, 0);
-    filter: saturate(1.5)
+    filter: saturate(1.5);
   }
   100% {
     transform: translate3d(0, 0, 0);
-    filter: saturate(1)
+    filter: saturate(1);
   }
 }
-
 
 @keyframes dodge {
   25% {
@@ -1507,11 +1497,140 @@ a {
 }
 
 @keyframes oppAttack {
-  15%, 85% {
+  15%,
+  85% {
     transform: translate3d(-3px, -1px, 0);
   }
 
-  30%, 60% {
+  30%,
+  60% {
     transform: translate3d(1.5px, 12px, 0);
+  }
+}
+
+/* MOBILE DISPLAY */
+
+@media only screen and (max-width: 1000px) {
+  .staging-bg {
+    background-image: url(./assets/images/staging-bg-mobile.jpg);
+    background-size: 100% 100%;
+    height: 100%;
+  }
+
+  .staging-bg-fade {
+    animation: fadeStagingBG 2s ease-out;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes fadeStagingBG {
+    0% {
+    }
+    50% {
+      background-image: url(./assets/images/staging-bg2-mobile.jpg);
+    }
+    100% {
+      background-image: url(./assets/images/staging-bg3-mobile.jpg);
+    }
+  }
+
+  .arena-bg {
+    background-image: url(./assets/images/arena-bg-mobile.png);
+    background-size: 100% 100%;
+  }
+
+  .chat-bubble {
+    left: 10%;
+  }
+
+  .bottomleft h2 {
+    font-size: 14px;
+  }
+  .skill-icon {
+    height: 35px;
+    width: 35px;
+    margin: 3px;
+    background-color: white;
+    float: left;
+    border: 2px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(
+      to right,
+      rgb(255, 210, 0),
+      rgb(255, 227, 149)
+    );
+  }
+  .char-select0 {
+    height: 250px;
+    width: 150px;
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    filter: grayscale(80%);
+  }
+  .char-select1 {
+    height: 250px;
+    width: 150px;
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+    top: 30%;
+    filter: grayscale(80%);
+  }
+  .char-select2 {
+    height: 250px;
+    width: 150px;
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+    right: 0;
+    top: 30%;
+    filter: grayscale(80%);
+  }
+  .char-select0:focus,
+  .char-select1:focus,
+  .char-select2:focus {
+    height: 400px;
+    width: 240px;
+    top: 30%;
+    filter: saturate(1.1) drop-shadow(0px 0px 8px rgb(255, 196, 2))
+      grayscale(0%);
+    outline: transparent;
+    z-index: 2;
+  }
+
+  .char-select-button {
+    position: absolute;
+    bottom: 30px;
+  }
+  .char-select-title {
+    position: absolute;
+    top: 20px;
+  }
+
+  .char-description {
+    max-width: 95%;
+    max-height: 20%;
+    width: 600px;
+    height: 100px;
+    padding: 10px 5px 10px 5px;
+    font-size: 13px;
+    text-align: center;
+    position: absolute;
+    top: 5%;
+  }
+
+  .tooltip-skills {
+    max-width: 30%;
+    width: 180px;
+    padding: 10px 5px 10px 5px;
+    font-size: 13px;
+    text-align: center;
+  }
+  .left-mobile {
+    position: absolute;
+    left: 5%;
+    bottom: 0;
   }
 }

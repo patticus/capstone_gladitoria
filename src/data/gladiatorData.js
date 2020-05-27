@@ -22,7 +22,7 @@ const gladiatorData = [
     blockValue: 3,
     passiveUnlocked: false,
     passiveEffect: "dual-wield",
-    description: "The Dimachaerus uses two swords to whittle their opponent with precision strikes. They typicially wear lighter armor for finesse of quick movements, so they are not able to take as many direct attacks. They primarily rely on Dexterity to land strikes, dodge attacks, and enahnce their skills."
+    description: "The Dimachaerus uses two swords to whittle down their opponent with precision strikes. They typicially wear lighter armor for finesse of quick movements, so they are not able to take as many direct attacks. They primarily rely on Dexterity to land strikes, dodge attacks, and enahnce their skills."
   },
 
   {

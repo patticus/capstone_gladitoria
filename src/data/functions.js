@@ -113,6 +113,20 @@ export function addActiveBuff(name) {
   element.classList.add(`${name}-active`)
 }
 
+export function fadeToArena() {
+  let innerStaging = document.getElementById("innerStaging")
+  let stagingBG = document.getElementById("stagingBG")
+  let navigate = document.getElementById("navArena")
+  innerStaging.classList.add("fade-to-fight")
+  setTimeout(() => {  stagingBG.classList.add("staging-bg-fade") }, 950)
+  setTimeout(() => {  
+    stagingBG.classList.remove("staging-bg-fade")
+    innerStaging.classList.remove("fade-to-fight")
+    navigate.click()
+  }, 2900)
+
+}
+
 export const insults = [
   "Weak",
   "All stones and no pillar!",

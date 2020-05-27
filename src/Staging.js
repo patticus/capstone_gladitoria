@@ -4,7 +4,7 @@ import { Route, NavLink } from "react-router-dom";
 import Arena from "./Arena";
 import { useSelector, useDispatch } from "react-redux";
 import { setOpponent } from "./actions";
-import { diceRoll } from "./data/functions";
+import { diceRoll, fadeToArena } from "./data/functions";
 
 let tutorial = true;
 let statCount = 2;
@@ -260,12 +260,12 @@ export default function Staging() {
   };
 
   return (
-    <div className="staging-bg">
+    <div className="staging-bg" id="stagingBG">
       {renderTutorialScreen()}
       {renderLevelScreen()}
 
       {isDesktop ? (
-        <div className="flex-column">
+        <div className="flex-column" id="innerStaging">
           <div className="justify-center">
             <h2>STAGING</h2>
           </div>
@@ -453,27 +453,35 @@ export default function Staging() {
                   <h2>{opponent.name}</h2>
                   <h2>{opponent.difficulty}</h2>
                   <div className="justify-center">
-                    <NavLink
+                    {/* <NavLink
                       to="/arena"
                       className="navlink-bg"
                       activeClassName="navlink-bg"
+                    > */}
+                    <button
+                      className={`button-bg ${fightContinue}`}
+                      disabled={!selected}
+                      onClick={fadeToArena}
                     >
-                      <button
-                        className={`button-bg ${fightContinue}`}
-                        disabled={!selected}
-                      >
-                        FIGHT!
-                      </button>
-                    </NavLink>
+                      FIGHT!
+                    </button>
+                    {/* </NavLink> */}
                   </div>
                   <Route path="/arena" component={Arena} />
                 </div>
               </div>
             </div>
           </div>
+          <NavLink
+            to="/arena"
+            className="navlink-bg"
+            activeClassName="navlink-bg"
+          >
+            <div id="navArena"></div>
+          </NavLink>
         </div>
       ) : (
-        <div className="flex-column">
+        <div className="flex-column" id="innerStaging">
           <div class="topleft">
             <div className="quadrant-container bg-topleft">
               <div
@@ -651,22 +659,30 @@ export default function Staging() {
               <h2>{opponent.name}</h2>
               <h2>{opponent.difficulty}</h2>
               <div className="justify-center">
-                <NavLink
+                {/* <NavLink
                   to="/arena"
                   className="navlink-bg"
                   activeClassName="navlink-bg"
-                >
+                > */}
                   <button
                     className={`button-bg ${fightContinue}`}
                     disabled={!selected}
+                    onClick={fadeToArena}
                   >
                     FIGHT!
                   </button>
-                </NavLink>
+                {/* </NavLink> */}
               </div>
               <Route path="/arena" component={Arena} />
             </div>
           </div>
+          <NavLink
+            to="/arena"
+            className="navlink-bg"
+            activeClassName="navlink-bg"
+          >
+            <div id="navArena"></div>
+          </NavLink>
         </div>
       )}
     </div>
