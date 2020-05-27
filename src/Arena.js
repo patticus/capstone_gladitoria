@@ -419,14 +419,14 @@ export default function Arena() {
     let anim = document.createElement("img");
     //CRIT condition
     if (critRoll <= critChance) {
-      myHit = diceRoll(myGladiator.maxDmg) + dmgBonus;
+      myHit = Math.ceil((diceRoll(myGladiator.maxDmg) + dmgBonus)*opponent.bodyModifier);
       dispatch(critAttack(myHit));
       anim.className = "attack-animation";
       anim.src = require(`./assets/images/animations/crit2.gif`);
       displayDmgNumber(myHit, "crit-number");
       //HIT condition
     } else if (atkRoll + toHitBonus >= opponent.bodyAC) {
-      myHit = Math.ceil((diceRoll(myGladiator.maxDmg) + dmgBonus) * 0.4);
+      myHit = Math.ceil(((diceRoll(myGladiator.maxDmg) + dmgBonus) * 0.4)*opponent.bodyModifier);
       dispatch(attack(myHit));
       anim.className = "attack-animation";
       anim.src = require(`./assets/images/animations/atk3.gif`);
