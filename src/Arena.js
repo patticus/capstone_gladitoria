@@ -4,6 +4,7 @@ import { Route, NavLink } from "react-router-dom";
 import Staging from "./Staging";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  forfeit,
   attack,
   critAttack,
   riposte,
@@ -38,11 +39,15 @@ import {
   animateBuff,
   addActiveBuff,
   insults,
+  insultsGladiatrix,
+  insultsMaximus,
+  insultsPep
 } from "./data/functions";
 import ClickNHold from "react-click-n-hold";
 
 let tutorial = true;
 let hint = true;
+let forfeitMessage = false;
 let stack = 0;
 
 export default function Arena() {
@@ -142,6 +147,7 @@ export default function Arena() {
     critChance += 20;
     toHitBonus += 3;
     blockValue += 3;
+    reactionTime += 100;
   }
 
   // Decrements buff durations every time player turn is activated
@@ -241,11 +247,11 @@ export default function Arena() {
     let bodyPart = "";
 
     // Setting bodyPart hit based on coordinates tapped
-    if (60 < x && x < 125 && 0 < y && y < 70) {
+    if (60 < x && x < 140 && 0 < y && y < 63) {
       bodyPart = "head";
-    } else if (0 < x && x < 200 && 70 < y && y < 195) {
+    } else if (0 < x && x < 200 && 60 < y && y < 205) {
       bodyPart = "body";
-    } else if (30 < x && x < 170 && 195 < y && y < 400) {
+    } else if (30 < x && x < 180 && 205 < y && y < 400) {
       bodyPart = "legs";
     } else {
       bodyPart = "none";
@@ -255,7 +261,9 @@ export default function Arena() {
     if (bodyPart === "head") {
       //CRIT condition
       if (critRoll <= critChance) {
-        myHit = Math.ceil(((myGladiator.maxDmg * 1.5) + dmgBonus)*opponent.headModifier);
+        myHit = Math.ceil(
+          (myGladiator.maxDmg * 1.5 + dmgBonus) * opponent.headModifier
+        );
         dispatch(critAttack(myHit));
         if ("poisonTrident" in activeBuffs) {
           battleState.poisoned = true;
@@ -270,7 +278,9 @@ export default function Arena() {
         displayDmgNumber(myHit, "crit-number");
         //HIT condition
       } else if (atkRoll + toHitBonus >= opponent.headAC) {
-        myHit = Math.ceil((diceRoll(myGladiator.maxDmg) + dmgBonus)*opponent.headModifier);
+        myHit = Math.ceil(
+          (diceRoll(myGladiator.maxDmg) + dmgBonus) * opponent.headModifier
+        );
         dispatch(attack(myHit));
         if ("poisonTrident" in activeBuffs) {
           battleState.poisoned = true;
@@ -300,7 +310,9 @@ export default function Arena() {
     if (bodyPart === "body") {
       //CRIT condition
       if (critRoll <= critChance) {
-        myHit = Math.ceil(((myGladiator.maxDmg * 1.5) + dmgBonus)*opponent.bodyModifier);
+        myHit = Math.ceil(
+          (myGladiator.maxDmg * 1.5 + dmgBonus) * opponent.bodyModifier
+        );
         dispatch(critAttack(myHit));
         if ("poisonTrident" in activeBuffs) {
           battleState.poisoned = true;
@@ -312,7 +324,9 @@ export default function Arena() {
         displayDmgNumber(myHit, "crit-number");
         //HIT condition
       } else if (atkRoll + toHitBonus >= opponent.bodyAC) {
-        myHit = Math.ceil((diceRoll(myGladiator.maxDmg) + dmgBonus)*opponent.bodyModifier);
+        myHit = Math.ceil(
+          (diceRoll(myGladiator.maxDmg) + dmgBonus) * opponent.bodyModifier
+        );
         dispatch(attack(myHit));
         if ("poisonTrident" in activeBuffs) {
           battleState.poisoned = true;
@@ -342,15 +356,17 @@ export default function Arena() {
     if (bodyPart === "legs") {
       //CRIT condition
       if (critRoll <= critChance) {
-        myHit = Math.ceil(((myGladiator.maxDmg * 1.5) + dmgBonus)*opponent.legsModifier);
+        myHit = Math.ceil(
+          (myGladiator.maxDmg * 1.5 + dmgBonus) * opponent.legsModifier
+        );
         dispatch(critAttack(myHit));
         if ("poisonTrident" in activeBuffs) {
           battleState.poisoned = true;
           stack += 1;
         }
         if (passiveEffect === "sever") {
-          let severChance = diceRoll(3)
-          if (severChance === 3){
+          let severChance = diceRoll(3);
+          if (severChance === 3) {
             //Sever Leg!*******
             dispatch(bleedDmg(bleedTick));
             displayDmgNumber(bleedTick, "bleed-number");
@@ -362,7 +378,9 @@ export default function Arena() {
         displayDmgNumber(myHit, "crit-number");
         //HIT condition
       } else if (atkRoll + toHitBonus >= opponent.legsAC) {
-        myHit = Math.ceil((diceRoll(myGladiator.maxDmg) + dmgBonus)*opponent.legsModifier);
+        myHit = Math.ceil(
+          (diceRoll(myGladiator.maxDmg) + dmgBonus) * opponent.legsModifier
+        );
         dispatch(attack(myHit));
         if ("poisonTrident" in activeBuffs) {
           battleState.poisoned = true;
@@ -419,14 +437,18 @@ export default function Arena() {
     let anim = document.createElement("img");
     //CRIT condition
     if (critRoll <= critChance) {
-      myHit = Math.ceil((diceRoll(myGladiator.maxDmg) + dmgBonus)*opponent.bodyModifier);
+      myHit = Math.ceil(
+        (diceRoll(myGladiator.maxDmg) + dmgBonus) * opponent.bodyModifier
+      );
       dispatch(critAttack(myHit));
       anim.className = "attack-animation";
       anim.src = require(`./assets/images/animations/crit2.gif`);
       displayDmgNumber(myHit, "crit-number");
       //HIT condition
     } else if (atkRoll + toHitBonus >= opponent.bodyAC) {
-      myHit = Math.ceil(((diceRoll(myGladiator.maxDmg) + dmgBonus) * 0.4)*opponent.bodyModifier);
+      myHit = Math.ceil(
+        (diceRoll(myGladiator.maxDmg) + dmgBonus) * 0.4 * opponent.bodyModifier
+      );
       dispatch(attack(myHit));
       anim.className = "attack-animation";
       anim.src = require(`./assets/images/animations/atk3.gif`);
@@ -752,6 +774,59 @@ export default function Arena() {
     }
   }
 
+  function keepPlaying() {
+    battleState.playerTurn = true;
+    opponent.disabled = false;
+    opponent.attackSpeed = opponent.baseAtkSpeed;
+    stack = 0;
+    dispatch(resetHealth());
+    if (opponent.id >= 5) {
+      opponent.hasSkill = true;
+      opponent.skillCharging = false;
+    }
+    myGladiator.blocked = false;
+    allSkills.forEach((skill) => {
+      // Resets skill usage
+      skill.used = false;
+      skill.attacks = skill.maxAttacks;
+      skill.uses = skill.maxUses;
+      skill.addClass = "";
+      if (skill.buff === true) {
+        skill.buffEffect.duration = skill.buffEffect.maxDuration;
+      }
+    });
+    myGladiator.exp += opponent.expVal; // Gives player exp
+    if (myGladiator.exp >= myGladiator.nextLvlExp) {
+      myGladiator.levelUp = true;
+    }
+  }
+
+  //Returns after forfeit
+  function returnNoVictory() {
+    battleState.playerTurn = true;
+    opponent.disabled = false;
+    opponent.attackSpeed = opponent.baseAtkSpeed;
+    stack = 0;
+    dispatch(resetHealth());
+    dispatch(forfeit());
+    showForfeit();
+    if (opponent.id >= 5) {
+      opponent.hasSkill = true;
+      opponent.skillCharging = false;
+    }
+    myGladiator.blocked = false;
+    allSkills.forEach((skill) => {
+      // Resets skill usage
+      skill.used = false;
+      skill.attacks = skill.maxAttacks;
+      skill.uses = skill.maxUses;
+      skill.addClass = "";
+      if (skill.buff === true) {
+        skill.buffEffect.duration = skill.buffEffect.maxDuration;
+      }
+    });
+  }
+
   /*---------------------START HTML RENDER-------------------------*/
   const renderTutorialScreen = () => {
     if (tutorial === true) {
@@ -761,20 +836,22 @@ export default function Arena() {
             <h5 className="message-title">RULES OF BATTLE</h5>
             <h5 className="message-text">
               1. BASIC ATTCKS - Click or tap on your opponent to perform a basic
-              attack with your weapon. Aim your strike! Your opponent may be weak or resilient on certain areas of their body.
+              attack with your weapon. Aim your strike! Your opponent may be
+              weak or resilient on certain areas of their body.
             </h5>
             <h5 className="message-text">
-              2. SKILLS - To use one of your gladiator's unique skills, select
-              it from the menu in the bottom right of the screen then press and
-              hold on your opponent to activate the skill. Skills can be
-              devastating attacks, ways to disable your opponent, or buffs to
-              your battle capabilities.
+              2. SKILLS - Use one of your gladiator's unique skills by selecting
+              it from the menu in the bottom right corner, then press and
+              hold on your opponent to activate the skill.
             </h5>
             <h5 className="message-text">
               3. OPPONENT TURN - After you attack or use a skill, your opponent
               will strike back! Watch the bottom of your screen to anticipate
               where your opponent will strike, and click or tap on the flash to
-              block an attack. Blocking will mitigate a small amount of damage.
+              block an the attack and mitigate some damage!
+            </h5>
+            <h5 className="message-text">
+              4. MISSIO - You may forfeit from battle only once during the tournament. Click the 'Missio' button in the top-left corner.
             </h5>
             <h5 className="message-text">Good luck, brave Gladiator!</h5>
             <NavLink
@@ -888,8 +965,23 @@ export default function Arena() {
   async function hurlInsult() {
     await sleep(400);
     let element = document.getElementById("insults");
-    let insultIndex = diceRoll(insults.length) - 1;
-    let insultText = insults[insultIndex];
+    let insultArray = []
+    switch (opponent.id) {
+      case 6:
+        insultArray = insultsPep
+        break;
+      case 7:
+        insultArray = insultsGladiatrix
+        break;
+      case 9:
+        insultArray = insultsMaximus
+        break;
+      default:
+        insultArray = insults
+        break;
+    }
+    let insultIndex = diceRoll(insultArray.length) - 1;
+    let insultText = insultArray[insultIndex];
     element.classList.add("chat-bubble");
     element.innerHTML = insultText;
     setTimeout(() => {
@@ -947,9 +1039,66 @@ export default function Arena() {
             </h2>
             <br></br>
             <h1>Thanks for Playing!!!</h1>
+            <NavLink
+              to="/staging"
+              className="navlink-bg"
+              activeClassName="navlink-bg"
+            >
+              <button className="button-bg" onClick={keepPlaying}>
+                CONTINUE
+              </button>
+            </NavLink>
+            <a className="main-menu" href="http://localhost:3000/">MAIN MENU</a>
             <br></br>
-            <a href="http://localhost:3000/">MAIN MENU</a>
-            <br></br>
+          </div>
+        </div>
+      );
+    }
+  };
+
+  function showForfeit() {
+    forfeitMessage = !forfeitMessage;
+  }
+
+  const renderForfeitScreen = () => {
+    if (forfeitMessage === true) {
+      return (
+        <div className="overlay-container">
+          <div className="intro-screen">
+            <h5 className="message-title">Missio</h5>
+            <h5 className="message-text">
+              If your gladiator is near defeat, you may forfeit the fight by
+              holding up two fingers, the 'Missio' sign, acknowledging defeat
+              and plea for mercy.
+            </h5>
+            <h5 className="message-text">Will you perform the Missio?</h5>
+            <h5 className="warning-text2">
+              <i>
+                (WARNING: You may only perform the missio once during the
+                tournament!)
+              </i>
+            </h5>
+            <NavLink
+              to="/staging"
+              className="navlink-bg"
+              activeClassName="navlink-bg"
+            >
+              <button
+                className="button-bg btn-forfeit"
+                onClick={returnNoVictory}
+              >
+                YES
+              </button>
+            </NavLink>
+            <NavLink
+              to="/arena"
+              className="navlink-bg"
+              activeClassName="navlink-bg"
+            >
+              <button className="button-bg btn-tutorial" onClick={showForfeit}>
+                NO
+              </button>
+            </NavLink>
           </div>
         </div>
       );
@@ -959,10 +1108,24 @@ export default function Arena() {
   return (
     <div className="arena-bg">
       {renderHintScreen()}
+      {renderForfeitScreen()}
       {renderTutorialScreen()}
       {renderVictoryScreen()}
       {renderDefeatScreen()}
       {renderWinGame()}
+      <NavLink to="/arena" className="navlink-bg" activeClassName="navlink-bg">
+        <div
+          data-border="true"
+          data-effect="solid"
+          data-html="true"
+          data-tip={`<h3>Missio (forfeit)</h3>`}
+          data-class="tooltip"
+          disabled={battleState.forfeit}
+          className="forfeit"
+          id="forfeit"
+          onClick={showForfeit}
+        ></div>
+      </NavLink>
       <div className="top-center">
         <div className="center-hpnumbers">
           <h2 className="hp-text">{opponent.name} </h2>

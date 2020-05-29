@@ -12,6 +12,7 @@ let increaseDisable = false;
 let continueDisable = true;
 let grayedOut = "grayscale";
 let fightContinue = "grayscale";
+let severBonus = true;
 
 export default function Staging() {
   const dispatch = useDispatch();
@@ -65,6 +66,13 @@ export default function Staging() {
     return skillArray;
   });
 
+  // Secutor's "Sever" passive adds additional crit chance
+  if (myGladiator.name === "Secutor" && myGladiator.level >= 4 && severBonus) {
+    myGladiator.critChance += 15;
+    severBonus = false;
+  }
+
+  //Conbonus adds additional HP when leveling up
   let conBonus = 0;
   if (myGladiator.con > 15) {
     conBonus += myGladiator.con - 15;

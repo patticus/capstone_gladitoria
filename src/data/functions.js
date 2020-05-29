@@ -135,7 +135,6 @@ export const insults = [
   "<i>Cacare!</i>",
   "They'll feed you to the dogs!",
   "Why stir up the ashes in your tomb?",
-  "You pretend you are one of the big boys",
   "You stink like guts!",
   "Old, like putrid gore...",
   "Blood!",
@@ -156,4 +155,28 @@ export const insults = [
   "<i>Filius canis! </i>",
   "<i>Irrumator!</i>",
   "<i>Vappa ac nebulo!</i>"
+]
+
+export const insultsGladiatrix = [
+  "You pretend you are one of the big boys",
+  "All stones and no pillar!",
+  "Die beneath my heel!",
+  "Do you fear my whip?"
+]
+
+export const insultsMaximus = [
+  "I am required to kill, so I kill",
+  "ARE YOU NOT ENTERTAINED?",
+  "What we do in life echoes in eternity",
+  "Shadows and dust...",
+  "You have the power only to amuse a mob",
+  "Strength and honor",
+  "I will have my vengeance, in this life or the next",
+  "<i>Roma Victor!</i>"
+]
+
+export const insultsPep = [
+  "WAAAAAH!",
+  "<i>growls</i>",
+  "<i>hisses</i>"
 ]

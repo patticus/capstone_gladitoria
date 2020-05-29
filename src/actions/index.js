@@ -11,6 +11,12 @@ export const logOut = () => {
   }
 }
 
+export const forfeit = () => {
+  return {
+    type: "forfeit"
+  }
+}
+
 export const setOpponent = (opponentObj) => {
   return {
       type: "SET_OPP",

@@ -172,7 +172,7 @@ const skillsData = [
     lvlUnlock: 4,
     disableTurns: 0,
     animContainer: "skill-animation",
-    description: "Passive Skill. Your strong arm and keen eye allow you to strike with strength and precision. Critical hits may dismember your opponent."
+    description: "Passive Skill. Your strong arm and keen eye allow you to strike with strength and precision. Critical chance is increased and Critical hits may dismember your opponent, causing them to bleed."
   },
   {
     id: 9,

@@ -9,7 +9,8 @@ const initialState = {
   playerTurn: true,
   activeBuffs: {},
   poisoned: false,
-  bleeding: false
+  bleeding: false,
+  forfeit: false
 }
 
 //total damage your gladiator has taken during the battle
@@ -21,6 +22,13 @@ let oppDmgTaken = initialState.opponentHealth
 const BattleState = (state = initialState, action) => {
 
   switch(action.type){
+      //forfeit
+      case "forfeit":
+        return {
+          ...state,
+          forfeit: true
+        }
+
       //attacking your opponent
       case "attack":
         let myHit = action.payload
@@ -99,7 +107,7 @@ const BattleState = (state = initialState, action) => {
         
         return {
           ...state,
-          playerHealth: healAmount,
+          playerHealth: myDmgTaken,
         } 
       
       //applying buff
