@@ -412,13 +412,13 @@ export default function Staging() {
                       </th>
                     </tr>
                   </table>
-                  <NavLink
+                  {/* <NavLink
                     to="/staging"
                     className="navlink-bg"
                     activeClassName="navlink-bg"
                   >
                     <button onClick={tempLvlUp}>LVL UP</button>
-                  </NavLink>
+                  </NavLink> */}
                   <h2>SKILLS</h2>
                   <div className="center-skills">
                     {skillArray.map((skill) => (
