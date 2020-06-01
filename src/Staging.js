@@ -26,7 +26,7 @@ export default function Staging() {
   let xpPercent = Math.ceil((myGladiator.exp / myGladiator.nextLvlExp) * 100);
   let toHitBonus = myGladiator.dex - 15;
   let dmgBonus = myGladiator.str - 15;
-  const [isDesktop, setDesktop] = useState(window.innerWidth > 1000);
+  const [isDesktop, setDesktop] = useState(window.innerWidth > 800);
   const updateMedia = () => {
     setDesktop(window.innerWidth > 1000);
   };
@@ -86,10 +86,11 @@ export default function Staging() {
     myGladiator.levelUp = true;
   }
 
-  function tempLvlUp() {
-    // myGladiator.level = 10;
-    myGladiator.levelUp = true;
-  }
+  // function tempLvlUp() {
+  //   myGladiator.level = 10;
+  //   myGladiator.str = 40;
+  //   myGladiator.levelUp = true;
+  // }
 
   function continueLvl() {
     levelUp();

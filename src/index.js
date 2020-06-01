@@ -10,9 +10,9 @@ var destination = document.querySelector("#root");
    
 ReactDOM.render(
   <Provider store={store}>
-    <HashRouter>
+    <MemoryRouter>
       <Main />
-    </HashRouter>
+    </MemoryRouter>
   </Provider>,
   destination
 );

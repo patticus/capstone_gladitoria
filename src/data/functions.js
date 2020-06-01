@@ -127,6 +127,12 @@ export function fadeToArena() {
 
 }
 
+export function preventContextMenu(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  return false;
+};
+
 export const insults = [
   "Weak",
   "All stones and no pillar!",

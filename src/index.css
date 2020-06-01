@@ -65,6 +65,22 @@ div[disabled] {
   z-index: 9;
 }
 
+.rules {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px; 
+  height: 60px;
+  background-image: url(./assets/images/rules.png);
+  background-size: 100% 100%;
+  opacity: 0.6;
+  z-index: 9;
+}
+
+.rules:hover {
+  opacity: 1
+}
+
 .forfeit:hover {
   opacity: 1;
 }
@@ -446,10 +462,26 @@ a {
   z-index: 1;
 }
 
+.opponent1leg {
+  background-image: url(./assets/images/opponent1leg.png);
+}
+
+.opponent1head {
+  background-image: url(./assets/images/opponent1head.png);
+}
+
 .opponent2 {
   background-image: url(./assets/images/opponent2.png);
   background-size: cover;
   z-index: 1;
+}
+
+.opponent2leg {
+  background-image: url(./assets/images/opponent2leg.png);
+}
+
+.opponent2head {
+  background-image: url(./assets/images/opponent2head.png);
 }
 
 .opponent3 {
@@ -458,10 +490,26 @@ a {
   z-index: 1;
 }
 
+.opponent3head {
+  background-image: url(./assets/images/opponent3head.png);
+}
+
+.opponent3leg {
+  background-image: url(./assets/images/opponent3leg.png);
+}
+
 .opponent4 {
   background-image: url(./assets/images/opponent4.png);
   background-size: cover;
   z-index: 1;
+}
+
+.opponent4leg {
+  background-image: url(./assets/images/opponent4leg.png);
+}
+
+.opponent4head {
+  background-image: url(./assets/images/opponent4head.png);
 }
 
 .opponent5 {
@@ -470,10 +518,26 @@ a {
   z-index: 1;
 }
 
+.opponent5leg {
+  background-image: url(./assets/images/opponent5leg.png);
+}
+
+.opponent5head {
+  background-image: url(./assets/images/opponent5head.png);
+}
+
 .opponent6 {
   background-image: url(./assets/images/opponent6.png);
   background-size: cover;
   z-index: 1;
+}
+
+.opponent6leg {
+  background-image: url(./assets/images/opponent6leg.png);
+}
+
+.opponent6head {
+  background-image: url(./assets/images/opponent6head.png);
 }
 
 .opponent7 {
@@ -482,10 +546,26 @@ a {
   z-index: 1;
 }
 
+.opponent7leg {
+  background-image: url(./assets/images/opponent7.png);
+}
+
+.opponent7head {
+  background-image: url(./assets/images/opponent7.png);
+}
+
 .opponent8 {
   background-image: url(./assets/images/opponent8.png);
   background-size: cover;
   z-index: 1;
+}
+
+.opponent8leg {
+  background-image: url(./assets/images/opponent8leg.png);
+}
+
+.opponent8head {
+  background-image: url(./assets/images/opponent8head.png);
 }
 
 .opponent9 {
@@ -494,10 +574,26 @@ a {
   z-index: 1;
 }
 
+.opponent9leg {
+  background-image: url(./assets/images/opponent9leg.png);
+}
+
+.opponent9head {
+  background-image: url(./assets/images/opponent9head.png);
+}
+
 .opponent10 {
   background-image: url(./assets/images/opponent10.png);
   background-size: cover;
   z-index: 1;
+}
+
+.opponent10head {
+  background-image: url(./assets/images/opponent10head.png);
+}
+
+.opponent10leg {
+  background-image: url(./assets/images/opponent10leg.png);
 }
 
 .opponent-container {
@@ -687,7 +783,7 @@ a {
   margin: 10px;
 }
 
-.hp-text {
+.hp-text, .oppname-text {
   font-size: 34px;
   text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
     2px 2px 0 #000;
@@ -850,6 +946,12 @@ a {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 11;
+}
+
+.victory-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .overlay-container {
@@ -1537,7 +1639,22 @@ a {
 }
 /* MOBILE DISPLAY */
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 800px) {
+  .oppname-text {
+    font-size: 25px;
+    text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
+      2px 2px 0 #000;
+    filter: drop-shadow(0px 0px 4px rgb(0, 0, 0));
+  }
+
+  .block-area {
+    height: 90px;
+    width: 270px;
+    bottom: 65px;
+    position: absolute;
+    z-index: 6;
+  }
+
   .staging-bg {
     background-image: url(./assets/images/staging-bg-mobile.jpg);
     background-size: 100% 100%;

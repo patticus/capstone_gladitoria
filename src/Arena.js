@@ -38,6 +38,7 @@ import {
   displayHurtNumber,
   animateBuff,
   addActiveBuff,
+  preventContextMenu,
   insults,
   insultsGladiatrix,
   insultsMaximus,
@@ -49,6 +50,7 @@ let tutorial = true;
 let hint = true;
 let forfeitMessage = false;
 let stack = 0;
+let decapitate = false;
 
 export default function Arena() {
   const dispatch = useDispatch();
@@ -90,6 +92,7 @@ export default function Arena() {
   let oppToHitBonus = opponent.toHitBonus;
   let blockValue = myGladiator.blockValue;
   let reactionTime = 0;
+  
 
   //Applies Dex and STR bonuses to hit and damage
 
@@ -269,8 +272,8 @@ export default function Arena() {
           battleState.poisoned = true;
           stack += 1;
         }
-        if (passiveEffect === "sever" && myHit >= opponentHP) {
-          //Decapitate*******
+        if (myHit >= opponentHP) {
+          document.getElementsByClassName("opponent")[0].classList.add(opponent.styleDecapitate)
         }
         anim.className = "attack-animation";
         anim.src = require(`./assets/images/animations/crit2.gif`);
@@ -365,9 +368,9 @@ export default function Arena() {
           stack += 1;
         }
         if (passiveEffect === "sever") {
-          let severChance = diceRoll(3);
-          if (severChance === 3) {
-            //Sever Leg!*******
+          let severChance = diceRoll(2);
+          if (severChance === 1) {
+            document.getElementsByClassName("opponent")[0].classList.add(opponent.styleLegSever)
             dispatch(bleedDmg(bleedTick));
             displayDmgNumber(bleedTick, "bleed-number");
           }
@@ -521,7 +524,8 @@ export default function Arena() {
                 opponent.disabled
               );
               if (myHit >= opponentHP) {
-                //Decapitate*******
+                document.getElementsByClassName("opponent")[0].classList.add(opponent.styleDecapitate)
+                decapitate = true
               }
               dispatch(skill(myHit));
               displayDmgNumber(myHit, "skill-number");
@@ -593,6 +597,7 @@ export default function Arena() {
           setTimeout(() => {
             anim.parentNode.removeChild(anim);
           }, 550);
+          
 
           await sleep(550);
           mySkill.attacks -= 1;
@@ -733,6 +738,7 @@ export default function Arena() {
     }
   }
 
+
   /*-----------------------VICTORY CONDITIONS-------------------------------*/
   //Assigns next opponent to be unlocked upon victory
   let nextOpponent = opponentArray[opponent.id + 1];
@@ -747,6 +753,7 @@ export default function Arena() {
   function victory() {
     battleState.playerTurn = true;
     opponent.disabled = false;
+    decapitate = false;
     opponent.attackSpeed = opponent.baseAtkSpeed;
     stack = 0;
     dispatch(resetHealth()); // Resets health after battle is complete - reducer does both player and opponent health reset
@@ -777,6 +784,7 @@ export default function Arena() {
   function keepPlaying() {
     battleState.playerTurn = true;
     opponent.disabled = false;
+    decapitate = false;
     opponent.attackSpeed = opponent.baseAtkSpeed;
     stack = 0;
     dispatch(resetHealth());
@@ -805,6 +813,7 @@ export default function Arena() {
   function returnNoVictory() {
     battleState.playerTurn = true;
     opponent.disabled = false;
+    decapitate = false;
     opponent.attackSpeed = opponent.baseAtkSpeed;
     stack = 0;
     dispatch(resetHealth());
@@ -881,8 +890,7 @@ export default function Arena() {
             <h5 className="message-text">
               You have made it far in the tournament and your opponents are
               becoming increasingly deadly! They might take a menacing stance to
-              unleash a devastating attack. Interrupt them or face certain
-              death...
+              unleash a devastating attack. Interrupt them with a disabling skill or face certain death...
             </h5>
             <NavLink
               to="/arena"
@@ -903,24 +911,34 @@ export default function Arena() {
   };
 
   const renderClickNHold = () => {
-    if (mySkill.uses > 0) {
+    if (decapitate === true) {
       return (
-        <ClickNHold time={1.2} onClickNHold={mySkillAttack}>
+      <div
+          className={`opponent ${opponent.styleDecapitate}`}
+          disabled={!battleState.playerTurn}
+          onClick={myAttackRoll}
+        ></div>
+        );
+    } else {
+      if (mySkill.uses > 0) {
+        return (
+          <ClickNHold time={1.2} onClickNHold={mySkillAttack}>
+            <div
+              className={`opponent ${opponent.styleName}`}
+              disabled={!battleState.playerTurn}
+              onClick={myAttackRoll}
+            ></div>
+          </ClickNHold>
+        );
+      } else {
+        return (
           <div
             className={`opponent ${opponent.styleName}`}
             disabled={!battleState.playerTurn}
             onClick={myAttackRoll}
           ></div>
-        </ClickNHold>
-      );
-    } else {
-      return (
-        <div
-          className={`opponent ${opponent.styleName}`}
-          disabled={!battleState.playerTurn}
-          onClick={myAttackRoll}
-        ></div>
-      );
+        );
+      }
     }
   };
 
@@ -936,8 +954,8 @@ export default function Arena() {
     if (opponentHP < 1 && opponent.name !== "Maximus") {
       delayVictoryMessage();
       return (
-        <div className="victory-container">
-          <div className="center-screen victory-message">
+        <div className="victory-container" onContextMenu={preventContextMenu}>
+          <div className="victory-message">
             <h1>VICTORY!</h1>
             <NavLink
               to="/staging"
@@ -1010,9 +1028,9 @@ export default function Arena() {
               MAIN MENU
             </a>
             <br></br>
-            <NavLink to="/staging">
+            {/* <NavLink to="/staging">
               <button onClick={victory}>$1.00</button>
-            </NavLink>
+            </NavLink> */}
           </div>
           <Route path="/staging" component={Staging} />
         </div>
@@ -1058,6 +1076,10 @@ export default function Arena() {
 
   function showForfeit() {
     forfeitMessage = !forfeitMessage;
+  }
+
+  function showRules() {
+    tutorial = true;
   }
 
   const renderForfeitScreen = () => {
@@ -1126,16 +1148,28 @@ export default function Arena() {
           onClick={showForfeit}
         ></div>
       </NavLink>
+      <NavLink to="/arena" className="navlink-bg" activeClassName="navlink-bg">
+        <div
+          data-border="true"
+          data-effect="solid"
+          data-html="true"
+          data-tip={`<h3>Rules</h3>`}
+          data-class="tooltip"
+          disabled={battleState.forfeit}
+          className="rules"
+          onClick={showRules}
+        ></div>
+      </NavLink>
       <div className="top-center">
         <div className="center-hpnumbers">
-          <h2 className="hp-text">{opponent.name} </h2>
+          <h2 className="oppname-text">{opponent.name} </h2>
           <h2 className="hp-text">
             HP: {opponentHP} / {opponent.hp}{" "}
           </h2>
         </div>
       </div>
 
-      <div className="center-screen">
+      <div className="center-screen" onContextMenu={preventContextMenu}>
         <div id="insults"></div>
         <div className="justify-center disable-message stroke">
           {battleState.disableMessage}
