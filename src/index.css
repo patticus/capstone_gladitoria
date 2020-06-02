@@ -210,6 +210,7 @@ div[disabled] {
   font-size: 2em;
   font-weight: 600;
   position: relative;
+  z-index: 10;
 }
 
 a.button-bg {
@@ -902,13 +903,13 @@ a {
 .warning-text {
   font-size: 32px;
   margin: 5px 20px 10px 20px;
-  color: rgb(63, 0, 0);
+  color: rgb(189, 0, 0);
 }
 
 .warning-text2 {
   font-size: 15px;
   margin: 5px 20px 10px 20px;
-  color: rgb(247, 0, 0);
+  color: rgb(189, 0, 0);
 }
 
 .intro-screen {
@@ -1113,7 +1114,7 @@ a {
   opacity: 0.8;
   position: absolute;
   cursor: url(./assets/images/cursor-shield.png), auto;
-  z-index: 7;
+  z-index: 15;
 }
 
 .dmg-num-top {
@@ -1640,6 +1641,28 @@ a {
 /* MOBILE DISPLAY */
 
 @media only screen and (max-width: 800px) {
+
+  .message-text {
+    font-size: 15px;
+  }
+
+  p {
+    font-size: 11px;
+  }
+
+  .warning-text {
+    font-size: 25px;
+    color: rgb(189, 0, 0);
+  }
+
+  .opponent {
+    bottom: 10%;
+  }
+
+  .weapons-container {
+    bottom: 5%;
+  }
+
   .oppname-text {
     font-size: 25px;
     text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
@@ -1649,8 +1672,8 @@ a {
 
   .block-area {
     height: 90px;
-    width: 270px;
-    bottom: 65px;
+    width: 80%;
+    bottom: 13%;
     position: absolute;
     z-index: 6;
   }

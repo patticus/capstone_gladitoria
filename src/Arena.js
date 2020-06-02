@@ -844,9 +844,7 @@ export default function Arena() {
           <div className="intro-screen">
             <h5 className="message-title">RULES OF BATTLE</h5>
             <h5 className="message-text">
-              1. BASIC ATTCKS - Click or tap on your opponent to perform a basic
-              attack with your weapon. Aim your strike! Your opponent may be
-              weak or resilient on certain areas of their body.
+              1. BASIC ATTCKS - Click or tap on your opponent to attack! Gladiators may be weak or resilient on certain areas of their body, such as legs, head, or torso.
             </h5>
             <h5 className="message-text">
               2. SKILLS - Use one of your gladiator's unique skills by selecting
@@ -854,10 +852,10 @@ export default function Arena() {
               hold on your opponent to activate the skill.
             </h5>
             <h5 className="message-text">
-              3. OPPONENT TURN - After you attack or use a skill, your opponent
+              3. OPPONENT TURN - After your turn, your opponent
               will strike back! Watch the bottom of your screen to anticipate
-              where your opponent will strike, and click or tap on the flash to
-              block an the attack and mitigate some damage!
+              where your opponent will strike, then tap on the flash to
+              block the attack and mitigate some damage!
             </h5>
             <h5 className="message-text">
               4. MISSIO - You may forfeit from battle only once during the tournament. Click the 'Missio' button in the top-left corner.
