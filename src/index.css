@@ -598,7 +598,7 @@ a {
 }
 
 .opponent-container {
-  margin-top: 30px;
+  
   position: absolute;
   height: 400px;
   width: 200px;
@@ -1135,7 +1135,7 @@ a {
   font-weight: bolder;
   color: aliceblue;
   position: absolute;
-  z-index: 9;
+  z-index: 5;
 }
 
 .disable-message {
@@ -1156,7 +1156,7 @@ a {
   font-size: 30px;
   font-weight: bolder;
   color: red;
-  z-index: 9;
+  z-index: 4;
 }
 
 .floating-dmg-number {
@@ -1642,14 +1642,6 @@ a {
 
 @media only screen and (max-width: 800px) {
 
-  .opponent-container {
-    margin-top: 0;
-  }
-
-  .block-area {
-    z-index: 8;
-  }
-
   .hurt-num {
     bottom: 15%;
   }
@@ -1667,6 +1659,10 @@ a {
     color: rgb(189, 0, 0);
   }
 
+  .opponent {
+    
+  }
+
   .weapons-container {
     bottom: 6%;
   }
@@ -1681,7 +1677,7 @@ a {
   .block-area {
     height: 90px;
     width: 80%;
-    bottom: 14%;
+    bottom: 13%;
     position: absolute;
     z-index: 6;
   }
