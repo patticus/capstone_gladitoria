@@ -61,7 +61,7 @@ div[disabled] {
   height: 60px;
   background-image: url(./assets/images/missio.png);
   background-size: 100% 100%;
-  opacity: 0.6;
+  opacity: 0.85;
   z-index: 9;
 }
 
@@ -73,7 +73,7 @@ div[disabled] {
   height: 60px;
   background-image: url(./assets/images/rules.png);
   background-size: 100% 100%;
-  opacity: 0.6;
+  opacity: 0.85;
   z-index: 9;
 }
 
@@ -598,7 +598,7 @@ a {
 }
 
 .opponent-container {
-  
+  margin-top: 25px;
   position: absolute;
   height: 400px;
   width: 200px;
@@ -1642,6 +1642,10 @@ a {
 
 @media only screen and (max-width: 800px) {
 
+  .opponent-container {
+    margin-top: 0px;
+  }
+
   .hurt-num {
     bottom: 15%;
   }
@@ -1664,7 +1668,7 @@ a {
   }
 
   .weapons-container {
-    bottom: 6%;
+    bottom: 4%;
   }
 
   .oppname-text {
