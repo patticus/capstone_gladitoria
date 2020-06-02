@@ -598,7 +598,7 @@ a {
 }
 
 .opponent-container {
-  margin-top: 50px;
+  
   position: absolute;
   height: 400px;
   width: 200px;
@@ -1120,7 +1120,7 @@ a {
 .dmg-num-top {
   height: 40px;
   width: 50px;
-  top: 25%;
+  top: 18%;
   font-size: 30px;
   font-weight: bolder;
   color: aliceblue;
@@ -1130,7 +1130,7 @@ a {
 .hurt-num {
   height: 40px;
   width: 70px;
-  bottom: 9%;
+  bottom: 12%;
   font-size: 30px;
   font-weight: bolder;
   color: aliceblue;
@@ -1141,7 +1141,7 @@ a {
 .disable-message {
   height: 40px;
   width: 200px;
-  top: 25%;
+  top: 18%;
   font-size: 30px;
   font-weight: bolder;
   color: aliceblue;
@@ -1151,7 +1151,7 @@ a {
 .dmg-num-bottom {
   height: 60px;
   width: 50%;
-  margin-top: 300px;
+  bottom: 15%;
   position: absolute;
   font-size: 30px;
   font-weight: bolder;
@@ -1642,6 +1642,10 @@ a {
 
 @media only screen and (max-width: 800px) {
 
+  .hurt-num {
+    bottom: 15%;
+  }
+
   .message-text {
     font-size: 15px;
   }
@@ -1656,11 +1660,11 @@ a {
   }
 
   .opponent {
-    bottom: 10%;
+    
   }
 
   .weapons-container {
-    bottom: 5%;
+    bottom: 6%;
   }
 
   .oppname-text {
