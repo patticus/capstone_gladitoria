@@ -1022,7 +1022,7 @@ export default function Arena() {
               prove your Ludus' worth will arise in future tournaments!
             </h2>
             <br></br>
-            <a className="button-bg" href="http://localhost:3000/">
+            <a className="button-bg" href="http://play.gladitoria.com">
               MAIN MENU
             </a>
             <br></br>
