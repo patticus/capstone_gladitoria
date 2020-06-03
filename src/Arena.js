@@ -755,6 +755,7 @@ export default function Arena() {
   function victory() {
     battleState.playerTurn = true;
     opponent.disabled = false;
+    opponent.severed = '';
     decapitate = false;
     opponent.attackSpeed = opponent.baseAtkSpeed;
     stack = 0;
@@ -786,6 +787,7 @@ export default function Arena() {
   function keepPlaying() {
     battleState.playerTurn = true;
     opponent.disabled = false;
+    opponent.severed = '';
     decapitate = false;
     opponent.attackSpeed = opponent.baseAtkSpeed;
     stack = 0;
@@ -815,6 +817,7 @@ export default function Arena() {
   function returnNoVictory() {
     battleState.playerTurn = true;
     opponent.disabled = false;
+    opponent.severed = '';
     decapitate = false;
     opponent.attackSpeed = opponent.baseAtkSpeed;
     stack = 0;

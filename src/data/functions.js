@@ -183,6 +183,6 @@ export const insultsMaximus = [
 
 export const insultsPep = [
   "WAAAAAH!",
-  "<i>growls</i>",
-  "<i>hisses</i>"
+  "<i>growl</i>",
+  "<i>hissss</i>"
 ]
