@@ -25,7 +25,7 @@ export default function Staging() {
   const allSkills = useSelector((state) => state.SkillsReducer);
   const skillArray = [];
   let skillUnlockMessage = "";
-  let xpPercent = Math.ceil(
+  let xpPercent = Math.floor(
     ((myGladiator.exp - myGladiator.prevLvlExp) /
       (myGladiator.nextLvlExp - myGladiator.prevLvlExp)) *
       100
@@ -94,15 +94,16 @@ export default function Staging() {
     myGladiator.level += 1;
     myGladiator.hp += diceRoll(5) + 5 + conBonus;
     myGladiator.prevLvlExp = myGladiator.nextLvlExp;
-    myGladiator.nextLvlExp += myGladiator.prevLvlExp + myGladiator.level * 200;
+    myGladiator.nextLvlExp += Math.ceil(((myGladiator.level)*10)**1.5);
     myGladiator.levelUp = true;
   }
+  
 
-  // function tempLvlUp() {
-  //   // myGladiator.level = 10;
-  //   myGladiator.str += 5;
-  //   myGladiator.levelUp = true;
-  // }
+  function tempLvlUp() {
+    // myGladiator.level = 10;
+    myGladiator.str += 5;
+    myGladiator.levelUp = true;
+  }
 
   function continueLvl() {
     levelUp();
@@ -399,7 +400,7 @@ export default function Staging() {
                       data-border="true"
                       data-effect="solid"
                       data-html="true"
-                      data-tip={`<h4>Experience Points</h4> ${myGladiator.exp} / ${myGladiator.nextLvlExp}`}
+                      data-tip={`<h4>Experience Points</h4> ${(myGladiator.exp - myGladiator.prevLvlExp)} / ${(myGladiator.nextLvlExp - myGladiator.prevLvlExp)}`}
                       data-class="tooltip"
                     >
                       <th>
@@ -497,13 +498,13 @@ export default function Staging() {
                       </th>
                     </tr>
                   </table>
-                  {/* <NavLink
+                  <NavLink
                     to="/staging"
                     className="navlink-bg"
                     activeClassName="navlink-bg"
                   >
                     <button onClick={tempLvlUp}>LVL UP</button>
-                  </NavLink> */}
+                  </NavLink>
                   <h2>SKILLS</h2>
                   <div className="center-skills">
                     {skillArray.map((skill) => (
@@ -617,7 +618,7 @@ export default function Staging() {
                   data-border="true"
                   data-effect="solid"
                   data-html="true"
-                  data-tip={`<h4>Experience Points</h4> ${myGladiator.exp} / ${myGladiator.nextLvlExp}`}
+                  data-tip={`<h4>Experience Points</h4> ${(myGladiator.exp - myGladiator.prevLvlExp)} / ${(myGladiator.nextLvlExp - myGladiator.prevLvlExp)}`}
                   data-class="tooltip"
                 >
                   <th>
