@@ -2,7 +2,7 @@ const initialState = {
     chosen: {
         id: 0,
         styleName: 'dimachaerus',
-        name: 'Dimachaerus',
+        name: '',
         level: 10,
         hp: 134,
         ac: 12,

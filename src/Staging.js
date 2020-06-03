@@ -7,6 +7,8 @@ import { setOpponent } from "./actions";
 import { diceRoll, fadeToArena } from "./data/functions";
 
 let tutorial = true;
+let challengeWarning = true;
+let oneTimeWarning = true;
 let statCount = 2;
 let increaseDisable = false;
 let continueDisable = true;
@@ -23,7 +25,11 @@ export default function Staging() {
   const allSkills = useSelector((state) => state.SkillsReducer);
   const skillArray = [];
   let skillUnlockMessage = "";
-  let xpPercent = Math.ceil((myGladiator.exp / myGladiator.nextLvlExp) * 100);
+  let xpPercent = Math.ceil(
+    ((myGladiator.exp - myGladiator.prevLvlExp) /
+      (myGladiator.nextLvlExp - myGladiator.prevLvlExp)) *
+      100
+  );
   let toHitBonus = myGladiator.dex - 15;
   let dmgBonus = myGladiator.str - 15;
   const [isDesktop, setDesktop] = useState(window.innerWidth > 800);
@@ -66,6 +72,12 @@ export default function Staging() {
     return skillArray;
   });
 
+  skillArray.map((skill) => {
+    if (myGladiator.level >= skill.lvlUnlock) {
+      skill.skillGray = "";
+    }
+  });
+
   // Secutor's "Sever" passive adds additional crit chance
   if (myGladiator.name === "Secutor" && myGladiator.level >= 4 && severBonus) {
     myGladiator.critChance += 15;
@@ -81,16 +93,16 @@ export default function Staging() {
   function levelUp() {
     myGladiator.level += 1;
     myGladiator.hp += diceRoll(5) + 5 + conBonus;
-    myGladiator.exp = 0;
-    myGladiator.nextLvlExp += myGladiator.level * 200;
+    myGladiator.prevLvlExp = myGladiator.nextLvlExp;
+    myGladiator.nextLvlExp += myGladiator.prevLvlExp + myGladiator.level * 200;
     myGladiator.levelUp = true;
   }
 
-  // function tempLvlUp() {
-  //   myGladiator.level = 10;
-  //   myGladiator.str = 40;
-  //   myGladiator.levelUp = true;
-  // }
+  function tempLvlUp() {
+    // myGladiator.level = 10;
+    myGladiator.str += 5;
+    myGladiator.levelUp = true;
+  }
 
   function continueLvl() {
     levelUp();
@@ -133,6 +145,18 @@ export default function Staging() {
   }
 
   //----------------------------BEGIN RENDER HTML-----------------------------------
+  function showChallengeWarning() {
+    if (
+      opponent.level > myGladiator.level &&
+      challengeWarning === true &&
+      oneTimeWarning === true
+    ) {
+      renderDifficultWarning();
+      oneTimeWarning = false;
+    } else {
+      fadeToArena();
+    }
+  }
   const renderTutorialScreen = () => {
     if (tutorial === true) {
       return (
@@ -160,6 +184,58 @@ export default function Staging() {
                 onClick={(tutorial = false)}
               >
                 CONTINUE
+              </button>
+            </NavLink>
+          </div>
+        </div>
+      );
+    }
+  };
+
+  const renderDifficultWarning = () => {
+    if (
+      opponent.level > myGladiator.level &&
+      challengeWarning === true &&
+      oneTimeWarning === false
+    ) {
+      return (
+        <div className="overlay-container">
+          <div className="intro-screen">
+            <h5 className="message-title">
+              <i className="red">Warning!</i>
+            </h5>
+            <h5 className="message-text">
+              You are choosing to battle an opponent who is higher level than
+              you. Higher level opponents may prove very challenging. You can
+              level up your gladiator by replaying previous battles.
+            </h5>
+            <h6>*this warning will only show once*</h6>
+            <NavLink
+              to="/staging"
+              className="navlink-bg"
+              activeClassName="navlink-bg"
+            >
+              <button
+                className="button-bg btn-tutorial"
+                onClick={(challengeWarning = false)}
+              >
+                BACK
+              </button>
+            </NavLink>
+            <NavLink
+              to="/staging"
+              className="navlink-bg"
+              activeClassName="navlink-bg"
+            >
+              <button
+                className={`button-bg btn-tutorial`}
+                disabled={!selected}
+                onClick={() => {
+                  fadeToArena();
+                  challengeWarning = false;
+                }}
+              >
+                BRING IT!
               </button>
             </NavLink>
           </div>
@@ -268,10 +344,19 @@ export default function Staging() {
     }
   };
 
+  function showSelectedOutline(battle) {
+    {
+      opponentArray.map((opp) => (opp.selectedStyle = ""));
+    }
+
+    battle.selectedStyle = "battle-selected";
+  }
+
   return (
     <div className="staging-bg" id="stagingBG">
       {renderTutorialScreen()}
       {renderLevelScreen()}
+      {renderDifficultWarning()}
 
       {isDesktop ? (
         <div className="flex-column" id="innerStaging">
@@ -412,13 +497,13 @@ export default function Staging() {
                       </th>
                     </tr>
                   </table>
-                  {/* <NavLink
+                  <NavLink
                     to="/staging"
                     className="navlink-bg"
                     activeClassName="navlink-bg"
                   >
                     <button onClick={tempLvlUp}>LVL UP</button>
-                  </NavLink> */}
+                  </NavLink>
                   <h2>SKILLS</h2>
                   <div className="center-skills">
                     {skillArray.map((skill) => (
@@ -431,7 +516,7 @@ export default function Staging() {
                         data-tip={`<h3>${skill.name}</h3> <h4>Unlocks: Level ${skill.lvlUnlock}</h4> ${skill.description}`}
                         data-class="tooltip-skills"
                         src={require(`./assets/images/skills/${skill.animation}.png`)}
-                        className={`skill-icon`}
+                        className={`skill-icon ${skill.skillGray}`}
                       ></img>
                     ))}
                     <ReactTooltip />
@@ -447,9 +532,13 @@ export default function Staging() {
                       <div key={battle.id} className="justify-center">
                         <div
                           tabIndex={battle.unlocked}
+                          disabled={!battle.unlocked}
                           key={battle.id}
-                          className={`arena-select ${battle.addClass}`}
-                          onFocus={() => dispatch(setOpponent(battle))}
+                          className={`arena-select ${battle.addClass} ${battle.selectedStyle}`}
+                          onClick={() => {
+                            dispatch(setOpponent(battle));
+                            showSelectedOutline(battle);
+                          }}
                         >
                           <h2 className="battle-title">{battle.battleTitle}</h2>
                         </div>
@@ -458,23 +547,23 @@ export default function Staging() {
                   </div>
                 </div>
                 <div className="quadrant-container">
-                  <h2>{opponent.battleTitle}</h2>
                   <h2>{opponent.name}</h2>
+                  <h2>{opponent.levelTitle}</h2>
                   <h2>{opponent.difficulty}</h2>
                   <div className="justify-center">
-                    {/* <NavLink
-                      to="/arena"
+                    <NavLink
+                      to="/staging"
                       className="navlink-bg"
                       activeClassName="navlink-bg"
-                    > */}
-                    <button
-                      className={`button-bg ${fightContinue}`}
-                      disabled={!selected}
-                      onClick={fadeToArena}
                     >
-                      FIGHT!
-                    </button>
-                    {/* </NavLink> */}
+                      <button
+                        className={`button-bg ${fightContinue}`}
+                        disabled={!selected}
+                        onClick={showChallengeWarning}
+                      >
+                        FIGHT!
+                      </button>
+                    </NavLink>
                   </div>
                   <Route path="/arena" component={Arena} />
                 </div>
@@ -635,7 +724,7 @@ export default function Staging() {
                     data-tip={`<h3>${skill.name}</h3> <h4>Unlocks: Level ${skill.lvlUnlock}</h4> ${skill.description}`}
                     data-class="tooltip-skills"
                     src={require(`./assets/images/skills/${skill.animation}.png`)}
-                    className={`skill-icon`}
+                    className={`skill-icon ${skill.skillGray}`}
                   ></img>
                 ))}
                 <ReactTooltip />
@@ -650,9 +739,13 @@ export default function Staging() {
                   <div key={battle.id} className="justify-center">
                     <div
                       tabIndex={battle.unlocked}
+                      disabled={!battle.unlocked}
                       key={battle.id}
-                      className={`arena-select ${battle.addClass}`}
-                      onFocus={() => dispatch(setOpponent(battle))}
+                      className={`arena-select ${battle.addClass} ${battle.selectedStyle}`}
+                      onClick={() => {
+                        dispatch(setOpponent(battle));
+                        showSelectedOutline(battle);
+                      }}
                     >
                       <h2 className="battle-title">{battle.battleTitle}</h2>
                     </div>
@@ -664,23 +757,23 @@ export default function Staging() {
 
           <div class="bottomright">
             <div className="quadrant-container bg-bottomright">
-              <h2>{opponent.battleTitle}</h2>
               <h2>{opponent.name}</h2>
+              <h2>{opponent.levelTitle}</h2>
               <h2>{opponent.difficulty}</h2>
               <div className="justify-center">
-                {/* <NavLink
-                  to="/arena"
+                <NavLink
+                  to="/staging"
                   className="navlink-bg"
                   activeClassName="navlink-bg"
-                > */}
+                >
                   <button
                     className={`button-bg ${fightContinue}`}
                     disabled={!selected}
-                    onClick={fadeToArena}
+                    onClick={showChallengeWarning}
                   >
                     FIGHT!
                   </button>
-                {/* </NavLink> */}
+                </NavLink>
               </div>
               <Route path="/arena" component={Arena} />
             </div>

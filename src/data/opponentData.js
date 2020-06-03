@@ -7,6 +7,8 @@ const opponentData = [
     styleLegSever: 'opponent1leg',
     styleDecapitate: 'opponent1head',
     battleTitle: 'BATTLE 1',
+    levelTitle: 'Level 1',
+    selectedStyle: '',
     name: 'Deserter',
     level: 1,
     hp: 30,
@@ -27,6 +29,7 @@ const opponentData = [
     addClass: "",
     difficulty: "Difficulty: Easy",
     disabled: 0,
+    severed: '',
   },
 
   {
@@ -35,6 +38,8 @@ const opponentData = [
     styleLegSever: 'opponent2leg',
     styleDecapitate: 'opponent2head',
     battleTitle: 'BATTLE 2',
+    levelTitle: 'Level 2',
+    selectedStyle: '',
     name: 'Foreign Solider',
     level: 2,
     hp: 45,
@@ -53,6 +58,7 @@ const opponentData = [
     weapons: 'Gladius',
     unlocked: null,
     addClass: "grayscale",
+    severed: '',
     difficulty: "Difficulty: Easy"
   },
 
@@ -62,6 +68,8 @@ const opponentData = [
     styleLegSever: 'opponent3leg',
     styleDecapitate: 'opponent3head',
     battleTitle: 'BATTLE 3',
+    levelTitle: 'Level 3',
+    selectedStyle: '',
     name: 'Weak Gladiator',
     level: 3,
     hp: 60,
@@ -80,6 +88,7 @@ const opponentData = [
     weapons: 'Gladius',
     unlocked: null,
     addClass: "grayscale",
+    severed: '',
     difficulty: "Difficulty: Medium"
   },
 
@@ -89,6 +98,8 @@ const opponentData = [
     styleLegSever: 'opponent4leg',
     styleDecapitate: 'opponent4head',
     battleTitle: 'BATTLE 4',
+    levelTitle: 'Level 4',
+    selectedStyle: '',
     name: 'Trained Thraex',
     level: 4,
     hp: 78,
@@ -107,6 +118,7 @@ const opponentData = [
     weapons: 'Gladius',
     unlocked: null,
     addClass: "grayscale",
+    severed: '',
     difficulty: "Difficulty: Medium"
   },
 
@@ -116,6 +128,8 @@ const opponentData = [
     styleLegSever: 'opponent5leg',
     styleDecapitate: 'opponent5head',
     battleTitle: 'BATTLE 5',
+    levelTitle: 'Level 5',
+    selectedStyle: '',
     name: 'Deadly Murmillo',
     level: 5,
     hp: 101,
@@ -134,6 +148,7 @@ const opponentData = [
     weapons: 'Gladius',
     unlocked: null,
     addClass: "grayscale",
+    severed: '',
     difficulty: "Difficulty: Medium"
   },
 
@@ -143,6 +158,8 @@ const opponentData = [
     styleLegSever: 'opponent6leg',
     styleDecapitate: 'opponent6head',
     battleTitle: 'BATTLE 6',
+    levelTitle: 'Level 6',
+    selectedStyle: '',
     name: 'Seasoned Champion',
     level: 6,
     hp: 99,
@@ -162,6 +179,7 @@ const opponentData = [
     unlocked: null,
     addClass: "grayscale",
     difficulty: "Difficulty: Hard",
+    severed: '',
     hasSkill: true,
     skillCharging: false
   },
@@ -172,14 +190,16 @@ const opponentData = [
     styleLegSever: 'opponent7leg',
     styleDecapitate: 'opponent7head',
     battleTitle: 'BATTLE 7',
+    levelTitle: 'Level 7',
+    selectedStyle: '',
     name: 'Uncaged Beast',
     level: 7,
     hp: 130,
     headAC: 99,
-    bodyAC: 99,
+    bodyAC: 13,
     legsAC: 13,
     headModifier: 0,
-    bodyModifier: 0,
+    bodyModifier: 1.0,
     legsModifier: 1.0,
     expVal: 1900,
     maxDmg: 10,
@@ -191,6 +211,7 @@ const opponentData = [
     unlocked: null,
     addClass: "grayscale",
     difficulty: "Difficulty: Hard",
+    severed: '',
     hasSkill: true,
     skillCharging: false
   },
@@ -201,6 +222,8 @@ const opponentData = [
     styleLegSever: 'opponent8leg',
     styleDecapitate: 'opponent8head',
     battleTitle: 'BATTLE 8',
+    levelTitle: 'Level 8',
+    selectedStyle: '',
     name: 'Gladiatrix',
     level: 8,
     hp: 155,
@@ -220,6 +243,7 @@ const opponentData = [
     unlocked: null,
     addClass: "grayscale",
     difficulty: "Difficulty: Very hard",
+    severed: '',
     hasSkill: true,
     skillCharging: false
   },
@@ -230,6 +254,8 @@ const opponentData = [
     styleLegSever: 'opponent9leg',
     styleDecapitate: 'opponent9head',
     battleTitle: 'BATTLE 9',
+    levelTitle: 'Level 9',
+    selectedStyle: '',
     name: 'Roman Praetorian',
     level: 9,
     hp: 190,
@@ -249,6 +275,7 @@ const opponentData = [
     unlocked: null,
     addClass: "grayscale",
     difficulty: "Difficulty: Very hard",
+    severed: '',
     hasSkill: true,
     skillCharging: false
   },
@@ -259,6 +286,8 @@ const opponentData = [
     styleLegSever: 'opponent10leg',
     styleDecapitate: 'opponent10head',
     battleTitle: 'FINAL',
+    levelTitle: 'Level 10',
+    selectedStyle: '',
     name: 'Maximus',
     level: 10,
     hp: 300,
@@ -278,6 +307,7 @@ const opponentData = [
     unlocked: null,
     addClass: "grayscale",
     difficulty: "Difficulty: Insane",
+    severed: '',
     hasSkill: true,
     skillCharging: false
   }

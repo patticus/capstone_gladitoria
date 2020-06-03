@@ -42,7 +42,7 @@ import {
   insults,
   insultsGladiatrix,
   insultsMaximus,
-  insultsPep
+  insultsPep,
 } from "./data/functions";
 import ClickNHold from "react-click-n-hold";
 
@@ -92,7 +92,6 @@ export default function Arena() {
   let oppToHitBonus = opponent.toHitBonus;
   let blockValue = myGladiator.blockValue;
   let reactionTime = 0;
-  
 
   //Applies Dex and STR bonuses to hit and damage
 
@@ -124,7 +123,7 @@ export default function Arena() {
   async function riposteAttack() {
     await sleep(200);
     let anim = document.createElement("img");
-    myHit = diceRoll(myGladiator.maxDmg) + dmgBonus + toHitBonus;
+    myHit = Math.ceil((diceRoll(myGladiator.maxDmg) + dmgBonus + toHitBonus*1.5));
     dispatch(riposte(myHit));
     animatePlayerAttack(myGladiator.name);
     displayDmgNumber(myHit, "skill-number");
@@ -254,7 +253,7 @@ export default function Arena() {
       bodyPart = "head";
     } else if (0 < x && x < 200 && 60 < y && y < 205) {
       bodyPart = "body";
-    } else if (30 < x && x < 180 && 205 < y && y < 400) {
+    } else if (0 < x && x < 200 && 205 < y && y < 400) {
       bodyPart = "legs";
     } else {
       bodyPart = "none";
@@ -273,7 +272,9 @@ export default function Arena() {
           stack += 1;
         }
         if (myHit >= opponentHP) {
-          document.getElementsByClassName("opponent")[0].classList.add(opponent.styleDecapitate)
+          document
+            .getElementsByClassName("opponent")[0]
+            .classList.add(opponent.styleDecapitate);
         }
         anim.className = "attack-animation";
         anim.src = require(`./assets/images/animations/crit2.gif`);
@@ -370,7 +371,10 @@ export default function Arena() {
         if (passiveEffect === "sever") {
           let severChance = diceRoll(2);
           if (severChance === 1) {
-            document.getElementsByClassName("opponent")[0].classList.add(opponent.styleLegSever)
+            opponent.severed = `${opponent.styleLegSever}`;
+            // document
+            //   .getElementsByClassName("opponent")[0]
+            //   .classList.add(opponent.styleLegSever);
             dispatch(bleedDmg(bleedTick));
             displayDmgNumber(bleedTick, "bleed-number");
           }
@@ -440,18 +444,14 @@ export default function Arena() {
     let anim = document.createElement("img");
     //CRIT condition
     if (critRoll <= critChance) {
-      myHit = Math.ceil(
-        (diceRoll(myGladiator.maxDmg) + dmgBonus) * opponent.bodyModifier
-      );
+      myHit = Math.ceil(diceRoll(myGladiator.maxDmg) + dmgBonus);
       dispatch(critAttack(myHit));
       anim.className = "attack-animation";
       anim.src = require(`./assets/images/animations/crit2.gif`);
       displayDmgNumber(myHit, "crit-number");
       //HIT condition
     } else if (atkRoll + toHitBonus >= opponent.bodyAC) {
-      myHit = Math.ceil(
-        (diceRoll(myGladiator.maxDmg) + dmgBonus) * 0.4 * opponent.bodyModifier
-      );
+      myHit = Math.ceil((diceRoll(myGladiator.maxDmg) + dmgBonus) * 0.4);
       dispatch(attack(myHit));
       anim.className = "attack-animation";
       anim.src = require(`./assets/images/animations/atk3.gif`);
@@ -524,8 +524,10 @@ export default function Arena() {
                 opponent.disabled
               );
               if (myHit >= opponentHP) {
-                document.getElementsByClassName("opponent")[0].classList.add(opponent.styleDecapitate)
-                decapitate = true
+                document
+                  .getElementsByClassName("opponent")[0]
+                  .classList.add(opponent.styleDecapitate);
+                decapitate = true;
               }
               dispatch(skill(myHit));
               displayDmgNumber(myHit, "skill-number");
@@ -538,12 +540,12 @@ export default function Arena() {
             case "Pinpoint":
               opponent.attackSpeed += myGladiator.dex * 10;
               let pinPoint1 = diceRoll(
-                Math.ceil(myGladiator.dex / 4) + dmgBonus / 2
+                Math.ceil(myGladiator.dex / 3) + dmgBonus / 2
               );
               dispatch(skill(pinPoint1));
               displayDmgNumber(pinPoint1, "skill-number");
               let pinPoint2 = diceRoll(
-                Math.ceil(myGladiator.dex / 4) + dmgBonus / 2
+                Math.ceil(myGladiator.dex / 3) + dmgBonus / 2
               );
               setTimeout(() => {
                 dispatch(skill(pinPoint2));
@@ -559,11 +561,11 @@ export default function Arena() {
               break;
             case "Flurry Rush":
               let flurry1 =
-                diceRoll(Math.ceil(toHitBonus)) + Math.ceil(dmgBonus / 2);
+                diceRoll(Math.ceil(toHitBonus*1.3 + dmgBonus / 2));
               dispatch(skill(flurry1));
               displayDmgNumber(flurry1, "skill-number");
               let flurry2 =
-                diceRoll(Math.ceil(toHitBonus)) + Math.ceil(dmgBonus / 2);
+                diceRoll(Math.ceil(toHitBonus*1.3 + dmgBonus / 2));
               if (mySkill.attacks === 1) {
                 let healAmount = Math.ceil((flurry1 + flurry2) / 4) + conBonus;
                 dispatch(heal(healAmount));
@@ -597,7 +599,6 @@ export default function Arena() {
           setTimeout(() => {
             anim.parentNode.removeChild(anim);
           }, 550);
-          
 
           await sleep(550);
           mySkill.attacks -= 1;
@@ -611,7 +612,9 @@ export default function Arena() {
         dispatch(poisonDmg(stack));
         displayDmgNumber(stack, "poison-number");
       }
-      opponent.disabled = mySkill.disableTurns;
+      if (mySkill.disable){
+        opponent.disabled = mySkill.disableTurns; 
+      }
       mySkill.uses -= 1;
       mySkill.used = true;
       mySkill.addClass = "grayscale";
@@ -637,7 +640,7 @@ export default function Arena() {
         opponent.hasSkill = false;
         opponent.skillCharging = false;
       }
-      dispatch(opponentDisabled(mySkill.disableMessage));
+      dispatch(opponentDisabled(myGladiator.disableMessage));
     } else if (opponent.skillCharging) {
       await sleep(500);
       anim.src = require(`./assets/images/animations/bloodsplat-crit.gif`);
@@ -737,7 +740,6 @@ export default function Arena() {
       }, 500);
     }
   }
-
 
   /*-----------------------VICTORY CONDITIONS-------------------------------*/
   //Assigns next opponent to be unlocked upon victory
@@ -844,21 +846,26 @@ export default function Arena() {
           <div className="intro-screen">
             <h5 className="message-title">RULES OF BATTLE</h5>
             <h5 className="message-text">
-              1. BASIC ATTCKS - Click or tap on your opponent to attack! Gladiators may be weak or resilient on certain areas of their body, such as legs, head, or torso.
+              1. <i className="red">BASIC ATTCKS </i> - Click or tap on your
+              opponent to attack! Gladiators may be weak or resilient on certain
+              areas of their body, such as legs, head, or torso.
             </h5>
             <h5 className="message-text">
-              2. SKILLS - Use one of your gladiator's unique skills by selecting
-              it from the menu in the bottom right corner, then press and
-              hold on your opponent to activate the skill.
+              2. <i className="red">SKILLS</i> - Use one of your gladiator's
+              unique skills by selecting it from the menu in the bottom right
+              corner, then press and hold on your opponent to activate the
+              skill.
             </h5>
             <h5 className="message-text">
-              3. OPPONENT TURN - After your turn, your opponent
-              will strike back! Watch the bottom of your screen to anticipate
-              where your opponent will strike, then tap on the flash to
-              block the attack and mitigate some damage!
+              3. <i className="red">BLOCKING</i> - After your turn, your
+              opponent will strike back! Watch the bottom of your screen to
+              anticipate where your opponent will strike, then tap on the flash
+              to block the attack and mitigate some damage!
             </h5>
             <h5 className="message-text">
-              4. MISSIO - You may forfeit from battle only once during the tournament. Click the 'Missio' button in the top-left corner.
+              4. <i className="red">MISSIO</i> - You may forfeit from battle
+              only once during the tournament. Click the 'Missio' button in the
+              top-left corner.
             </h5>
             <h5 className="message-text">Good luck, brave Gladiator!</h5>
             <NavLink
@@ -888,7 +895,8 @@ export default function Arena() {
             <h5 className="message-text">
               You have made it far in the tournament and your opponents are
               becoming increasingly deadly! They might take a menacing stance to
-              unleash a devastating attack. Interrupt them with a disabling skill or face certain death...
+              unleash a devastating attack. Interrupt them with a disabling
+              skill or face certain death...
             </h5>
             <NavLink
               to="/arena"
@@ -911,18 +919,18 @@ export default function Arena() {
   const renderClickNHold = () => {
     if (decapitate === true) {
       return (
-      <div
+        <div
           className={`opponent ${opponent.styleDecapitate}`}
           disabled={!battleState.playerTurn}
           onClick={myAttackRoll}
         ></div>
-        );
+      );
     } else {
       if (mySkill.uses > 0) {
         return (
           <ClickNHold time={1.2} onClickNHold={mySkillAttack}>
             <div
-              className={`opponent ${opponent.styleName}`}
+              className={`opponent ${opponent.styleName} ${opponent.severed}`}
               disabled={!battleState.playerTurn}
               onClick={myAttackRoll}
             ></div>
@@ -931,7 +939,7 @@ export default function Arena() {
       } else {
         return (
           <div
-            className={`opponent ${opponent.styleName}`}
+            className={`opponent ${opponent.styleName} ${opponent.severed}`}
             disabled={!battleState.playerTurn}
             onClick={myAttackRoll}
           ></div>
@@ -981,19 +989,19 @@ export default function Arena() {
   async function hurlInsult() {
     await sleep(400);
     let element = document.getElementById("insults");
-    let insultArray = []
+    let insultArray = [];
     switch (opponent.id) {
       case 6:
-        insultArray = insultsPep
+        insultArray = insultsPep;
         break;
       case 7:
-        insultArray = insultsGladiatrix
+        insultArray = insultsGladiatrix;
         break;
       case 9:
-        insultArray = insultsMaximus
+        insultArray = insultsMaximus;
         break;
       default:
-        insultArray = insults
+        insultArray = insults;
         break;
     }
     let insultIndex = diceRoll(insultArray.length) - 1;
@@ -1018,7 +1026,9 @@ export default function Arena() {
             <h1>A GLORIOUS DEATH!</h1>
             <h2>
               Alas, your champion has been slain and you will not achieve
-              victory in this tournament. Fear not, for more opportunites to
+              victory in this tournament. </h2>
+              <h2>
+              Fear not, for more opportunites to
               prove your Ludus' worth will arise in future tournaments!
             </h2>
             <br></br>
@@ -1064,7 +1074,9 @@ export default function Arena() {
                 CONTINUE
               </button>
             </NavLink>
-            <a className="main-menu" href="http://localhost:3000/">MAIN MENU</a>
+            <a className="main-menu" href="http://localhost:3000/">
+              MAIN MENU
+            </a>
             <br></br>
           </div>
         </div>
@@ -1167,7 +1179,7 @@ export default function Arena() {
         </div>
       </div>
 
-      <div className="center-screen" onContextMenu={preventContextMenu}>
+      <div className="center-screen"  onClick={closeDropup} onContextMenu={preventContextMenu}>
         <div id="insults"></div>
         <div className="justify-center disable-message stroke">
           {battleState.disableMessage}
@@ -1210,6 +1222,12 @@ export default function Arena() {
               >
                 <img
                   alt="skill"
+                  alt="selected-skill"
+                  data-border="true"
+                  data-effect="solid"
+                  data-html="true"
+                  data-tip={`<h3>${skill.name}</h3> ${skill.description}`}
+                  data-class="tooltip"
                   src={require(`./assets/images/skills/${skill.animation}.png`)}
                   className={`skill-icon`}
                 ></img>
