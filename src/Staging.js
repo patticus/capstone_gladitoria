@@ -99,11 +99,11 @@ export default function Staging() {
   }
   
 
-  function tempLvlUp() {
-    // myGladiator.level = 10;
-    myGladiator.str += 5;
-    myGladiator.levelUp = true;
-  }
+  // function tempLvlUp() {
+  //   // myGladiator.level = 10;
+  //   myGladiator.str += 5;
+  //   myGladiator.levelUp = true;
+  // }
 
   function continueLvl() {
     levelUp();
@@ -498,13 +498,13 @@ export default function Staging() {
                       </th>
                     </tr>
                   </table>
-                  <NavLink
+                  {/* <NavLink
                     to="/staging"
                     className="navlink-bg"
                     activeClassName="navlink-bg"
                   >
                     <button onClick={tempLvlUp}>LVL UP</button>
-                  </NavLink>
+                  </NavLink> */}
                   <h2>SKILLS</h2>
                   <div className="center-skills">
                     {skillArray.map((skill) => (
