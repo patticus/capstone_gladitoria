@@ -1,11 +1,16 @@
-  PATCH 1:
-  -change hitbox for uncaged beast
-  -remove dmg modifier for DW offhand hit
-  -add warning if trying to fight higher lvl opponent
-  -make blocking instructions more explicit
-  -add tooltips to skill menu
-  -grey out skill icons on staging screen until unlocked
-  
+PATCH 1.0.1
+-The Uncaged Beast is now slightly easier to hit (you can attack her tail)
+-Added a one-time warning if you try to fight a battle that is higher level than you
+-Dimachaerus received a slight damage boost to Dexterity-based skills
+-Fixed bug that negates enemy's disable status (stunned, trapped, etc.) if you use another skill
+-Fixed bug that de-selects chosen battle if you click off it (the selection frame around chosen battle stays if you click off)
+-Dual Wield offhand hits do slightly more damage against heavily-armored opponents
+-Modified text on intro-arena tutorial screen "Rules of Battle"
+-Added tooltips to icons on the skill menu
+-Skill menu now closes if you click anywhere outside of it
+-Skill icons are grayed out on the character screen until you are the level at which they unlock
+-Opponents with severed legs will not re-grow their legs if you use another skill
+
   
   
   
