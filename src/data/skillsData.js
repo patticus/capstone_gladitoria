@@ -1,5 +1,4 @@
 const skillsData = [
-
   /* DIMACHAERUS SKILLS */
   {
     id: 0,
@@ -21,7 +20,8 @@ const skillsData = [
     addClass: "",
     skillGray: "grayscale",
     animContainer: "skill-animation",
-    description: "Strike your opponent with all your strength, dealing extra damage."
+    description:
+      "Strike your opponent with all your strength, dealing extra damage.",
   },
   {
     id: 1,
@@ -45,7 +45,8 @@ const skillsData = [
     addClass: "",
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "A series of quick stabs to the most vulnerable parts of your opponent's body. Slows your opponent's attack speed, briefly stuns them, and severs their arteries."
+    description:
+      "A series of quick stabs to the most vulnerable parts of your opponent's body. Slows your opponent's attack speed, briefly stuns them, and severs their arteries.",
   },
   {
     id: 2,
@@ -61,7 +62,8 @@ const skillsData = [
     addClass: "",
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "Passive Skill. You have become skilled in the art of dual weapon combat. Your basic attacks will strike with both weapons, though you may have a harder time landing solid blows with your offhand."
+    description:
+      "Passive Skill. You have become skilled in the art of dual weapon combat. Your basic attacks will strike with both weapons, though you may have a harder time landing solid blows with your offhand.",
   },
   {
     id: 3,
@@ -74,7 +76,7 @@ const skillsData = [
     buffEffect: {
       name: "riposte",
       duration: 3,
-      maxDuration: 3
+      maxDuration: 3,
     },
     uses: 1,
     maxUses: 1,
@@ -84,7 +86,8 @@ const skillsData = [
     addClass: "",
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "Take a defensive stance, allowing you to immediately retaliate when you block an attack. You can maintain this stance for several turns."
+    description:
+      "Take a defensive stance, allowing you to immediately retaliate when you block an attack. You can maintain this stance for several turns.",
   },
   {
     id: 4,
@@ -106,7 +109,8 @@ const skillsData = [
     addClass: "",
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "Unleash a flurry of attacks with both swords. The rush from your assault steels your nerves, allowing you to gain some hit points."
+    description:
+      "Unleash a flurry of attacks with both swords. The rush from your assault steels your nerves, allowing you to gain some hit points.",
   },
   {
     id: 5,
@@ -119,7 +123,7 @@ const skillsData = [
     buffEffect: {
       name: "champion",
       duration: 6,
-      maxDuration: 6
+      maxDuration: 6,
     },
     uses: 1,
     maxUses: 1,
@@ -129,10 +133,11 @@ const skillsData = [
     addClass: "",
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "Your glorious victories have made you a champion of the arena. Call upon the crowd to gain their favor, increasing your prowess in battle."
+    description:
+      "Your glorious victories have made you a champion of the arena. Call upon the crowd to gain their favor, increasing your prowess in battle.",
   },
 
-    /* SECUTOR SKILLS */
+  /* SECUTOR SKILLS */
 
   {
     id: 6,
@@ -153,7 +158,8 @@ const skillsData = [
     disableTurns: 0,
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "Strike your opponent with all your strength, dealing extra damage."
+    description:
+      "Strike your opponent with all your strength, dealing extra damage.",
   },
   {
     id: 7,
@@ -175,7 +181,8 @@ const skillsData = [
     disableMessage: "Stunned!!!",
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "Slam your shield into your opponent, dealing increased damage based on your block value and stunning temporarily."
+    description:
+      "Slam your shield into your opponent, dealing increased damage based on your block value and stunning temporarily.",
   },
   {
     id: 8,
@@ -190,7 +197,8 @@ const skillsData = [
     disableTurns: 0,
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "Passive Skill. Your strong arm and keen eye allow you to strike with strength and precision. Critical chance is increased and Critical hits may dismember your opponent, causing them to bleed."
+    description:
+      "Passive Skill. Your strong arm and keen eye allow you to strike with strength and precision. Critical chance is increased and Critical hits may dismember your opponent, causing them to bleed.",
   },
   {
     id: 9,
@@ -204,7 +212,7 @@ const skillsData = [
     buffEffect: {
       name: "rage",
       duration: 8,
-      maxDuration: 8
+      maxDuration: 8,
     },
     maxUses: 1,
     lvlUnlock: 6,
@@ -212,7 +220,8 @@ const skillsData = [
     disableTurns: 0,
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "Unleash your rage! For several turns, every time you block you feel a rush of adrenaline, increasing the strength of your attacks and your reaction time to block."
+    description:
+      "Unleash your rage! For several turns, every time you block you feel a rush of adrenaline, increasing the strength of your attacks and your reaction time to block.",
   },
   {
     id: 10,
@@ -227,9 +236,11 @@ const skillsData = [
     dmgBonus: 5,
     multiplier: 0.5,
     executeBonus: function (maxHp, currHp, disabled) {
-      let exeBonus = Math.ceil((maxHp/currHp)*5)
-      if (disabled > 0) {exeBonus += 10}
-      return exeBonus
+      let exeBonus = Math.ceil((maxHp / currHp) * 5);
+      if (disabled > 0) {
+        exeBonus += 10;
+      }
+      return exeBonus;
     },
     attacks: 1,
     maxAttacks: 1,
@@ -238,7 +249,8 @@ const skillsData = [
     disableTurns: 0,
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "Give the crowd what they want. This decisive strike deals increased damage to wounded and stunned opponents, and has a chance to decapitate."
+    description:
+      "Give the crowd what they want. This decisive strike deals increased damage to wounded and stunned opponents, and has a chance to decapitate.",
   },
   {
     id: 11,
@@ -251,7 +263,7 @@ const skillsData = [
     buffEffect: {
       name: "champion",
       duration: 7,
-      maxDuration: 7
+      maxDuration: 7,
     },
     uses: 1,
     maxUses: 1,
@@ -260,10 +272,11 @@ const skillsData = [
     disableTurns: 0,
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "Your glorious victories have made you a champion of the arena. Call upon the crowd to gain their favor, increasing your prowess in battle."
+    description:
+      "Your glorious victories have made you a champion of the arena. Call upon the crowd to gain their favor, increasing your prowess in battle.",
   },
 
-      /* RETIARIUS SKILLS */
+  /* RETIARIUS SKILLS */
 
   {
     id: 12,
@@ -284,7 +297,8 @@ const skillsData = [
     disableTurns: 0,
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "Strike your opponent with all your strength, dealing extra damage."
+    description:
+      "Strike your opponent with all your strength, dealing extra damage.",
   },
   {
     id: 13,
@@ -306,7 +320,8 @@ const skillsData = [
     disableMessage: "Trapped!!!",
     animContainer: "net-animation",
     skillGray: "grayscale",
-    description: "Throw your net at your opponent, entangling and trapping them for several rounds."
+    description:
+      "Throw your net at your opponent, entangling and trapping them for several rounds.",
   },
   {
     id: 14,
@@ -322,7 +337,8 @@ const skillsData = [
     disableTurns: 0,
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "Passive Skill. Your skill with the trident allows you to stay at a distance, reducing the chance your enemy will hit you or land a critical strike."
+    description:
+      "Passive Skill. Your skill with the trident allows you to stay at a distance, reducing the chance your enemy will hit you or land a critical strike.",
   },
   {
     id: 15,
@@ -335,7 +351,7 @@ const skillsData = [
     buffEffect: {
       name: "poisonTrident",
       duration: 7,
-      maxDuration: 7
+      maxDuration: 7,
     },
     uses: 1,
     maxUses: 1,
@@ -344,7 +360,8 @@ const skillsData = [
     disableTurns: 0,
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "Rub a deadly poison on the tips of your trident, making your normal attacks infect your opponent. Don't worry, anything goes in the arena."
+    description:
+      "Rub a deadly poison on the tips of your trident, making your normal attacks infect your opponent. Don't worry, anything goes in the arena.",
   },
   {
     id: 16,
@@ -366,7 +383,8 @@ const skillsData = [
     disableTurns: 0,
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "Slash with the three prongs of your trident to cause a deep, gushing wound for heavy bleeding damage."
+    description:
+      "Slash with the three prongs of your trident to cause a deep, gushing wound for heavy bleeding damage.",
   },
   {
     id: 17,
@@ -379,7 +397,7 @@ const skillsData = [
     buffEffect: {
       name: "champion",
       duration: 6,
-      maxDuration: 6
+      maxDuration: 6,
     },
     uses: 1,
     maxUses: 1,
@@ -388,11 +406,9 @@ const skillsData = [
     disableTurns: 0,
     animContainer: "skill-animation",
     skillGray: "grayscale",
-    description: "Your glorious victories have made you a champion of the arena. Call upon the crowd to gain their favor, increasing your prowess in battle."
-  }
-]
-
-
-
+    description:
+      "Your glorious victories have made you a champion of the arena. Call upon the crowd to gain their favor, increasing your prowess in battle.",
+  },
+];
 
 export default skillsData;

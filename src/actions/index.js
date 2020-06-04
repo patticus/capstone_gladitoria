@@ -1,131 +1,128 @@
 export const setUser = (userObj) => {
   return {
-      type: "SET_USER",
-      payload: userObj
-  }
-}
+    type: "SET_USER",
+    payload: userObj,
+  };
+};
 
 export const logOut = () => {
   return {
-      type: "USER_LOGOUT",
-  }
-}
+    type: "USER_LOGOUT",
+  };
+};
 
 export const forfeit = () => {
   return {
-    type: "forfeit"
-  }
-}
+    type: "forfeit",
+  };
+};
 
 export const setOpponent = (opponentObj) => {
   return {
-      type: "SET_OPP",
-      payload: opponentObj
-  }
-}
+    type: "SET_OPP",
+    payload: opponentObj,
+  };
+};
 
 export const setSkill = (skillObj) => {
   return {
-      type: "SET_SKILL",
-      payload: skillObj
-  }
-}
+    type: "SET_SKILL",
+    payload: skillObj,
+  };
+};
 
 export const attack = (damage) => {
   return {
-    type: 'attack',
-    payload: damage
-  }
-}
+    type: "attack",
+    payload: damage,
+  };
+};
 
 export const critAttack = (damage) => {
   return {
-    type: 'critAttack',
-    payload: damage
-  }
-}
+    type: "critAttack",
+    payload: damage,
+  };
+};
 
 export const opponentAttack = (damage) => {
   return {
-    type: 'opponentAttack',
-    payload: damage
-  }
-}
+    type: "opponentAttack",
+    payload: damage,
+  };
+};
 
 export const resetHealth = () => {
   return {
-      type: "resetHealth"
-  }
-}
+    type: "resetHealth",
+  };
+};
 
 export const skill = (damage) => {
   return {
-    type: 'skill',
-    payload: damage
-  }
-}
+    type: "skill",
+    payload: damage,
+  };
+};
 
 export const heal = (amount) => {
   return {
-    type: 'heal',
-    payload: amount
-  }
-}
+    type: "heal",
+    payload: amount,
+  };
+};
 
 export const endTurn = () => {
   return {
-    type: 'endTurn',
-  }
-}
+    type: "endTurn",
+  };
+};
 
 export const opponentDisabled = (message) => {
   return {
-    type: 'opponentDisabled',
-    payload: message
-  }
-}
+    type: "opponentDisabled",
+    payload: message,
+  };
+};
 
 export const blockedAttack = (damage, blockValue) => {
   return {
-    type: 'blockedAttack',
+    type: "blockedAttack",
     payload: damage,
-    payload2: blockValue
-  }
-}
+    payload2: blockValue,
+  };
+};
 
 export const skillBuff = (message) => {
   return {
-    type: 'skillBuff',
-    payload: message
-  }
-}
+    type: "skillBuff",
+    payload: message,
+  };
+};
 
 export const riposte = (damage) => {
   return {
-    type: 'riposte',
-    payload: damage
-  }
-}
+    type: "riposte",
+    payload: damage,
+  };
+};
 
 export const poisonCounter = () => {
   return {
-    type: 'poisonCounter',
-  }
-}
+    type: "poisonCounter",
+  };
+};
 
 export const poisonDmg = (tick) => {
   return {
-    type: 'poisonDmg',
-    payload: tick
-  }
-}
+    type: "poisonDmg",
+    payload: tick,
+  };
+};
 
 export const bleedDmg = (tick) => {
   return {
-    type: 'bleedDmg',
-    payload: tick
-  }
-}
-
-
-
+    type: "bleedDmg",
+    payload: tick,
+  };
+};

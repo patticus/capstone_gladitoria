@@ -57,7 +57,7 @@ div[disabled] {
   position: absolute;
   top: 0;
   left: 0;
-  width: 60px; 
+  width: 60px;
   height: 60px;
   background-image: url(./assets/images/missio.png);
   background-size: 100% 100%;
@@ -69,7 +69,7 @@ div[disabled] {
   position: absolute;
   top: 0;
   right: 0;
-  width: 60px; 
+  width: 60px;
   height: 60px;
   background-image: url(./assets/images/rules.png);
   background-size: 100% 100%;
@@ -78,7 +78,7 @@ div[disabled] {
 }
 
 .rules:hover {
-  opacity: 1
+  opacity: 1;
 }
 
 .forfeit:hover {
@@ -252,8 +252,6 @@ h2 {
 h1 {
   font-size: 40px;
 }
-
-
 
 h2 {
   font-size: 1.35em;
@@ -774,7 +772,6 @@ a {
   background-image: url(./assets/images/battlebg.png);
 }
 
-
 .grayscale {
   filter: grayscale(100%);
   cursor: default;
@@ -791,7 +788,8 @@ a {
   margin: 10px;
 }
 
-.hp-text, .oppname-text {
+.hp-text,
+.oppname-text {
   font-size: 34px;
   text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
     2px 2px 0 #000;
@@ -1652,7 +1650,6 @@ a {
 /* MOBILE DISPLAY */
 
 @media only screen and (max-width: 800px) {
-
   .opponent-container {
     margin-top: 0px;
   }
@@ -1673,7 +1670,6 @@ a {
     font-size: 25px;
     color: rgb(189, 0, 0);
   }
-
 
   .weapons-container {
     bottom: 4%;

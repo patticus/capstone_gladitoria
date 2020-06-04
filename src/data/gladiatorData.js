@@ -1,8 +1,8 @@
 const gladiatorData = [
   {
     id: 0,
-    styleName: 'dimachaerus',
-    name: 'Dimachaerus',
+    styleName: "dimachaerus",
+    name: "Dimachaerus",
     level: 1,
     hp: 34,
     ac: 12,
@@ -13,24 +13,25 @@ const gladiatorData = [
     str: 15,
     dex: 17,
     con: 15,
-    weapons: 'Dual Swords',
+    weapons: "Dual Swords",
     maxDmg: 8,
     dmgBonus: 0,
     toHitBonus: 0,
     critChance: 5,
     selected: true,
-    blocked : false,
+    blocked: false,
     blockValue: 3,
     passiveUnlocked: false,
     disableMessage: "Paralyzed!",
     passiveEffect: "dual-wield",
-    description: "The Dimachaerus uses two swords to whittle down their opponent with precision strikes. They typicially wear lighter armor for finesse of quick movements, so they are not able to take as many direct attacks. They primarily rely on Dexterity to land strikes, dodge attacks, and enahnce their skills."
+    description:
+      "The Dimachaerus uses two swords to whittle down their opponent with precision strikes. They typicially wear lighter armor for finesse of quick movements, so they are not able to take as many direct attacks. They primarily rely on Dexterity to land strikes, dodge attacks, and enahnce their skills.",
   },
 
   {
     id: 1,
-    styleName: 'secutor',
-    name: 'Secutor',
+    styleName: "secutor",
+    name: "Secutor",
     level: 1,
     exp: 0,
     prevLvlExp: 0,
@@ -45,20 +46,21 @@ const gladiatorData = [
     dmgBonus: 0,
     toHitBonus: 0,
     critChance: 7,
-    weapons: 'Axe and Shield',
+    weapons: "Axe and Shield",
     selected: false,
-    blocked : false,
+    blocked: false,
     blockValue: 4,
     passiveUnlocked: false,
     passiveEffect: "sever",
     disableMessage: "Stunned!",
-    description: "The Secutor overwhelms their opponent with raw power and heavy strikes. They can sever an opponent's limbs with their mighty axe, and block the heaviest of blows with their scutum. They primarily rely on Strength to deal more damage and Constitution to enhance their blocking capabilities."
+    description:
+      "The Secutor overwhelms their opponent with raw power and heavy strikes. They can sever an opponent's limbs with their mighty axe, and block the heaviest of blows with their scutum. They primarily rely on Strength to deal more damage and Constitution to enhance their blocking capabilities.",
   },
 
   {
     id: 2,
-    styleName: 'retiarius',
-    name: 'Retiarius',
+    styleName: "retiarius",
+    name: "Retiarius",
     level: 1,
     exp: 0,
     prevLvlExp: 0,
@@ -73,15 +75,16 @@ const gladiatorData = [
     dmgBonus: 0,
     toHitBonus: 0,
     critChance: 7,
-    weapons: 'Trident and Net',
+    weapons: "Trident and Net",
     selected: false,
-    blocked : false,
+    blocked: false,
     blockValue: 3,
     passiveUnlocked: false,
     passiveEffect: "prod",
     disableMessage: "Trapped!",
-    description: "The Retiarius wields the trident to keep a safe distance from their opponent, then unleashes their net to trap them at the right moment. They use a mix of light and heavy armor and they specialize in prodding attacks, bleeds, and poisons to wear down their opponent into submission. A balanced mix of stats is recommended."
-  }
-]
+    description:
+      "The Retiarius wields the trident to keep a safe distance from their opponent, then unleashes their net to trap them at the right moment. They use a mix of light and heavy armor and they specialize in prodding attacks, bleeds, and poisons to wear down their opponent into submission. A balanced mix of stats is recommended.",
+  },
+];
 
 export default gladiatorData;

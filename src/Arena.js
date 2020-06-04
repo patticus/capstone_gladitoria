@@ -123,7 +123,9 @@ export default function Arena() {
   async function riposteAttack() {
     await sleep(200);
     let anim = document.createElement("img");
-    myHit = Math.ceil((diceRoll(myGladiator.maxDmg) + dmgBonus + toHitBonus*1.5));
+    myHit = Math.ceil(
+      diceRoll(myGladiator.maxDmg) + dmgBonus + toHitBonus * 1.5
+    );
     dispatch(riposte(myHit));
     animatePlayerAttack(myGladiator.name);
     displayDmgNumber(myHit, "skill-number");
@@ -560,12 +562,14 @@ export default function Arena() {
               }, 300);
               break;
             case "Flurry Rush":
-              let flurry1 =
-                diceRoll(Math.ceil(toHitBonus*1.3 + dmgBonus / 2));
+              let flurry1 = diceRoll(
+                Math.ceil(toHitBonus * 1.3 + dmgBonus / 2)
+              );
               dispatch(skill(flurry1));
               displayDmgNumber(flurry1, "skill-number");
-              let flurry2 =
-                diceRoll(Math.ceil(toHitBonus*1.3 + dmgBonus / 2));
+              let flurry2 = diceRoll(
+                Math.ceil(toHitBonus * 1.3 + dmgBonus / 2)
+              );
               if (mySkill.attacks === 1) {
                 let healAmount = Math.ceil((flurry1 + flurry2) / 4) + conBonus;
                 dispatch(heal(healAmount));
@@ -612,8 +616,8 @@ export default function Arena() {
         dispatch(poisonDmg(stack));
         displayDmgNumber(stack, "poison-number");
       }
-      if (mySkill.disable){
-        opponent.disabled = mySkill.disableTurns; 
+      if (mySkill.disable) {
+        opponent.disabled = mySkill.disableTurns;
       }
       mySkill.uses -= 1;
       mySkill.used = true;
@@ -755,7 +759,7 @@ export default function Arena() {
   function victory() {
     battleState.playerTurn = true;
     opponent.disabled = false;
-    opponent.severed = '';
+    opponent.severed = "";
     decapitate = false;
     opponent.attackSpeed = opponent.baseAtkSpeed;
     stack = 0;
@@ -787,7 +791,7 @@ export default function Arena() {
   function keepPlaying() {
     battleState.playerTurn = true;
     opponent.disabled = false;
-    opponent.severed = '';
+    opponent.severed = "";
     decapitate = false;
     opponent.attackSpeed = opponent.baseAtkSpeed;
     stack = 0;
@@ -817,7 +821,7 @@ export default function Arena() {
   function returnNoVictory() {
     battleState.playerTurn = true;
     opponent.disabled = false;
-    opponent.severed = '';
+    opponent.severed = "";
     decapitate = false;
     opponent.attackSpeed = opponent.baseAtkSpeed;
     stack = 0;
@@ -1029,10 +1033,11 @@ export default function Arena() {
             <h1>A GLORIOUS DEATH!</h1>
             <h2>
               Alas, your champion has been slain and you will not achieve
-              victory in this tournament. </h2>
-              <h2>
-              Fear not, for more opportunites to
-              prove your Ludus' worth will arise in future tournaments!
+              victory in this tournament.{" "}
+            </h2>
+            <h2>
+              Fear not, for more opportunites to prove your Ludus' worth will
+              arise in future tournaments!
             </h2>
             <br></br>
             <a className="button-bg" href="http://play.gladitoria.com">
@@ -1182,7 +1187,11 @@ export default function Arena() {
         </div>
       </div>
 
-      <div className="center-screen"  onClick={closeDropup} onContextMenu={preventContextMenu}>
+      <div
+        className="center-screen"
+        onClick={closeDropup}
+        onContextMenu={preventContextMenu}
+      >
         <div id="insults"></div>
         <div className="justify-center disable-message stroke">
           {battleState.disableMessage}

@@ -94,10 +94,9 @@ export default function Staging() {
     myGladiator.level += 1;
     myGladiator.hp += diceRoll(5) + 5 + conBonus;
     myGladiator.prevLvlExp = myGladiator.nextLvlExp;
-    myGladiator.nextLvlExp += Math.ceil(((myGladiator.level)*10)**1.5);
+    myGladiator.nextLvlExp += Math.ceil((myGladiator.level * 10) ** 1.5);
     myGladiator.levelUp = true;
   }
-  
 
   // function tempLvlUp() {
   //   // myGladiator.level = 10;
@@ -400,7 +399,9 @@ export default function Staging() {
                       data-border="true"
                       data-effect="solid"
                       data-html="true"
-                      data-tip={`<h4>Experience Points</h4> ${(myGladiator.exp - myGladiator.prevLvlExp)} / ${(myGladiator.nextLvlExp - myGladiator.prevLvlExp)}`}
+                      data-tip={`<h4>Experience Points</h4> ${
+                        myGladiator.exp - myGladiator.prevLvlExp
+                      } / ${myGladiator.nextLvlExp - myGladiator.prevLvlExp}`}
                       data-class="tooltip"
                     >
                       <th>
@@ -618,7 +619,9 @@ export default function Staging() {
                   data-border="true"
                   data-effect="solid"
                   data-html="true"
-                  data-tip={`<h4>Experience Points</h4> ${(myGladiator.exp - myGladiator.prevLvlExp)} / ${(myGladiator.nextLvlExp - myGladiator.prevLvlExp)}`}
+                  data-tip={`<h4>Experience Points</h4> ${
+                    myGladiator.exp - myGladiator.prevLvlExp
+                  } / ${myGladiator.nextLvlExp - myGladiator.prevLvlExp}`}
                   data-class="tooltip"
                 >
                   <th>

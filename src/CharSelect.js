@@ -32,8 +32,7 @@ export default function CharSelect() {
               receive the patronage of our esteemed Senator Gracchus.
             </h5>
             <h5 className="message-text">
-              Select your champion to represent your Ludus in the
-              tournament. 
+              Select your champion to represent your Ludus in the tournament.
             </h5>
             <h5 className="message-text">
               Choose wisely. Blood and Glory await!

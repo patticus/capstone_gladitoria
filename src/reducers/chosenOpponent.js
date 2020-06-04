@@ -2,7 +2,7 @@ const inititalState = {
   chosenOpp: {
     levelTitle: "",
     name: "SELECT A BATTLE!",
-    difficulty: ""
+    difficulty: "",
     // id: 0,
     // styleName: 'opponent1',
     // battleTitle: 'BATTLE 1',
@@ -28,23 +28,21 @@ const inititalState = {
     // disabled: 0,
     // hasSkill: true,
     // skillCharging: false
-
   },
-  selected: false
-}
-
+  selected: false,
+};
 
 const ChosenOpponent = (state = inititalState, action) => {
-  switch(action.type){
-      case "SET_OPP":
-          return {
-              ...state,
-              chosenOpp: action.payload,
-              selected: true
-          }
-      default:
-          return state
+  switch (action.type) {
+    case "SET_OPP":
+      return {
+        ...state,
+        chosenOpp: action.payload,
+        selected: true,
+      };
+    default:
+      return state;
   }
-}
+};
 
 export default ChosenOpponent;
